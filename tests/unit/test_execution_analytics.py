@@ -78,6 +78,53 @@ class TestExecutionAnalyticsEngine(unittest.TestCase):
         benchmarks_prov = self.analytics_engine.compute_execution_rate_benchmarks("PRJ-NBG-2026")
         self.assertEqual(benchmarks_prov[0].benchmark_status, BenchmarkStatus.PROVISIONAL)
 
+    def test_discipline_separated_benchmark_grouping(self):
+        """Activities sharing wbs_id, activity_type, and UOM but different disciplines generate separate benchmarks."""
+        act_map = {
+            "ACT-CIVIL-01": ActivityProgress(
+                activity_id="ACT-CIVIL-01",
+                status="IN_PROGRESS",
+                calculation_policy="QUANTITY_BASED",
+                calculation_status="CALCULATED",
+                forecast_status="AVAILABLE",
+                unit="m",
+                planned_quantity=100.0,
+                actual_quantity=50.0
+            ).to_dict(),
+            "ACT-PIPING-01": ActivityProgress(
+                activity_id="ACT-PIPING-01",
+                status="IN_PROGRESS",
+                calculation_policy="QUANTITY_BASED",
+                calculation_status="CALCULATED",
+                forecast_status="AVAILABLE",
+                unit="m",
+                planned_quantity=100.0,
+                actual_quantity=50.0
+            ).to_dict()
+        }
+        act_map["ACT-CIVIL-01"]["wbs_id"] = "WBS-01"
+        act_map["ACT-CIVIL-01"]["activity_type"] = "INSTALL"
+        act_map["ACT-CIVIL-01"]["discipline"] = "CIVIL"
+        act_map["ACT-CIVIL-01"]["planned_duration_days"] = 10.0
+
+        act_map["ACT-PIPING-01"]["wbs_id"] = "WBS-01"
+        act_map["ACT-PIPING-01"]["activity_type"] = "INSTALL"
+        act_map["ACT-PIPING-01"]["discipline"] = "PIPING"
+        act_map["ACT-PIPING-01"]["planned_duration_days"] = 10.0
+
+        proj = ScheduleProjection(
+            projection_id="PROJ-DISC",
+            project_id="PRJ-NBG-2026",
+            as_of_date="2026-09-04",
+            activity_progress_map=act_map
+        )
+        self.db.save_schedule_projection(proj)
+
+        benchmarks = self.analytics_engine.compute_execution_rate_benchmarks("PRJ-NBG-2026")
+        self.assertEqual(len(benchmarks), 2)
+        disciplines = {b.discipline for b in benchmarks}
+        self.assertEqual(disciplines, {"CIVIL", "PIPING"})
+
     def test_null_planned_rate_safety(self):
         """Missing quantity or duration returns planned_rate = None (not zero)."""
         act_map = {

@@ -102,5 +102,25 @@ class TestScheduleMatchingEngine(unittest.TestCase):
         self.assertEqual(res.outcome, MatchOutcome.UNMATCHED)
         self.assertEqual(res.confidence_score, 0.0)
 
+    def test_alias_boost_cannot_bypass_thresholds_or_vocabulary(self):
+        """S_alias provides factor ranking boost but CANNOT force match below theta_match or fabricate unknown activities."""
+        event = ExecutionEvent(
+            event_id="EVT-006", source_id="SRC-006", fragment_id="FRG-006",
+            event_type="PROGRESS", observed_timestamp="2026-09-03", source_timestamp="2026-09-03",
+            extracted_statement="Unrelated site observation.",
+            raw_observed_activity_id=None, observed_activity_id=None,
+            discipline="ELECTRICAL", area_location="Section 99"
+        )
+        # 1. Alias exists for non-existent activity ID
+        alias_scores = {"ACT-NONEXISTENT": 1.0, "ACT-1010": 0.5}
+        res = self.engine.match_event_to_fingerprints(event, [self.fp_act1010], alias_scores=alias_scores)
+        
+        # Candidate generation MUST ONLY contain baseline schedule fingerprints
+        cand_ids = [c.activity_id for c in res.candidate_matches]
+        self.assertNotIn("ACT-NONEXISTENT", cand_ids)
+
+        # 2. Alias boost on low-confidence event cannot force MATCHED outcome if score < theta_match (0.80)
+        self.assertEqual(res.outcome, MatchOutcome.UNMATCHED)
+
 if __name__ == "__main__":
     unittest.main()

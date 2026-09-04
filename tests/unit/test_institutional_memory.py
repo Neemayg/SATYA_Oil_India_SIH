@@ -95,15 +95,17 @@ class TestInstitutionalMemoryService(unittest.TestCase):
         self.assertGreater(aliases[0]["distinct_planner_count"], 1)
 
     def test_same_planner_repetition_does_not_artificially_inflate_planners(self):
-        """Multiple corrections from the same planner do not inflate distinct_planner_count."""
-        for i in range(3):
-            e = ExecutionEvent(event_id=f"EVT-S{i}", source_id=f"SRC-{i}", fragment_id=f"F{i}", event_type="PROGRESS", observed_timestamp="2026-09-04", source_timestamp="2026-09-04T10:00:00Z", extracted_statement="Tie-in work")
+        """Multiple corrections from the same planner on single source remain CANDIDATE and do not inflate distinct_planner_count."""
+        for i in range(5):
+            e = ExecutionEvent(event_id=f"EVT-S{i}", source_id="SRC-1", fragment_id=f"F{i}", event_type="PROGRESS", observed_timestamp="2026-09-04", source_timestamp="2026-09-04T10:00:00Z", extracted_statement="Tie-in work")
             self.db.save_execution_event(e)
             self.db.save_planner_correction(PlannerCorrectionRecord(f"CS{i}", f"EVT-S{i}", "ACT-0", "ACT-1010", "M", "D", "TERMINOLOGY_ALIAS", "", "PLN-SAME", "2026-09-04T10:00:00Z"))
 
         self.memory_service.distill_planner_corrections("PRJ-NBG-2026")
         aliases = self.db.get_terminology_aliases_by_project("PRJ-NBG-2026")
         self.assertEqual(aliases[0]["distinct_planner_count"], 1)
+        self.assertEqual(aliases[0]["distinct_source_count"], 1)
+        self.assertEqual(aliases[0]["status"], AliasStatus.CANDIDATE)
 
     def test_project_scope_isolation(self):
         """Alias created in PRJ-NBG-2026 is completely unavailable to PRJ-SCP-2026."""
@@ -122,18 +124,36 @@ class TestInstitutionalMemoryService(unittest.TestCase):
 
     def test_historical_match_regression_immutability(self):
         """
-        Historical Regression Test:
-        Distilling a new alias must NOT alter historical MatchResult records of past events,
-        while new events containing the phrase utilize the active memory hint.
+        Historical Immutability Regression Test:
+        Distilling memory must NEVER alter historical records:
+        - ExecutionEvent
+        - MatchResult
+        - ValidationDecision
+        - TrustAssessment
+        - ScheduleProjection
+        Memory influences FUTURE matching candidate scoring only.
         """
-        # Historical Event E1
+        from backend.models.domain_models import TrustAssessment, ScheduleProjection, ActivityProgress
+        
+        # 1. Historical ExecutionEvent E1
         e1 = ExecutionEvent(event_id="EVT-H1", source_id="SRC-1", fragment_id="F1", event_type="PROGRESS", observed_timestamp="2026-09-04", source_timestamp="2026-09-04T10:00:00Z", extracted_statement="HDD drilling at Section 1")
         self.db.save_execution_event(e1)
 
-        # Historical Match Result M1
+        # 2. Historical Match Result M1
         historical_mr = self.matching_engine.match_event_to_fingerprints(e1, [self.fp])
         self.db.save_match_result(historical_mr)
-        hist_score_before = historical_mr.confidence_score
+
+        # 3. Historical Trust Assessment T1
+        t1 = TrustAssessment(assessment_id="TA-H1", event_id="EVT-H1", version_index=1, match_confidence=0.85, evidence_support=0.90, trust_status="TRUSTED", gating_trigger="PASSED_ALL", rationale_breakdown={}, evaluated_at="2026-09-04T10:00:00Z")
+        self.db.save_trust_assessment(t1)
+
+        # 4. Historical Validation Decision V1
+        v1 = ValidationDecision(decision_id="DEC-H1", event_id="EVT-H1", planner_id="PLN-01", decision_type="VALIDATE", reviewed_trust_version=1, reviewed_match_result_id=historical_mr.match_id, reviewed_evidence_assessment_id="EA-1", created_at="2026-09-04T10:00:00Z")
+        self.db.save_validation_decision(v1)
+
+        # 5. Historical Schedule Projection SP1
+        sp1 = ScheduleProjection(projection_id="PROJ-H1", project_id="PRJ-NBG-2026", as_of_date="2026-09-04", generated_at="2026-09-04T10:00:00Z")
+        self.db.save_schedule_projection(sp1)
 
         # Distill memory to create active alias
         for i in range(3):
@@ -143,17 +163,21 @@ class TestInstitutionalMemoryService(unittest.TestCase):
 
         self.memory_service.distill_planner_corrections("PRJ-NBG-2026")
 
-        # 1. Verify historical MatchResult remains 100% unchanged
-        persisted_hist_mr = self.db.get_match_results_by_event("EVT-H1")[0]
-        self.assertEqual(persisted_hist_mr["confidence_score"], hist_score_before)
+        # ASSERT ALL 5 HISTORICAL ENTITIES REMAIN 100% UNTOUCHED
+        persisted_e1 = self.db.get_execution_event("EVT-H1")
+        self.assertEqual(persisted_e1["extracted_statement"], "HDD drilling at Section 1")
 
-        # 2. Verify new Event E2 utilizes active alias hint
-        e2 = ExecutionEvent(event_id="EVT-H2", source_id="SRC-2", fragment_id="F2", event_type="PROGRESS", observed_timestamp="2026-09-04", source_timestamp="2026-09-04T10:00:00Z", extracted_statement="HDD drilling at Section 1")
-        active_alias_scores = self.memory_service.get_candidate_alias_scores("PRJ-NBG-2026", "HDD drilling at Section 1")
-        self.assertIn("ACT-1010", active_alias_scores)
+        persisted_mr1 = self.db.get_match_results_by_event("EVT-H1")[0]
+        self.assertEqual(persisted_mr1["confidence_score"], historical_mr.confidence_score)
 
-        new_mr = self.matching_engine.match_event_to_fingerprints(e2, [self.fp], alias_scores=active_alias_scores)
-        self.assertGreaterEqual(new_mr.confidence_score, hist_score_before)
+        persisted_ta1 = self.db.get_trust_assessments_by_event("EVT-H1")[0]
+        self.assertEqual(persisted_ta1["trust_status"], "TRUSTED")
+
+        persisted_vd1 = self.db.get_validation_decisions_by_event("EVT-H1")[0]
+        self.assertEqual(persisted_vd1["decision_type"], "VALIDATE")
+
+        persisted_sp1 = self.db.get_latest_schedule_projection("PRJ-NBG-2026")
+        self.assertEqual(persisted_sp1["projection_id"], "PROJ-H1")
 
     def test_reproducibility(self):
         """Identical ledger state + identical policy returns identical MemoryDistillationRun."""

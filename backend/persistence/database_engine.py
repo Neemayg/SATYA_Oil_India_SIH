@@ -410,6 +410,7 @@ class DatabaseEngine:
                     project_id TEXT NOT NULL,
                     wbs_id TEXT NOT NULL,
                     activity_type TEXT NOT NULL,
+                    discipline TEXT NOT NULL,
                     unit_of_measure TEXT NOT NULL,
                     quantity_basis TEXT NOT NULL,
                     planned_rate REAL,
@@ -1074,13 +1075,13 @@ class DatabaseEngine:
             cursor = conn.cursor()
             cursor.execute("""
                 INSERT OR REPLACE INTO execution_rate_benchmarks (
-                    benchmark_id, project_id, wbs_id, activity_type, unit_of_measure,
+                    benchmark_id, project_id, wbs_id, activity_type, discipline, unit_of_measure,
                     quantity_basis, planned_rate, mean_actual_rate, p50_rate,
                     p90_rate, sample_count, benchmark_status, last_calculated_at
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             """, (
                 bench.benchmark_id, bench.project_id, bench.wbs_id, bench.activity_type,
-                bench.unit_of_measure, bench.quantity_basis, bench.planned_rate,
+                bench.discipline, bench.unit_of_measure, bench.quantity_basis, bench.planned_rate,
                 bench.mean_actual_rate, bench.p50_rate, bench.p90_rate,
                 bench.sample_count, bench.benchmark_status, bench.last_calculated_at
             ))

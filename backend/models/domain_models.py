@@ -733,6 +733,7 @@ class ExecutionRateBenchmark:
     project_id: str
     wbs_id: str
     activity_type: str
+    discipline: str
     unit_of_measure: str
     quantity_basis: str                 # CUMULATIVE_TOTAL, DAILY_DELTA, etc.
     planned_rate: Optional[float]       # Planned quantity / Planned duration (None if missing)
