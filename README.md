@@ -2,7 +2,7 @@
 
 > **Working Expansion:** Schedule-Aligned Truth & Yield Analytics *(Provisional Name)*  
 > **Target Problem:** Smart India Hackathon 2026 — Oil India Limited  
-> **Current Status:** `PHASE 7 — SCHEDULE-AWARE MATCHING ENGINE` (Completed — Multi-Factor Schedule Alignment Implemented & Evaluated)  
+> **Current Status:** `PHASE 10 — ACTUAL PROGRESS + SCHEDULE PROJECTION ENGINE` (APPROVED & CLOSED — Proceeding to Phase 11)  
 
 ---
 
@@ -10,7 +10,7 @@
 
 **SATYA** is an evidence-backed **Execution Truth Layer** designed to bridge the operational gap between unstructured field execution observations (Daily Progress Reports, site notes, voice logs, inspection certificates) and high-level L5/L6 Primavera P6 / MS Project schedules for Oil India Limited.
 
-Rather than acting as a generic AI chatbot, SATYA converts heterogeneous field observations into structured Execution Events, grounds them against multi-dimensional Activity Fingerprints, calculates explicit multi-factor confidence scores, surfaces conflicts and evidence gaps, and routes low-confidence matches to a Human-in-the-Loop planner queue before producing audit-trusted actual schedule progress.
+Rather than acting as a generic AI chatbot, SATYA converts heterogeneous field observations into structured Execution Events, grounds them against multi-dimensional Activity Fingerprints, calculates explicit multi-factor confidence scores, surfaces conflicts and evidence gaps, routes low-confidence matches to a Human-in-the-Loop planner queue, and projects trusted execution truth onto a baseline-immutable Progress Layer.
 
 ---
 
@@ -29,20 +29,21 @@ In mega-projects undertaken by Oil India Limited (such as cross-country pipeline
 SATYA introduces a multi-tier execution intelligence architecture:
 1. **Immutable Execution Event Ledger:** Stores raw inputs and extracted events with 100% audit provenance.
 2. **Activity Fingerprinting:** Multi-dimensional semantic + structural + temporal grounding of Primavera L5/L6 schedule activities.
-3. **Schedule-Aware Matching Engine:** Constrained, deterministic-boosted alignment supporting explicit `UNMATCHED` outputs.
-4. **Multi-Modal Evidence & Confidence Scoring:** Mathematical verification producing explicit $[0.0, 1.0]$ confidence scores.
-5. **Conflict & Gap Engine:** Surfaces contradictory field claims and unreported active schedule tasks.
-6. **Human-in-the-Loop (HITL) Workflow:** Interactive planner validation interface for low-confidence or disputed events.
-7. **Institutional Memory:** Long-term repository capturing true execution rates, delay causes, and planner correction histories.
+3. **Schedule-Aware Matching Engine:** Two-stage retrieval & discriminative ranking supporting `MATCHED`, `AMBIGUOUS`, `INSUFFICIENT_EVIDENCE`, and `UNMATCHED` outputs.
+4. **Multi-Modal Evidence & Confidence Scoring:** Evidence claim extraction, multi-factor reliability assessment, and origin-group aware corroboration.
+5. **Conflict & Gap Engine:** Surfaces 7 explicit conflict categories (QA, Status, Quantity, Schedule/Out-of-sequence, Location, Temporal, Duplicate) and discipline-aware evidence gaps.
+6. **Human-in-the-Loop (HITL) Workflow:** Interactive planner review queue with 5 decision types (`VALIDATE`, `CHANGE_MATCH`, `REJECT`, `REQUEST_EVIDENCE`, `DEFER`), decision state snapshot locks, and non-mutating audit trails.
+7. **Actual Progress & Schedule Projection Engine:** Policy-driven progress calculation, cumulative vs delta quantity resolution, null-safe forecasting, and baseline-immutable schedule variance projections.
+8. **Institutional Memory:** Long-term repository capturing true execution rates, delay causes, and planner correction histories.
 
 ---
 
 ## 4. Current Repository Status & Implementation Statement
 
 > **IMPORTANT NOTICE:**  
-> This repository has completed **`PHASE 5 - EXECUTION EVENT PIPELINE`**, **`PHASE 6 - ACTIVITY FINGERPRINTING`**, and **`PHASE 7 - SCHEDULE-AWARE MATCHING ENGINE`**.  
-> `ExecutionEvent` extraction, `ActivityFingerprint` identity indexing, and multi-factor schedule activity matching (`MATCHED` / `AMBIGUOUS` / `UNMATCHED`) are fully operational with 100% test pass rate and synthetic ground truth evaluation.  
-> Schedule projection, evidence conflict resolution, and UI frontend components remain deliberately deferred to later phases.
+> This repository has completed **`PHASE 5 - EXECUTION EVENT PIPELINE`**, **`PHASE 6 - ACTIVITY FINGERPRINTING`**, **`PHASE 7.1 - CALIBRATION & FAILURE AUDIT`**, **`PHASE 8 - EVIDENCE + CONFIDENCE + CONFLICT ENGINE`**, **`PHASE 9 - HUMAN VALIDATION (HITL) WORKFLOW`**, and **`PHASE 10 - ACTUAL PROGRESS + SCHEDULE PROJECTION ENGINE`** (APPROVED & CLOSED).  
+> `ExecutionEvent` extraction, `ActivityFingerprint` identity indexing, schedule matching, claim extraction, evidence reliability assessment, origin-group corroboration, gap/conflict detection, versioned trust evaluation, Human-in-the-Loop decision handling, and baseline-immutable progress projections are operational with 100% test pass rate (61/61 tests).  
+> Next phase is **`PHASE 11 - BACKEND APPLICATION SERVICES`**.
 
 ---
 

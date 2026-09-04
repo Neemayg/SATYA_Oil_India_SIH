@@ -78,7 +78,29 @@ class ScheduleMatchingService:
             )
             fingerprints.append(fp)
 
-        match_result = self.matching_engine.match_event_to_fingerprints(event, fingerprints)
+        # Determine project_id for alias lookup
+        eff_project_id = project_id
+        if not eff_project_id and event.source_id:
+            src_doc = self.db.get_source_document(event.source_id)
+            if src_doc:
+                eff_project_id = src_doc.project_id
+
+        # Lookup active & validated terminology aliases from memory
+        alias_scores: Dict[str, float] = {}
+        if eff_project_id and hasattr(self.db, "get_terminology_aliases_by_project"):
+            aliases = self.db.get_terminology_aliases_by_project(eff_project_id)
+            text_lower = (event.extracted_statement or "").lower()
+            for alias in aliases:
+                status = alias.get("status")
+                if status in ("ACTIVE", "VALIDATED"):
+                    phrase = (alias.get("alias_phrase") or "").lower()
+                    if phrase and phrase in text_lower:
+                        act_id = alias.get("target_activity_id")
+                        weight = float(alias.get("confidence_weight", 0.0))
+                        if act_id and (act_id not in alias_scores or weight > alias_scores[act_id]):
+                            alias_scores[act_id] = weight
+
+        match_result = self.matching_engine.match_event_to_fingerprints(event, fingerprints, alias_scores=alias_scores)
         self.db.save_match_result(match_result)
 
         logger.info(f"Matched Event {event.event_id} -> Outcome: {match_result.outcome} (Activity: {match_result.selected_activity_id}, Score: {match_result.confidence_score})")

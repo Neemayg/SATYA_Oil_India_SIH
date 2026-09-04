@@ -1,8 +1,4 @@
-# Development Phases & Lifecycle Control
-
-> **Governance Standard:** Development Phase Gate Controls  
-> **Project:** SATYA — Oil India Limited (SIH 2026)  
-> **Current Status:** `PHASE 7 — Schedule-Aware Matching Engine` (Completed)  
+> **Current Status:** `PHASE 13 — Time Agent (Proactive Schedule Monitoring Engine)` (🟢 APPROVED & CLOSED)  
 
 ---
 
@@ -12,7 +8,35 @@ The SATYA project strictly adheres to a sequential 17-phase implementation lifec
 
 ---
 
+## Phase Status Summary
+
+* **Phase 0–5.1:** 🟢 APPROVED
+* **Phase 6:** 🟢 APPROVED
+* **Phase 7:** 🟡 BASELINE / KNOWN LIMITATIONS (75% Recall@10, 12.5% Recall@1, 0% automatic match coverage at default threshold)
+* **Phase 7.1:** 🟢 APPROVED (Calibration & Failure Audit completed)
+* **Phase 8:** 🟢 APPROVED (Evidence + Confidence + Conflict Engine completed)
+* **Phase 9:** 🟢 APPROVED & CLOSED (Human Validation / HITL Workflow completed)
+* **Phase 10:** 🟢 APPROVED & CLOSED (Actual Progress + Schedule Projection Engine completed)
+* **Phase 11:** 🟢 APPROVED & CLOSED (Backend Application Services & REST API completed)
+* **Phase 12:** 🟢 APPROVED & CLOSED (Frontend Planner Dashboard & HITL Interface completed)
+* **Phase 13:** 🟢 APPROVED & CLOSED (Time Agent Proactive Schedule Monitoring Engine completed)
+* **Phase 14:** ▶ ACTIVE / NEXT (Analytics + Institutional Memory Store)
+
+---
+
 ## Phase Definitions
+
+### PHASE 10: Actual Progress + Schedule Projection Engine
+
+* **Purpose:** Implement `ActualProgressEngine` (`backend/projection/actual_progress_engine.py`) and `ScheduleProjectionService` (`backend/projection/projection_service.py`) deriving activity progress, forecast finish dates, calculation statuses, and schedule variances from trusted execution events while maintaining strict read-only baseline immutability.
+* **Inputs:** Baseline schedule JSON files (`baseline_schedule.json`), `ExecutionEvents` (Phase 5), `TrustAssessments` (Phase 8), `ValidationDecisions` (Phase 9).
+* **Expected Outputs:** Core calculation engine, `ScheduleProjection` domain models, `schedule_projections` SQLite repository table, engine specification (`docs/05-core-engines/schedule-projection.md`), and passing unit/integration tests (`tests/unit/test_schedule_projection.py`, `tests/integration/test_projection_integration.py`).
+* **Governance Status:** 🟢 **APPROVED & CLOSED**
+* **Approved Governance Directive:**
+  > **Phase 10 — APPROVED & CLOSED**  
+  > Policy-based progress calculation (`QUANTITY_BASED`, `MILESTONE_BASED`, `STATUS_BASED`), cumulative vs delta quantity resolution (`CUMULATIVE_TOTAL` vs `DAILY_DELTA`), event contribution filtering for actual start, null-safe forecast engine (`ForecastStatus`), QA clearance separation (`qa_clearance_status`), duration-weighted WBS rollups (`ProgressWeightPolicy`), baseline-authority schedule variances ($SV_{\text{finish}}$), and unverified progress claims retention are fully operational. Baseline schedule files remain 100% read-only and immutable. All 61 unit and integration tests pass 100%.  
+  >  
+  > **Next Phase:** PHASE 11 — Backend Application Services.
 
 ### PHASE 0: Foundation
 
@@ -96,71 +120,87 @@ The SATYA project strictly adheres to a sequential 17-phase implementation lifec
 
 ### PHASE 8: Evidence + Confidence + Conflict Engine
 
-* **Purpose:** Implement multi-factor confidence scoring ($[0.0, 1.0]$), multi-modal evidence verification, contradictory observation surfacing, and evidence-gap detection.
-* **Inputs:** Match candidates from Phase 7 and raw evidence attachments.
-* **Expected Outputs:** Scoring and conflict detection module outputting `ConfidenceScore`, `EvidenceVerification`, and `ConflictFlags`.
-* **Dependencies:** PHASE 7.
-* **Exit Criteria:** Engine correctly flags simulated contradictory DPR claims and identifies un-reported active schedule tasks in test datasets.
+* **Purpose:** Implement `EvidenceClaim` extraction, multi-factor evidence reliability assessment, origin-group aware corroboration, discipline-aware evidence requirement policies, explicit 7-category conflict detection, and deterministic gating tree trust evaluation.
+* **Inputs:** `ExecutionEvent` (Phase 5), `ActivityFingerprint` (Phase 6), `MatchResult` (Phase 7).
+* **Expected Outputs:** Core engines (`backend/evidence/`), `TrustEvaluatorService` (`backend/services/trust_evaluator_service.py`), append-only versioned SQLite ledger tables, and engine specification (`docs/05-core-engines/evidence-confidence-conflict.md`).
+* **Governance Status:** 🟢 **APPROVED & CLOSED**
+* **Approved Governance Directive:**
+  > **Phase 8 — APPROVED & CLOSED**  
+  > `EvidenceClaim` atomic decomposition, multi-factor reliability assessment ($S_{\text{auth}}, S_{\text{verif}}, S_{\text{prov}}, S_{\text{time}}, S_{\text{cons}}$), origin-group aware corroboration, activity/discipline-aware evidence requirement policies, explicit 7-category conflict detection (with reporting delay and out-of-sequence semantics), and deterministic gating tree trust evaluation are fully operational. Persists versioned `TrustAssessment` records ($v1 \rightarrow v2$) in append-only SQLite storage with 35/35 passing tests.  
+  >  
+  > **Product Language Constraint:** SATYA determines whether reported execution is sufficiently evidenced and internally consistent to be treated as trusted execution truth under configured policies. It does NOT claim to physically verify or prove execution reality without a validated verification mechanism.  
+  >  
+  > **Next Phase:** PHASE 9 — Human Validation (HITL) Workflow.
 
 ---
 
 ### PHASE 9: Human Validation (HITL) Workflow
 
-* **Purpose:** Implement the backend logic and queue management for Human-in-the-Loop planner review of low-confidence or disputed matches.
-* **Inputs:** Flagged matches and conflicts from Phase 8.
-* **Expected Outputs:** HITL verification API and queue manager in `backend/`.
-* **Dependencies:** PHASE 8.
-* **Exit Criteria:** Low-confidence matches ($\text{Confidence} < \theta$) are cleanly placed in review queue; planner decisions (confirm/re-map/reject) update match status.
-
----
-
-### PHASE 10: Actual Progress + Schedule Projection Engine
-
-* **Purpose:** Build the deterministic engine that aggregates verified Execution Events to calculate actual start/finish dates, physical % complete, and schedule variance projections.
-* **Inputs:** Verified Execution Events from Phase 9 / Phase 8.
-* **Expected Outputs:** Progress calculation and baseline variance projection module.
-* **Dependencies:** PHASE 9.
-* **Exit Criteria:** Produces trusted actual progress metrics without directly corrupting baseline schedule files without explicit validation.
+* **Purpose:** Implement planner review queue management, decision workspace domain models, 5 explicit decision handlers (`VALIDATE`, `CHANGE_MATCH`, `REJECT`, `REQUEST_EVIDENCE`, `DEFER`), decision state snapshot locks, non-mutating audit trails, and Phase 14 institutional memory hooks.
+* **Inputs:** Flagged matches (`AMBIGUOUS`, `UNMATCHED`, `INSUFFICIENT_EVIDENCE`) and trust assessments (`REVIEW_REQUIRED`, `UNTRUSTED`) from Phase 8.
+* **Expected Outputs:** Queue manager (`backend/hitl/queue_manager.py`), Validation service (`backend/hitl/validation_service.py`), append-only tables `validation_decisions` & `planner_corrections`, core engine spec (`docs/05-core-engines/human-validation-hitl.md`), and passing unit/integration tests (`tests/unit/test_hitl_workflow.py`, `tests/integration/test_hitl_integration.py`).
+* **Governance Status:** 🟢 **APPROVED & CLOSED**
+* **Approved Governance Directive:**
+  > **Phase 9 — APPROVED & CLOSED**  
+  > Human Validation (HITL) Workflow is fully operational. Prioritizes review queue items by severity ($P1 > P2 > P3 > P4$), enforces Decision State Snapshot Lock preventing race conditions during review, validates `CHANGE_MATCH` targets against baseline schedule vocabulary (Rule 5), and generates versioned `TrustAssessment v(N+1)` and `PlannerCorrectionRecord` without mutating existing match or event histories. All 44 unit and integration tests pass 100%.  
+  >  
+  > **Next Phase:** PHASE 10 — Actual Progress + Schedule Projection Engine.
 
 ---
 
 ### PHASE 11: Backend Application Services
 
-* **Purpose:** Package execution event pipelines, matching engines, scoring modules, and progress projectors into clean, documented REST/gRPC backend services.
+* **Purpose:** Package execution event pipelines, matching engines, scoring modules, trust evaluators, HITL review queues, and progress projectors into clean, documented REST application services.
 * **Inputs:** Modules from Phase 5 through Phase 10.
-* **Expected Outputs:** Runnable backend service codebase in `backend/`.
-* **Dependencies:** PHASE 10.
-* **Exit Criteria:** Backend API endpoints operational, fully tested with unit/integration tests, and documented in `docs/08-api/`.
+* **Expected Outputs:** Runnable backend service codebase in `backend/api/`, `scripts/run_server.py`, REST API documentation in `docs/08-api/backend-api.md`, and passing unit/integration test suite (`tests/unit/test_api_endpoints.py`, `tests/unit/test_api_hitl_concurrency.py`, `tests/integration/test_api_integration.py`).
+* **Governance Status:** 🟢 **APPROVED & CLOSED**
+* **Approved Governance Directive:**
+  > **Phase 11 — APPROVED & CLOSED**  
+  > Thin transport REST API layer (`SATYAApplicationAPI`) operational over existing SATYA intelligence services with zero business logic inside route handlers. Includes thin domain serializers, standardized `SATYAError` response model, OpenAPI 3.0 schema generation (`/api/v1/openapi.json`), configurable CORS middleware, operational health endpoint (`/api/v1/health`), and REST decision state snapshot locking (`HTTP 409 Conflict` on `STALE_REVIEW_STATE`). All 81 unit and integration tests pass 100%.  
+  >  
+  > **Next Phase:** PHASE 12 — Frontend Planner Dashboard & HITL Interface.
 
 ---
 
 ### PHASE 12: Frontend Planner Dashboard & HITL Interface
 
-* **Purpose:** Develop the user-facing web interface for project planners and managers (Schedule View, Event Ledger, HITL Validation Interface, Evidence Inspector).
-* **Inputs:** Backend APIs (Phase 11) and UX specs (`docs/09-frontend/`).
-* **Expected Outputs:** Modern, responsive web application in `frontend/`.
-* **Dependencies:** PHASE 11.
-* **Exit Criteria:** Interactive dashboard allows planners to inspect schedule activities, review evidence, resolve low-confidence matches, and view verified progress.
+* **Purpose:** Develop the user-facing web interface for project planners and managers (Control Tower Dashboard, Reconciliation Desk, Evidence Center, Schedule Explorer).
+* **Inputs:** Backend REST APIs (Phase 11) and UX specs (`docs/09-frontend/frontend-app.md`).
+* **Expected Outputs:** Zero-build, zero-CDN ES6 web application (`frontend/`), static server integration in `scripts/run_server.py`, frontend documentation (`docs/09-frontend/frontend-app.md`), and passing test suite (`82` total tests passing 100%).
+* **Governance Status:** 🟢 **APPROVED & CLOSED**
+* **Approved Governance Directive:**
+  > **Phase 12 — APPROVED & CLOSED**  
+  > Zero-dependency, presentation-only web application (`frontend/`) operational over Phase 11 REST APIs with zero domain-level calculations in JavaScript. Features Control Tower Dashboard, Reconciliation Desk (HITL centerpiece with 6-step visual hierarchy and snapshot-locked decision forms with `HTTP 409 Conflict` stale-state handling), Evidence & Provenance Center (full trace visualizer), and Schedule Explorer (SATYA Overlay). Built using native system font stacks and inline SVG icons for 100% offline SIH demo execution. All 82 unit and integration tests pass 100%.  
+  >  
+  > **Next Phase:** PHASE 13 — Time Agent (Proactive Schedule Monitoring).
 
 ---
 
-### PHASE 13: Time Agent (Proactive Schedule Monitoring)
+### PHASE 13: Time Agent (Proactive Schedule Monitoring Engine)
 
-* **Purpose:** Build an automated agent that monitors time progression, detects silent evidence gaps on critical path tasks, and issues early warning delay alerts.
-* **Inputs:** Integrated backend and schedule projector.
-* **Expected Outputs:** Background monitoring service in `ai/` or `backend/`.
-* **Dependencies:** PHASE 12.
-* **Exit Criteria:** Time Agent correctly flags inactive critical path activities during simulated timeline progression.
+* **Purpose:** Build a deterministic, policy-driven temporal monitoring engine (`backend/monitoring/time_agent_engine.py`, `time_agent_service.py`) that monitors schedule baselines, actual progress, evidence coverage gaps, and schedule projections to generate auditable early-warning temporal signals.
+* **Inputs:** Baseline schedule JSON files, `ExecutionEvents`, `ScheduleProjection`, `TrustAssessments`, `ValidationDecisions`.
+* **Expected Outputs:** `TimeAgentEngine`, `TimeAgentService`, `TemporalMonitoringPolicy`, `MonitoringEvaluationRun`, `TemporalWarningSignal`, persistent SQLite tables `monitoring_evaluation_runs` and `temporal_warning_signals`, REST API monitoring routes (`backend/api/routes_monitoring.py`), Control Tower UI early-warning feed, canonical specification (`docs/05-core-engines/time-agent-monitoring.md`), and passing unit/integration tests (`tests/unit/test_time_agent_engine.py`, `tests/integration/test_monitoring_integration.py`).
+* **Governance Status:** 🟢 **APPROVED & CLOSED**
+* **Approved Governance Directive:**
+  > **Phase 13 — APPROVED & CLOSED**  
+  > Deterministic policy-driven temporal monitoring engine implemented with strict `as_of_date` temporal bounding ($t_{\text{observed}} \le t_{\text{as\_of}}$), null-forecast safe slippage calculations, unique `signal_key` deduplication (`{project_id}|{activity_id}|{signal_type}`), explicit "Why SATYA Believes This" rationale traces, and auditable evaluation runs (`MonitoringEvaluationRun`). Enforces 6 warning signal evaluation rules: `SILENT_CRITICAL_PATH_RISK`, `OUT_OF_SEQUENCE_EXECUTION`, `FORECAST_FINISH_SLIPPAGE`, `EVIDENCE_COVERAGE_GAP`, `STAGNANT_IN_PROGRESS`, and `UNTRUSTED_CLAIM_ACCUMULATION`. Exposed via REST API (`/api/v1/monitoring/*`) and integrated into Phase 12 Control Tower Dashboard with manual signal acknowledgment. All 88 unit and integration tests pass 100%.  
+  >  
+  > **Next Phase:** PHASE 14 — Analytics + Institutional Memory Store.
 
 ---
 
-### PHASE 14: Analytics + Institutional Memory Store
+### PHASE 14: Analytics & Institutional Memory Store
 
-* **Purpose:** Implement long-term storage and analytical querying over human planner corrections, real-world task execution rates, and contractor productivity metrics.
-* **Inputs:** Historical HITL corrections and verified actual durations.
-* **Expected Outputs:** Institutional Memory service and analytical reporting module.
-* **Dependencies:** PHASE 13.
-* **Exit Criteria:** System captures planner overrides and displays comparative actual vs. baseline productivity benchmarks.
+* **Purpose:** Build an auditable, versioned, project-aware institutional memory layer and empirical execution analytics engine (`backend/analytics/memory_service.py`, `analytics_engine.py`) that captures terminology alias mappings, computes UOM-safe productivity rate benchmarks, tracks contractor reporting verifiability, and analyzes conflict/warning resolution patterns.
+* **Inputs:** Historical `ValidationDecision`, `PlannerCorrectionRecord`, `ExecutionEvent`, `ActivityProgress`, `ConflictFlag`, and `TemporalWarningSignal` records.
+* **Expected Outputs:** `InstitutionalMemoryService`, `ExecutionAnalyticsEngine`, `InstitutionalMemoryPolicy`, `MemoryDistillationRun`, `TerminologyAliasRecord`, `ExecutionRateBenchmark`, `ContractorReportingProfile`, `ConflictResolutionPattern`, persistent SQLite tables `memory_distillation_runs`, `terminology_aliases`, `execution_rate_benchmarks`, `contractor_reporting_profiles`, `conflict_resolution_patterns`, REST API analytics routes (`backend/api/routes_analytics.py`), Analytics & Memory tab view component (`frontend/js/views/analytics_memory.js`), core engine specification (`docs/05-core-engines/institutional-memory-analytics.md`), and passing test suite (`99` total tests passing 100%).
+* **Governance Status:** 🟢 **APPROVED & CLOSED**
+* **Approved Governance Directive:**
+  > **Phase 14 — APPROVED & CLOSED**  
+  > Auditable institutional memory and empirical analytics engine implemented with strict non-rewriting historical immutability. Distills planner corrections into versioned terminology aliases with explicit lifecycle state transitions (`CANDIDATE` $\rightarrow$ `VALIDATED` $\rightarrow$ `ACTIVE` $\rightarrow$ `SUPERSEDED`), deterministic confidence scoring ($C_{\text{alias}} = \text{clamp}(w_{\text{plan}} N_{\text{planners}} + w_{\text{src}} N_{\text{sources}} + R(\Delta t) - w_{\text{over}} N_{\text{reoverrides}}, 0.0, 1.0)$), configurable weights via `InstitutionalMemoryPolicy`, and strict project scoping (`project_id`). Active aliases supply an additive factor boost ($S_{\text{alias}}$) to future candidate scoring without overriding schedule vocabulary safety or threshold bounds ($\theta_{\text{match}}$). Computes UOM-safe productivity rate benchmarks with sample size thresholding (`INSUFFICIENT_SAMPLE` for $N < 3$, `PROVISIONAL` for $3 \le N < 10$, `VALIDATED` for $N \ge 10$), contractor reporting & verification profiles with observed-to-reported latency ($t_{\text{reported}} - t_{\text{observed}}$), and conflict/warning resolution pattern analytics separating Time Agent acknowledgments from physical resolutions. All 99 unit and integration tests pass 100%.  
+  >  
+  > **Next Phase:** PHASE 15 — Testing + Benchmark Evaluation.
 
 ---
 

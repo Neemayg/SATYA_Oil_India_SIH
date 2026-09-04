@@ -9,7 +9,7 @@ import uuid
 import logging
 from typing import Optional, Set, Dict, Any, List
 from backend.models.domain_models import (
-    SourceDocument, PipelineRunResult, PipelineState, SourceType
+    SourceDocument, PipelineRunResult, PipelineState, SourceType, ExecutionEvent
 )
 from backend.ingestion.source_ingestion import SourceIngestionService
 from backend.normalization.content_normalization import ContentNormalizationService
@@ -63,15 +63,20 @@ class ExecutionEventPipelineService:
         self.db.save_source_document(doc)
 
         if is_duplicate:
-            logger.warning(f"[{pipeline_run_id}] Exact duplicate content detected for Source ID {doc.source_id}. Skipping re-extraction.")
-            existing_events = [e for e in self.db.get_events_by_source(doc.source_id)]
+            logger.warning(f"[{pipeline_run_id}] Exact duplicate content detected for Source ID {doc.source_id}. Returning existing events.")
+            raw_event_dicts = self.db.get_events_by_source(doc.source_id)
+            event_fields = set(ExecutionEvent.__dataclass_fields__.keys())
+            existing_events = [
+                ExecutionEvent(**{k: v for k, v in d.items() if k in event_fields})
+                for d in raw_event_dicts
+            ]
             return PipelineRunResult(
                 pipeline_run_id=pipeline_run_id,
                 source_id=doc.source_id,
-                events_extracted=[],
+                events_extracted=existing_events,
                 quarantine_records=[],
                 total_fragments_processed=0,
-                status="SKIPPED_DUPLICATE",
+                status="SUCCESS_CACHED",
                 execution_time_ms=round((time.time() - start_time) * 1000, 2)
             )
 
