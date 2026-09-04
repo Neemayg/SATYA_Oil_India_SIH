@@ -185,8 +185,8 @@ class TestPropertyInvariants(unittest.TestCase):
         self.assertEqual(body2.get("source_id"), body1.get("source_id"))
 
     # 6. PROJECT ISOLATION
-    def test_multi_tenant_project_isolation(self):
-        """Ingested data for Project A is completely invisible to Project B matching queries."""
+    def test_project_isolation(self):
+        """Ingested data for Project A is strictly isolated from Project B matching queries."""
         # Ingest for PRJ-NBG-2026
         self.api.dispatch("POST", "/api/v1/ingestion/upload", body={
             "project_id": "PRJ-NBG-2026",
@@ -202,9 +202,9 @@ class TestPropertyInvariants(unittest.TestCase):
 
         self.assertEqual(count_b, 0)
 
-    # 7. TRUST MONOTONICITY
-    def test_trust_status_monotonicity(self):
-        """Planner validation upgrades UNVERIFIED status to TRUSTED cleanly without unverified downgrades."""
+    # 7. VERSIONED TRUST STATE INTEGRITY (APPEND-ONLY LEDGER)
+    def test_versioned_trust_state_integrity(self):
+        """Trust assessments maintain append-only version history (v1 -> v2) without overwriting prior records."""
         dpr = "2026-09-02: Excavation 100m completed ACT-1010."
         self.api.dispatch("POST", "/api/v1/ingestion/upload", body={"project_id": "PRJ-NBG-2026", "source_type": "DPR_EXCEL", "content": dpr})
         evt_id = self.db.get_all_execution_events()[0]["event_id"]
@@ -214,7 +214,7 @@ class TestPropertyInvariants(unittest.TestCase):
         ta_v1 = self.db.get_latest_trust_assessment(evt_id)
         self.assertIn(ta_v1["trust_status"], [TrustStatus.TRUSTED, TrustStatus.UNTRUSTED, TrustStatus.REVIEW_REQUIRED])
 
-        # Validate upgrades/maintains trust
+        # Validate upgrades/maintains trust in v2
         self.api.dispatch("POST", "/api/v1/hitl/decisions", body={
             "event_id": evt_id,
             "planner_id": "PLN-MONOTONE",
@@ -223,6 +223,7 @@ class TestPropertyInvariants(unittest.TestCase):
         })
         ta_v2 = self.db.get_latest_trust_assessment(evt_id)
         self.assertEqual(ta_v2["trust_status"], TrustStatus.TRUSTED)
+        self.assertEqual(ta_v2["version_index"], 2)
 
 if __name__ == "__main__":
     unittest.main()

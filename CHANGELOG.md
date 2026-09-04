@@ -7,36 +7,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.17.0] - 2026-09-04
 
 ### Added (Phase 15 — Empirical System Validation)
-- Completed and APPROVED & CLOSED `PHASE 15 — Empirical System Validation`.
+- Completed `PHASE 15 — Empirical System Validation` and generated canonical validation report (`docs/10-testing/system-test-benchmark-report.md`).
 - Added **Component 1: Workload Performance Benchmark** (`tests/integration/test_workload_performance.py`):
-  - Small (50 events), Medium (500 events), Large (5,000 events across 5 projects) tiers.
-  - p50/p95 latency measurements; empirical RSS memory tracking. No arbitrary SLA thresholds.
-  - Measured: p50 ~3.2 ms/event, p95 ~3.9 ms/event (SQLite in-memory, single-threaded).
+  - Small (50 events / 60 act), Medium (500 events / 600 act), Large (5,000 events / 10,000 act across 5 projects) tiers.
+  - Latency: p50 ~3.12–3.24 ms/event, p95 ~3.85–3.92 ms/event (~309 ev/s throughput on Large tier).
+  - 5-stage latency breakdown: Ingestion/Extraction (0.138 ms), Matching (0.073 ms), Evidence/Trust (0.009 ms), Projection (1.18 ms total), Time Agent (1.39 ms total).
 - Added **Component 2: Failure Recovery Tests** (same file):
-  - Empty payload ValueError does not create orphaned source_document records.
-  - Valid ingestion succeeds cleanly after a preceding failed ingestion.
+  - Empty payload `ValueError` leaves zero orphaned database records; subsequent valid ingestion succeeds cleanly.
 - Added **Component 3: Controlled Safety Mutation Harness** (same file):
-  - Mutation 1 — Rule 5 vocabulary guard: out-of-vocabulary raw Activity ID is cleared (never promoted).
-  - Mutation 2 — Stale HITL snapshot lock: second v1 decision rejected with HTTP 409 STALE_REVIEW_STATE.
-  - Mutation 3 — Match result immutability: CHANGE_MATCH does not retroactively alter original MatchResult row.
+  - Mutation 1 — Rule 5 vocabulary guard: out-of-vocabulary raw Activity ID `ACT-9999-HALLUCINATED` is cleared to `None`.
+  - Mutation 2 — Stale HITL snapshot lock: second v1 decision rejected with `HTTP 409 STALE_REVIEW_STATE`.
+  - Mutation 3 — Match result immutability: `CHANGE_MATCH` creates new v2 `TrustAssessment` without altering original `MatchResult` row.
 - Added **Component 4: DB Invariant Concurrency Stress Tests** (`tests/integration/test_concurrency_invariants.py`):
-  - N=2, N=5, N=10 concurrent HITL review threads; exactly 1 wins, rest receive HTTP 409.
-  - DB state invariant verified after each race: exactly 1 v2 TrustAssessment per event.
+  - N=2, N=5, N=10 concurrent HITL review threads; exactly 1 wins, rest receive HTTP 409. DB state invariant verified: exactly 1 v2 `TrustAssessment` per event.
 - Added **Component 5: Property Invariants Suite** (`tests/unit/test_property_invariants.py`):
-  - 7 properties: provenance immutability, ID safety, trust monotonicity, idempotency,
-    five-entity historical immutability, multi-tenant isolation, determinism across pipeline runs.
+  - 7 properties: provenance immutability, ID safety, Versioned Trust State Integrity (append-only ledger), idempotency, five-entity historical immutability, Project Isolation, determinism across pipeline runs.
 - Added **Component 6: Adversarial Robustness Suite** (`tests/unit/test_adversarial_suite.py`):
-  - Structural corruption (malformed/empty payloads), linguistic adversarial inputs,
-    semantic noise, and injection attack probes.
-- Added **Component 7: Full Truth-Chain Benchmark & Confidence Calibration** (`tests/integration/test_truth_chain_benchmark.py`):
-  - Ground-truth evaluation over 62 dev-set records across all 5 execution-intelligence layers.
-  - Layer 1 Extraction Recall: 62/62 = 1.000; Layer 2 Matching Precision: 1.000, F1: 0.660;
-    Layer 3 Trust Coverage: 63/63 = 1.000; Layer 4 Projection: 60 activities; Layer 5 Time Agent: 19 signals.
-  - Confidence threshold sweep theta in {0.40..0.95}: precision = 1.000 at theta>=0.50.
-  - ECE (10-bin): 0.1783 (empirically recorded, no hard pass/fail).
-  - Post-benchmark historical immutability regression: v1 TrustAssessments intact, append-only ledger verified.
+  - Structural payload corruption, linguistic/OCR noise, semantic ambiguity, and prompt injection probes safely handled.
+- Added **Component 7: Full Truth-Chain Benchmark & Calibration** (`tests/integration/test_truth_chain_benchmark.py`):
+  - Ground-truth evaluation over 62 dev set records (\(N_{\text{total}} = 62, N_{\text{events}} = 80, N_{\text{matchable}} = 63, N_{\text{accepted}} = 31\)).
+  - **Layer 1 Event Extraction Recall**: 1.000 (62/62 clean records).
+  - **Layer 2 Schedule Matching**: Accepted-Match Precision **100.0%** (31/31, 0 false matches accepted at \(\theta \ge 0.80\)); Match Recall **49.2%** (31/63 matchable events, 49 low-confidence events safely delegated to HITL review).
+  - **Layer 3 Trust Assessment**: Operational Coverage 100.0% (63/63 events); Trust Accuracy N/A (no independent trust ground truth).
+  - **Layer 4 Schedule Projection**: Operational Coverage 100.0% (60/60 activities); Forecast Accuracy N/A.
+  - **Layer 5 Time Agent Monitoring**: 19 warning signals detected; Warning Precision/Recall N/A.
+  - **Confidence Calibration (ECE)**: Reported **ECE = 0.1783** (`CALIBRATION BASELINE / NEEDS IMPROVEMENT`, 10 equal-width bins over 80 predictions; candidate scores exhibit sharp bimodal distribution at 1.0 and \(\le 0.50\)).
 - Updated test suite to **134 total automated tests, 134 passing (0 failures)**.
-- Updated `docs/00-governance/development-phases.md` to mark Phase 15 CLOSED.
 
 ---
 
