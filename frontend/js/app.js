@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     "reconciliation": new ReconciliationDeskView(apiClient, appState),
     "evidence": new EvidenceCenterView(apiClient, appState),
     "schedule": new ScheduleExplorerView(apiClient, appState),
-    "analytics": { render: () => renderAnalyticsMemoryView() }
+    "analytics": { render: (container) => renderAnalyticsMemoryView(container, apiClient, appState) }
   };
 
   const container = document.getElementById("view-container");
@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   // Operational Health Check
   const checkHealth = async () => {
     const res = await apiClient.getHealth();
-    if (res.ok && res.data && res.data.status === "OK") {
+    if (res.ok && res.data && (res.data.status === "healthy" || res.data.status === "OK")) {
       healthPill.className = "badge badge-trusted";
       healthPill.innerHTML = `● API OPERATIONAL`;
     } else {
