@@ -27,7 +27,14 @@
       "wbs_id": "WBS-210",
       "parent_id": "WBS-200",
       "wbs_code": "NBG.GGS3.CIV",
-      "wbs_name": "Civil & Site Development",
+      "wbs_name": "Civil & Earthworks",
+      "level": 3
+    },
+    {
+      "wbs_id": "WBS-215",
+      "parent_id": "WBS-200",
+      "wbs_code": "NBG.GGS3.STR",
+      "wbs_name": "Structural Steel & Shelters",
       "level": 3
     },
     {
@@ -48,7 +55,7 @@
       "wbs_id": "WBS-240",
       "parent_id": "WBS-200",
       "wbs_code": "NBG.GGS3.ELE",
-      "wbs_name": "Electrical & Substation",
+      "wbs_name": "Electrical Systems",
       "level": 3
     },
     {
@@ -87,7 +94,7 @@
       "level": 3
     }
   ],
-  "total_activities": 61,
+  "total_activities": 60,
   "activities": [
     {
       "activity_id": "ACT-1010",
@@ -973,53 +980,11 @@
     },
     {
       "activity_id": "ACT-1052",
-      "activity_name": "GGS-3 Pump House Foundation Concreting P-301 A/B",
-      "wbs_id": "WBS-210",
-      "wbs_path": "NBG.GGS3.CIV",
+      "activity_name": "GGS-3 Pipe Rack Structural Steel Fabrication",
+      "wbs_id": "WBS-215",
+      "wbs_path": "NBG.GGS3.STR",
       "level": 5,
-      "discipline": "CIVIL",
-      "area": "GGS-3",
-      "equipment_tag": "A/B",
-      "line_number": null,
-      "start_km": null,
-      "end_km": null,
-      "planned_start": "2026-09-03",
-      "planned_finish": "2026-09-15",
-      "baseline_duration_days": 12,
-      "predecessor_id": null,
-      "successor_id": null,
-      "planned_quantity": 85.0,
-      "unit": "Cu.M",
-      "is_critical": true
-    },
-    {
-      "activity_id": "ACT-1053",
-      "activity_name": "GGS-3 Compressor Building Foundation K-201",
-      "wbs_id": "WBS-210",
-      "wbs_path": "NBG.GGS3.CIV",
-      "level": 5,
-      "discipline": "CIVIL",
-      "area": "GGS-3",
-      "equipment_tag": "K-201",
-      "line_number": null,
-      "start_km": null,
-      "end_km": null,
-      "planned_start": "2026-09-03",
-      "planned_finish": "2026-09-15",
-      "baseline_duration_days": 12,
-      "predecessor_id": null,
-      "successor_id": null,
-      "planned_quantity": 250.0,
-      "unit": "Cu.M",
-      "is_critical": true
-    },
-    {
-      "activity_id": "ACT-1054",
-      "activity_name": "GGS-3 Boundary Wall & Security Gate Construction",
-      "wbs_id": "WBS-210",
-      "wbs_path": "NBG.GGS3.CIV",
-      "level": 5,
-      "discipline": "CIVIL",
+      "discipline": "STRUCTURAL",
       "area": "GGS-3",
       "equipment_tag": null,
       "line_number": null,
@@ -1030,8 +995,50 @@
       "baseline_duration_days": 12,
       "predecessor_id": null,
       "successor_id": null,
-      "planned_quantity": 450.0,
-      "unit": "Meters",
+      "planned_quantity": 85.0,
+      "unit": "MT",
+      "is_critical": true
+    },
+    {
+      "activity_id": "ACT-1053",
+      "activity_name": "GGS-3 Pipe Rack Structural Steel Erection & Alignment",
+      "wbs_id": "WBS-215",
+      "wbs_path": "NBG.GGS3.STR",
+      "level": 5,
+      "discipline": "STRUCTURAL",
+      "area": "GGS-3",
+      "equipment_tag": null,
+      "line_number": null,
+      "start_km": null,
+      "end_km": null,
+      "planned_start": "2026-09-03",
+      "planned_finish": "2026-09-15",
+      "baseline_duration_days": 12,
+      "predecessor_id": null,
+      "successor_id": null,
+      "planned_quantity": 85.0,
+      "unit": "MT",
+      "is_critical": true
+    },
+    {
+      "activity_id": "ACT-1054",
+      "activity_name": "GGS-3 Compressor Building Structural Shelter Erection",
+      "wbs_id": "WBS-215",
+      "wbs_path": "NBG.GGS3.STR",
+      "level": 5,
+      "discipline": "STRUCTURAL",
+      "area": "GGS-3",
+      "equipment_tag": null,
+      "line_number": null,
+      "start_km": null,
+      "end_km": null,
+      "planned_start": "2026-09-03",
+      "planned_finish": "2026-09-15",
+      "baseline_duration_days": 12,
+      "predecessor_id": null,
+      "successor_id": null,
+      "planned_quantity": 140.0,
+      "unit": "MT",
       "is_critical": true
     },
     {
@@ -1141,7 +1148,7 @@
     },
     {
       "activity_id": "ACT-1060",
-      "activity_name": "GGS-3 Manifold Piping Fabrication 8-inch Line L-101",
+      "activity_name": "GGS-3 Manifold Piping Spool Erection 8-inch L-101",
       "wbs_id": "WBS-220",
       "wbs_path": "NBG.GGS3.PIP",
       "level": 5,
@@ -1162,27 +1169,6 @@
     },
     {
       "activity_id": "ACT-1061",
-      "activity_name": "GGS-3 Manifold Piping Erection 8-inch Line L-101",
-      "wbs_id": "WBS-220",
-      "wbs_path": "NBG.GGS3.PIP",
-      "level": 5,
-      "discipline": "PIPING",
-      "area": "GGS-3",
-      "equipment_tag": "L-101",
-      "line_number": null,
-      "start_km": null,
-      "end_km": null,
-      "planned_start": "2026-09-03",
-      "planned_finish": "2026-09-15",
-      "baseline_duration_days": 12,
-      "predecessor_id": null,
-      "successor_id": null,
-      "planned_quantity": 45.0,
-      "unit": "Spools",
-      "is_critical": true
-    },
-    {
-      "activity_id": "ACT-1062",
       "activity_name": "GGS-3 Hydrostatic Testing GGS Manifold Header",
       "wbs_id": "WBS-220",
       "wbs_path": "NBG.GGS3.PIP",
@@ -1203,7 +1189,7 @@
       "is_critical": true
     },
     {
-      "activity_id": "ACT-1063",
+      "activity_id": "ACT-1062",
       "activity_name": "GGS-3 Substation Building Transformer T-01 Erection",
       "wbs_id": "WBS-240",
       "wbs_path": "NBG.GGS3.ELE",
@@ -1224,8 +1210,8 @@
       "is_critical": true
     },
     {
-      "activity_id": "ACT-1064",
-      "activity_name": "GGS-3 Main Electrical Cable Trench & Cable Pulling",
+      "activity_id": "ACT-1063",
+      "activity_name": "GGS-3 Main Electrical Cable Pulling & Glanding",
       "wbs_id": "WBS-240",
       "wbs_path": "NBG.GGS3.ELE",
       "level": 5,
@@ -1245,14 +1231,14 @@
       "is_critical": true
     },
     {
-      "activity_id": "ACT-1065",
-      "activity_name": "GGS-3 Plant Earthing Grid Installation",
+      "activity_id": "ACT-1064",
+      "activity_name": "GGS-3 Plant Earthing Grid Installation & Megger Test",
       "wbs_id": "WBS-240",
       "wbs_path": "NBG.GGS3.ELE",
       "level": 5,
       "discipline": "ELECTRICAL",
       "area": "GGS-3",
-      "equipment_tag": null,
+      "equipment_tag": "Test",
       "line_number": null,
       "start_km": null,
       "end_km": null,
@@ -1266,7 +1252,7 @@
       "is_critical": true
     },
     {
-      "activity_id": "ACT-1066",
+      "activity_id": "ACT-1065",
       "activity_name": "GGS-3 Control Room DCS Panel Cabinet Erection",
       "wbs_id": "WBS-250",
       "wbs_path": "NBG.GGS3.INS",
@@ -1287,7 +1273,7 @@
       "is_critical": true
     },
     {
-      "activity_id": "ACT-1067",
+      "activity_id": "ACT-1066",
       "activity_name": "GGS-3 Pressure Transmitter PT-101 Calibration & Fitting",
       "wbs_id": "WBS-250",
       "wbs_path": "NBG.GGS3.INS",
@@ -1308,7 +1294,7 @@
       "is_critical": true
     },
     {
-      "activity_id": "ACT-1068",
+      "activity_id": "ACT-1067",
       "activity_name": "GGS-3 Cold Loop Testing Instrument Loops",
       "wbs_id": "WBS-250",
       "wbs_path": "NBG.GGS3.INS",

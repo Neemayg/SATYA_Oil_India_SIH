@@ -1,56 +1,425 @@
 {
   "split": "EVALUATION",
+  "total_records": 40,
   "records": [
     {
-      "source_id": "SRC-005",
-      "scenario_id": "SCN-005",
-      "expected_activity_ids": [
-        "ACT-1012",
-        "ACT-1016"
-      ],
-      "expected_outcome": "AMBIGUOUS",
-      "raw_snippet": "12 joints of 16-inch pipe welding completed near main road crossing.",
-      "split_type": "EVAL"
-    },
-    {
-      "source_id": "SRC-008",
-      "scenario_id": "SCN-008",
-      "expected_activity_ids": [
-        "ACT-1011"
-      ],
-      "expected_outcome": "DUPLICATE_FLAGGED",
-      "raw_snippet": "Trench excavation Sec 1 Km 0 to 2 completed 350m (duplicate entry).",
-      "split_type": "EVAL"
-    },
-    {
-      "source_id": "SRC-009",
-      "scenario_id": "SCN-009",
-      "expected_activity_ids": [
-        "ACT-1010"
-      ],
-      "expected_outcome": "MATCHED",
-      "raw_snippet": "Mainline ROW Clearing & Grading Sec 1 - Km 0.0 to 2.0 completed 300m on Sept 2.",
-      "split_type": "EVAL"
-    },
-    {
-      "source_id": "SRC-011",
-      "scenario_id": "SCN-011",
+      "source_id": "SRC-OBS-102",
+      "scenario_id": "SCN-004",
       "expected_activity_ids": [
         "ACT-1012"
       ],
-      "expected_outcome": "MATCHED_AGGREGATED",
-      "raw_snippet": "Daily shift report 5 of 15: Welded 12 joints on line PL-16-01 Section 1.",
+      "expected_outcome": "MATCHED",
+      "raw_snippet": "Section 1 PIP scope ongoing: Mainline Pipe Stringing &... 48.0 done.",
       "split_type": "EVAL"
     },
     {
-      "source_id": "SRC-012",
-      "scenario_id": "SCN-012",
+      "source_id": "SRC-OBS-103",
+      "scenario_id": "SCN-005",
       "expected_activity_ids": [
-        "ACT-1014",
-        "ACT-1015"
+        "ACT-1013",
+        "ACT-1014"
       ],
-      "expected_outcome": "SPLIT_MATCHED",
-      "raw_snippet": "Cleared 200m ROW and completed 200m trenching at Section 1 Km 2.0 to 4.0.",
+      "expected_outcome": "AMBIGUOUS",
+      "raw_snippet": "Execution ongoing for civil task in Section 1.",
+      "split_type": "EVAL"
+    },
+    {
+      "source_id": "SRC-OBS-107",
+      "scenario_id": "SCN-004",
+      "expected_activity_ids": [
+        "ACT-1017"
+      ],
+      "expected_outcome": "MATCHED",
+      "raw_snippet": "Section 1 CIV scope ongoing: Mainline Lowering & Backf... 600.0 done.",
+      "split_type": "EVAL"
+    },
+    {
+      "source_id": "SRC-OBS-108",
+      "scenario_id": "SCN-005",
+      "expected_activity_ids": [
+        "ACT-1018",
+        "ACT-1019"
+      ],
+      "expected_outcome": "AMBIGUOUS",
+      "raw_snippet": "Execution ongoing for civil task in Section 1.",
+      "split_type": "EVAL"
+    },
+    {
+      "source_id": "SRC-OBS-112",
+      "scenario_id": "SCN-004",
+      "expected_activity_ids": [
+        "ACT-1022"
+      ],
+      "expected_outcome": "MATCHED",
+      "raw_snippet": "Section 1 CIV scope ongoing: Mainline ROW Clearing & G... 600.0 done.",
+      "split_type": "EVAL"
+    },
+    {
+      "source_id": "SRC-OBS-113",
+      "scenario_id": "SCN-005",
+      "expected_activity_ids": [
+        "ACT-1023",
+        "ACT-1024"
+      ],
+      "expected_outcome": "AMBIGUOUS",
+      "raw_snippet": "Execution ongoing for civil task in Section 1.",
+      "split_type": "EVAL"
+    },
+    {
+      "source_id": "SRC-OBS-117",
+      "scenario_id": "SCN-004",
+      "expected_activity_ids": [
+        "ACT-1027"
+      ],
+      "expected_outcome": "MATCHED",
+      "raw_snippet": "Section 1 CIV scope ongoing: Mainline Trench Excavatio... 600.0 done.",
+      "split_type": "EVAL"
+    },
+    {
+      "source_id": "SRC-OBS-118",
+      "scenario_id": "SCN-005",
+      "expected_activity_ids": [
+        "ACT-1028",
+        "ACT-1029"
+      ],
+      "expected_outcome": "AMBIGUOUS",
+      "raw_snippet": "Execution ongoing for piping task in Section 1.",
+      "split_type": "EVAL"
+    },
+    {
+      "source_id": "SRC-OBS-122",
+      "scenario_id": "SCN-004",
+      "expected_activity_ids": [
+        "ACT-1032"
+      ],
+      "expected_outcome": "MATCHED",
+      "raw_snippet": "Section 2 PIP scope ongoing: Mainline Pipe Stringing &... 48.0 done.",
+      "split_type": "EVAL"
+    },
+    {
+      "source_id": "SRC-OBS-123",
+      "scenario_id": "SCN-005",
+      "expected_activity_ids": [
+        "ACT-1033",
+        "ACT-1034"
+      ],
+      "expected_outcome": "AMBIGUOUS",
+      "raw_snippet": "Execution ongoing for civil task in Section 2.",
+      "split_type": "EVAL"
+    },
+    {
+      "source_id": "SRC-OBS-127",
+      "scenario_id": "SCN-004",
+      "expected_activity_ids": [
+        "ACT-1037"
+      ],
+      "expected_outcome": "MATCHED",
+      "raw_snippet": "Section 2 CIV scope ongoing: Mainline Lowering & Backf... 600.0 done.",
+      "split_type": "EVAL"
+    },
+    {
+      "source_id": "SRC-OBS-128",
+      "scenario_id": "SCN-005",
+      "expected_activity_ids": [
+        "ACT-1038",
+        "ACT-1039"
+      ],
+      "expected_outcome": "AMBIGUOUS",
+      "raw_snippet": "Execution ongoing for civil task in Section 2.",
+      "split_type": "EVAL"
+    },
+    {
+      "source_id": "SRC-OBS-132",
+      "scenario_id": "SCN-004",
+      "expected_activity_ids": [
+        "ACT-1042"
+      ],
+      "expected_outcome": "MATCHED",
+      "raw_snippet": "Section 2 CIV scope ongoing: Mainline ROW Clearing & G... 600.0 done.",
+      "split_type": "EVAL"
+    },
+    {
+      "source_id": "SRC-OBS-133",
+      "scenario_id": "SCN-005",
+      "expected_activity_ids": [
+        "ACT-1043",
+        "ACT-1044"
+      ],
+      "expected_outcome": "AMBIGUOUS",
+      "raw_snippet": "Execution ongoing for civil task in Section 2.",
+      "split_type": "EVAL"
+    },
+    {
+      "source_id": "SRC-OBS-137",
+      "scenario_id": "SCN-004",
+      "expected_activity_ids": [
+        "ACT-1047"
+      ],
+      "expected_outcome": "MATCHED",
+      "raw_snippet": "Section 2 CIV scope ongoing: Mainline Trench Excavatio... 600.0 done.",
+      "split_type": "EVAL"
+    },
+    {
+      "source_id": "SRC-OBS-138",
+      "scenario_id": "SCN-005",
+      "expected_activity_ids": [
+        "ACT-1048",
+        "ACT-1049"
+      ],
+      "expected_outcome": "AMBIGUOUS",
+      "raw_snippet": "Execution ongoing for piping task in Section 2.",
+      "split_type": "EVAL"
+    },
+    {
+      "source_id": "SRC-OBS-142",
+      "scenario_id": "SCN-004",
+      "expected_activity_ids": [
+        "ACT-1052"
+      ],
+      "expected_outcome": "MATCHED",
+      "raw_snippet": "GGS-3 STR scope ongoing: GGS-3 Pipe Rack Structura... 25.5 done.",
+      "split_type": "EVAL"
+    },
+    {
+      "source_id": "SRC-OBS-143",
+      "scenario_id": "SCN-005",
+      "expected_activity_ids": [
+        "ACT-1053",
+        "ACT-1054"
+      ],
+      "expected_outcome": "AMBIGUOUS",
+      "raw_snippet": "Execution ongoing for structural task in GGS-3.",
+      "split_type": "EVAL"
+    },
+    {
+      "source_id": "SRC-OBS-147",
+      "scenario_id": "SCN-004",
+      "expected_activity_ids": [
+        "ACT-1057"
+      ],
+      "expected_outcome": "MATCHED",
+      "raw_snippet": "GGS-3 MEC scope ongoing: GGS-3 Crude Transfer Pump... 0.3 done.",
+      "split_type": "EVAL"
+    },
+    {
+      "source_id": "SRC-OBS-148",
+      "scenario_id": "SCN-005",
+      "expected_activity_ids": [
+        "ACT-1058",
+        "ACT-1059"
+      ],
+      "expected_outcome": "AMBIGUOUS",
+      "raw_snippet": "Execution ongoing for mechanical task in GGS-3.",
+      "split_type": "EVAL"
+    },
+    {
+      "source_id": "SRC-OBS-152",
+      "scenario_id": "SCN-004",
+      "expected_activity_ids": [
+        "ACT-1062"
+      ],
+      "expected_outcome": "MATCHED",
+      "raw_snippet": "GGS-3 ELE scope ongoing: GGS-3 Substation Building... 0.3 done.",
+      "split_type": "EVAL"
+    },
+    {
+      "source_id": "SRC-OBS-153",
+      "scenario_id": "SCN-005",
+      "expected_activity_ids": [
+        "ACT-1063",
+        "ACT-1064"
+      ],
+      "expected_outcome": "AMBIGUOUS",
+      "raw_snippet": "Execution ongoing for electrical task in GGS-3.",
+      "split_type": "EVAL"
+    },
+    {
+      "source_id": "SRC-OBS-157",
+      "scenario_id": "SCN-004",
+      "expected_activity_ids": [
+        "ACT-1067"
+      ],
+      "expected_outcome": "MATCHED",
+      "raw_snippet": "GGS-3 INS scope ongoing: GGS-3 Cold Loop Testing I... 12.0 done.",
+      "split_type": "EVAL"
+    },
+    {
+      "source_id": "SRC-OBS-158",
+      "scenario_id": "SCN-005",
+      "expected_activity_ids": [
+        "ACT-4010",
+        "ACT-4011"
+      ],
+      "expected_outcome": "AMBIGUOUS",
+      "raw_snippet": "Execution ongoing for piping task in River Crossing.",
+      "split_type": "EVAL"
+    },
+    {
+      "source_id": "SRC-OBS-162",
+      "scenario_id": "SCN-004",
+      "expected_activity_ids": [
+        "ACT-SCP-8012"
+      ],
+      "expected_outcome": "MATCHED",
+      "raw_snippet": "Spread A QA_ scope ongoing: 20-inch Trunkline Radiogr... 126.0 done.",
+      "split_type": "EVAL"
+    },
+    {
+      "source_id": "SRC-OBS-163",
+      "scenario_id": "SCN-005",
+      "expected_activity_ids": [
+        "ACT-SCP-8013",
+        "ACT-8014"
+      ],
+      "expected_outcome": "AMBIGUOUS",
+      "raw_snippet": "Execution ongoing for civil task in Spread A.",
+      "split_type": "EVAL"
+    },
+    {
+      "source_id": "SRC-OBS-167",
+      "scenario_id": "SCN-004",
+      "expected_activity_ids": [
+        "ACT-SCP-8017"
+      ],
+      "expected_outcome": "MATCHED",
+      "raw_snippet": "Spread A QA_ scope ongoing: 20-inch Trunkline Radiogr... 126.0 done.",
+      "split_type": "EVAL"
+    },
+    {
+      "source_id": "SRC-OBS-168",
+      "scenario_id": "SCN-005",
+      "expected_activity_ids": [
+        "ACT-SCP-8018",
+        "ACT-8019"
+      ],
+      "expected_outcome": "AMBIGUOUS",
+      "raw_snippet": "Execution ongoing for civil task in Spread A.",
+      "split_type": "EVAL"
+    },
+    {
+      "source_id": "SRC-OBS-172",
+      "scenario_id": "SCN-004",
+      "expected_activity_ids": [
+        "ACT-SCP-8022"
+      ],
+      "expected_outcome": "MATCHED",
+      "raw_snippet": "Spread A QA_ scope ongoing: 20-inch Trunkline Radiogr... 126.0 done.",
+      "split_type": "EVAL"
+    },
+    {
+      "source_id": "SRC-OBS-173",
+      "scenario_id": "SCN-005",
+      "expected_activity_ids": [
+        "ACT-SCP-8023",
+        "ACT-8024"
+      ],
+      "expected_outcome": "AMBIGUOUS",
+      "raw_snippet": "Execution ongoing for civil task in Spread A.",
+      "split_type": "EVAL"
+    },
+    {
+      "source_id": "SRC-OBS-177",
+      "scenario_id": "SCN-004",
+      "expected_activity_ids": [
+        "ACT-SCP-8027"
+      ],
+      "expected_outcome": "MATCHED",
+      "raw_snippet": "Spread B QA_ scope ongoing: 20-inch Trunkline Radiogr... 126.0 done.",
+      "split_type": "EVAL"
+    },
+    {
+      "source_id": "SRC-OBS-178",
+      "scenario_id": "SCN-005",
+      "expected_activity_ids": [
+        "ACT-SCP-8028",
+        "ACT-8029"
+      ],
+      "expected_outcome": "AMBIGUOUS",
+      "raw_snippet": "Execution ongoing for civil task in Spread B.",
+      "split_type": "EVAL"
+    },
+    {
+      "source_id": "SRC-OBS-182",
+      "scenario_id": "SCN-004",
+      "expected_activity_ids": [
+        "ACT-SCP-8032"
+      ],
+      "expected_outcome": "MATCHED",
+      "raw_snippet": "Spread B QA_ scope ongoing: 20-inch Trunkline Radiogr... 126.0 done.",
+      "split_type": "EVAL"
+    },
+    {
+      "source_id": "SRC-OBS-183",
+      "scenario_id": "SCN-005",
+      "expected_activity_ids": [
+        "ACT-SCP-8033",
+        "ACT-8034"
+      ],
+      "expected_outcome": "AMBIGUOUS",
+      "raw_snippet": "Execution ongoing for civil task in Spread B.",
+      "split_type": "EVAL"
+    },
+    {
+      "source_id": "SRC-OBS-187",
+      "scenario_id": "SCN-004",
+      "expected_activity_ids": [
+        "ACT-SCP-8037"
+      ],
+      "expected_outcome": "MATCHED",
+      "raw_snippet": "Spread B QA_ scope ongoing: 20-inch Trunkline Radiogr... 126.0 done.",
+      "split_type": "EVAL"
+    },
+    {
+      "source_id": "SRC-OBS-188",
+      "scenario_id": "SCN-005",
+      "expected_activity_ids": [
+        "ACT-SCP-8038",
+        "ACT-8039"
+      ],
+      "expected_outcome": "AMBIGUOUS",
+      "raw_snippet": "Execution ongoing for civil task in Spread B.",
+      "split_type": "EVAL"
+    },
+    {
+      "source_id": "SRC-OBS-192",
+      "scenario_id": "SCN-004",
+      "expected_activity_ids": [
+        "ACT-SCP-8042"
+      ],
+      "expected_outcome": "MATCHED",
+      "raw_snippet": "Tank Farm 1 STR scope ongoing: Tank Farm 1 Main Pipe Rac... 36.0 done.",
+      "split_type": "EVAL"
+    },
+    {
+      "source_id": "SRC-OBS-193",
+      "scenario_id": "SCN-005",
+      "expected_activity_ids": [
+        "ACT-SCP-8043",
+        "ACT-8044"
+      ],
+      "expected_outcome": "AMBIGUOUS",
+      "raw_snippet": "Execution ongoing for structural task in Tank Farm 1.",
+      "split_type": "EVAL"
+    },
+    {
+      "source_id": "SRC-OBS-197",
+      "scenario_id": "SCN-004",
+      "expected_activity_ids": [
+        "ACT-SCP-8047"
+      ],
+      "expected_outcome": "MATCHED",
+      "raw_snippet": "Tank Farm 1 PIP scope ongoing: Tank Farm 1 14-inch Crude... 18.0 done.",
+      "split_type": "EVAL"
+    },
+    {
+      "source_id": "SRC-OBS-198",
+      "scenario_id": "SCN-005",
+      "expected_activity_ids": [
+        "ACT-SCP-8048",
+        "ACT-8049"
+      ],
+      "expected_outcome": "AMBIGUOUS",
+      "raw_snippet": "Execution ongoing for piping task in Tank Farm 1.",
       "split_type": "EVAL"
     }
   ]

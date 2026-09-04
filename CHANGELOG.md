@@ -7,18 +7,89 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.9.0] - 2026-09-04
+
+### Added
+- Completed `PHASE 7 — Schedule-Aware Activity Matching Engine`.
+- Implemented matching engine domain models in `backend/models/domain_models.py`: `MatchOutcome`, `MatchFactorScores`, `CandidateMatch`, `MatchResult`.
+- Implemented `ScheduleAwareMatchingEngine` (`backend/matching/matching_engine.py`) with multi-factor weighted scoring (explicit ID, line/equipment, spatial/chainage, WBS, discipline, terminology action, temporal window) and configurable outcome classification (`MATCHED`, `AMBIGUOUS`, `UNMATCHED`).
+- Extended `DatabaseEngine` (`backend/persistence/database_engine.py`) with `match_results` SQLite repository table.
+- Implemented `ScheduleMatchingService` (`backend/services/matching_service.py`) orchestrating event-to-fingerprint matching.
+- Created `scripts/evaluate_matching_engine.py` benchmarking matching engine against synthetic ground truth datasets (`ground_truth_dev.json`, `ground_truth_edge_cases.json`, `ground_truth_eval.json`).
+- Published `docs/05-core-engines/schedule-matching.md` specification document.
+- Expanded test suite to 25 unit and integration tests passing 100%.
+
+---
+
+## [0.8.0] - 2026-09-04
+
+### Added
+- Completed `PHASE 6 — Activity Fingerprinting Engine`.
+- Implemented `ActivityFingerprint` domain dataclass in `backend/models/domain_models.py` capturing structural, semantic, spatial, temporal, and terminology intelligence layers.
+- Implemented `TerminologyIntelligenceEngine` (`backend/fingerprinting/terminology_engine.py`) providing Oil & Gas EPC abbreviation expansion (`ROW`, `HDD`, `GGS`, `NDT`, `DCS`, `TPIA`), action verb extraction, and field alias generation.
+- Implemented `ActivityFingerprintGenerator` (`backend/fingerprinting/fingerprint_generator.py`) for WBS hierarchy topological path resolution and multi-dimensional fingerprint computation.
+- Extended `DatabaseEngine` (`backend/persistence/database_engine.py`) with `activity_fingerprints` SQLite repository table.
+- Implemented `ActivityFingerprintService` (`backend/services/fingerprint_service.py`) indexing 100% of baseline activities across synthetic project schedules (`PRJ-NBG-2026` & `PRJ-SCP-2026`, 101 activities total).
+- Published `docs/05-core-engines/activity-fingerprinting.md` specification.
+- Implemented unit and integration test suite (`tests/unit/test_fingerprinting.py`, `tests/integration/test_fingerprint_integration.py`) passing 100%.
+
+---
+
+## [0.7.1] - 2026-09-04
+
+### Changed / Hardened (Phase 5.1 Correction Pass)
+- Implemented **One-to-Many Event Decomposition** (`extract_events_from_fragment`) splitting compound field fragments into multiple discrete `ExecutionEvent` records.
+- Implemented **Raw Activity ID Preservation**: invalid explicit references (e.g. `PIP-9999`) are preserved in `raw_observed_activity_id` and tagged `INVALID_EXPLICIT_REFERENCE` while `observed_activity_id` is set to `None`, preserving 100% of field observation data.
+- Implemented **Field-Level Provenance Spans**: `ProvenanceRecord.field_provenance_map` records character start/end spans (`start_char`, `end_char`, `snippet`) for extracted entities.
+- Implemented **Temporal Uncertainty & Resolution Status**: relative dates ("yesterday") without valid reference submission dates return `observed_timestamp = None` and `UNRESOLVED_RELATIVE_DATE`.
+- Verified **Strict Append-Only Immutability**: zero `UPDATE execution_events` SQL statements exist.
+- Implemented zero-dependency `XLSXAdapter` (`backend/ingestion/xlsx_adapter.py`) using Python standard library `zipfile` and `xml.etree.ElementTree`.
+- Expanded test suite to 23 unit & integration tests with 100% pass rate.
+
+---
+
+## [0.7.0] - 2026-09-04
+
+### Added
+- Completed `PHASE 5 — Execution Event Pipeline` vertical slice.
+- Implemented modular Python backend architecture: `ingestion`, `normalization`, `extraction`, `validation`, `persistence`, and `services`.
+- Implemented `SourceIngestionService` with SHA-256 hashing and exact duplicate detection idempotency.
+- Implemented `ContentNormalizationService` for whitespace cleanup, segment fragmenting, and relative date resolution.
+- Implemented `ExecutionEventExtractionService` with hybrid regex entity extraction for actions, disciplines, quantities, units, locations, and Phase 4.5 real-world fields (`shift_context`, `pending_qa_clearance`, `remaining_quantity`, `work_front_tag`).
+- Implemented `ClosedVocabularyGuardrail` (Rule 5) to prevent hallucinated Activity IDs; invalid IDs reset to `None` and quarantined.
+- Implemented `DatabaseEngine` (SQLite) append-only persistence for documents, fragments, events, provenance, and quarantine records.
+- Implemented `ExecutionEventPipelineService` orchestrator with correlation ID structured logging.
+- Created architectural and AI documentation: `docs/04-architecture/technology-stack.md`, `docs/05-core-engines/execution-event-pipeline.md`, `docs/07-ai/extraction-pipeline.md`, `docs/07-ai/guardrails.md`, `docs/07-ai/evaluation.md`.
+- Implemented 18 unit & integration tests (`tests/unit/`, `tests/integration/`) with 100% pass rate.
+
+---
+
+## [0.6.0] - 2026-09-04
+
+### Added
+- Completed `PHASE 4.5 — Real-World Data Reconnaissance`.
+- Formulated real-world data source register in `docs/06-data/real-world-source-register.md` classifying investigated public infrastructure sources across 4 standard categories (`[BENCHMARK_CANDIDATE]`, `[REFERENCE_MATERIAL]`, `[MANUALLY_LABELABLE]`, `[UNSUITABLE]`).
+- Conducted real-world human execution language pattern analysis (heavy abbreviations, mixed/dual units, shift context, QA hold points, partial completion, compound sentences).
+- Conducted synthetic dataset gap analysis and proposed conceptual domain extensions (`shift_context`, `pending_qa_clearance`, `remaining_quantity`, `work_front_tag`).
+- Published 3-tier real-world benchmark strategy in `docs/06-data/real-world-data-strategy.md` enforcing strict non-training data principles and licensing safeguards.
+
+---
+
+## [0.5.1] - 2026-09-04
+
+### Changed / Added (Phase 4 Correction Pass)
+- Executed strict Phase 4 Integrity Review and expanded synthetic dataset to genuinely satisfy all original exit criteria.
+- Created second complete project baseline: *"Subansiri Crude Oil Pipeline Replacement & Offsite Infrastructure"* (`PRJ-SCP-2026`) containing 41 L5/L6 activities. Total activities across both projects expanded to 101.
+- Audit and expanded discipline coverage to 8 complete engineering disciplines.
+- Expanded field observation corpus to 107 multi-format records.
+- Created dataset validation script in `scripts/validate_synthetic_data.py` (100% integrity validation PASS).
+
+---
+
 ## [0.5.0] - 2026-09-04
 
 ### Added
 - Completed `PHASE 4 — Synthetic Data Engineering`.
-- Established coherent fictional project: *"North Basin Gas Gathering & Processing Expansion"* (`PRJ-NBG-2026`).
-- Created baseline schedule datasets (`baseline_schedule.json`, `baseline_schedule.csv`) containing 61 L5/L6 activities across 7 engineering disciplines.
-- Formulated 15 domain challenge scenarios (`SCN-001` through `SCN-015`) covering exact matching, missing Activity IDs, site jargon, abbreviations, ambiguous candidates, unmatched scope, contradictory reports, duplicate transmittals, delayed reporting, relative dates, granularity mismatches, evidence gaps, out-of-sequence logic, and multi-source corroboration.
-- Created heterogeneous synthetic source observations (`dpr_reports.json`) representing Excel DPRs, PDF reports, site diaries, supervisor text notes, voice transcripts, and QA reports.
-- Created seed historical dataset (`institutional_memory_seed.json`) supporting Institutional Memory testing.
-- Created evaluation-only ground truth datasets (`ground_truth_dev.json`, `ground_truth_eval.json`, `ground_truth_edge_cases.json`) enforcing strict anti-cheating separation.
-- Built reproducible, deterministic Python generator script in `scripts/generate_synthetic_data.py`.
-- Published complete dataset specification and usage guide in `data/synthetic/README.md`.
 
 ---
 
@@ -26,16 +97,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - Completed `PHASE 3 - Architecture + Data Model`.
-- Published system architecture overview and authoritative source-of-truth boundaries in `docs/04-architecture/system-overview.md`.
-- Specified 17 conceptual system components in `docs/04-architecture/component-architecture.md`.
-- Modeled end-to-end data flow pipelines, state progression rules, and state reversibility mechanics in `docs/04-architecture/data-flow.md`.
-- Formulated AI architecture, closed-vocabulary guardrail implementation (Rule 5), and 7-stage matching strategy in `docs/04-architecture/ai-architecture.md`.
-- Established security architecture, role-based access matrix, and data leakage/prompt injection guardrails in `docs/04-architecture/security.md`.
-- Formulated scalability evolution roadmap (Modular Monolith to Distributed Microservices) in `docs/04-architecture/scalability.md`.
-- Designed conceptual data model for 19 core system entities in `docs/06-data/data-model.md`.
-- Defined structural JSON schemas and enumerated state specifications in `docs/06-data/schemas.md`.
-- Established schedule import boundary feasibility analysis and multi-format machine-resolvable provenance specifications in `docs/06-data/input-formats.md`.
-- Specified data quality rules, idempotent ingestion design, and quarantine mechanics in `docs/06-data/data-quality.md`.
 
 ---
 
@@ -43,11 +104,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - Completed `PHASE 2 - Product + Requirements`.
-- Established precise product vision, positioning statement, and anti-generic-AI evaluation in `docs/02-product/product-vision.md`.
-- Defined 5 detailed operational user personas and system interaction rules in `docs/02-product/personas.md`.
-- Documented 5-state operational progression model (`Observed` $\rightarrow$ `Extracted` $\rightarrow$ `Matched` $\rightarrow$ `Validated` $\rightarrow$ `Projected`) and 7 end-to-end user journeys (A through G) in `docs/02-product/user-journeys.md`.
-- Structured functional and product requirements catalogue (Categories A through M) in `docs/02-product/requirements.md`.
-- Strict MVP scope specification and explicit out-of-scope technology evaluation matrix in `docs/02-product/mvp-scope.md`.
 
 ---
 
@@ -55,7 +111,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - Completed `PHASE 1 - Problem + Domain Understanding`.
-- Created problem analysis documents (`docs/01-problem/`) and domain models (`docs/03-domain/`).
 
 ---
 

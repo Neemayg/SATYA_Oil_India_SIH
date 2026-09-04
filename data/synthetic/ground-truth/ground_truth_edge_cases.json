@@ -1,8 +1,9 @@
 {
   "split": "EDGE_CASES",
+  "total_records": 5,
   "records": [
     {
-      "source_id": "SRC-006",
+      "source_id": "SRC-OBS-901",
       "scenario_id": "SCN-006",
       "expected_activity_ids": [],
       "expected_outcome": "UNMATCHED",
@@ -10,7 +11,7 @@
       "split_type": "EDGE"
     },
     {
-      "source_id": "SRC-007A",
+      "source_id": "SRC-OBS-902A",
       "scenario_id": "SCN-007",
       "expected_activity_ids": [
         "ACT-1012"
@@ -20,7 +21,17 @@
       "split_type": "EDGE"
     },
     {
-      "source_id": "SRC-013",
+      "source_id": "SRC-OBS-902B",
+      "scenario_id": "SCN-007",
+      "expected_activity_ids": [
+        "ACT-1012"
+      ],
+      "expected_outcome": "CONFLICTED",
+      "raw_snippet": "Radiography NDT inspection for Sec 1 Km 0 to 2 failed on Joints J-14 and J-19 due to lack of penetration. Rework required.",
+      "split_type": "EDGE"
+    },
+    {
+      "source_id": "SRC-OBS-903",
       "scenario_id": "SCN-013",
       "expected_activity_ids": [
         "ACT-1013"
@@ -30,7 +41,7 @@
       "split_type": "EDGE"
     },
     {
-      "source_id": "SRC-014",
+      "source_id": "SRC-OBS-904",
       "scenario_id": "SCN-014",
       "expected_activity_ids": [
         "ACT-1019"

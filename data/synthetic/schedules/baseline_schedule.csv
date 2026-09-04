@@ -41,22 +41,62 @@ ACT-1048,Mainline Pipe Stringing & Welding Sec 2 - Km 18.0 to 20.0,WBS-320,NBG.P
 ACT-1049,Mainline Lowering & Backfilling Sec 2 - Km 18.0 to 20.0,WBS-320,NBG.PL.SEC2,5,CIVIL,Section 2,,PL-16-02,18.0,20.0,2026-09-13,2026-09-17,4,,,2000.0,Meters,False
 ACT-1050,GGS-3 Main Site Grading & Earthworks,WBS-210,NBG.GGS3.CIV,5,CIVIL,GGS-3,,,,,2026-09-03,2026-09-15,12,,,1.0,Lot,True
 ACT-1051,GGS-3 Separator Foundation Concreting V-101,WBS-210,NBG.GGS3.CIV,5,CIVIL,GGS-3,V-101,,,,2026-09-03,2026-09-15,12,,,120.0,Cu.M,True
-ACT-1052,GGS-3 Pump House Foundation Concreting P-301 A/B,WBS-210,NBG.GGS3.CIV,5,CIVIL,GGS-3,A/B,,,,2026-09-03,2026-09-15,12,,,85.0,Cu.M,True
-ACT-1053,GGS-3 Compressor Building Foundation K-201,WBS-210,NBG.GGS3.CIV,5,CIVIL,GGS-3,K-201,,,,2026-09-03,2026-09-15,12,,,250.0,Cu.M,True
-ACT-1054,GGS-3 Boundary Wall & Security Gate Construction,WBS-210,NBG.GGS3.CIV,5,CIVIL,GGS-3,,,,,2026-09-03,2026-09-15,12,,,450.0,Meters,True
+ACT-1052,GGS-3 Pipe Rack Structural Steel Fabrication,WBS-215,NBG.GGS3.STR,5,STRUCTURAL,GGS-3,,,,,2026-09-03,2026-09-15,12,,,85.0,MT,True
+ACT-1053,GGS-3 Pipe Rack Structural Steel Erection & Alignment,WBS-215,NBG.GGS3.STR,5,STRUCTURAL,GGS-3,,,,,2026-09-03,2026-09-15,12,,,85.0,MT,True
+ACT-1054,GGS-3 Compressor Building Structural Shelter Erection,WBS-215,NBG.GGS3.STR,5,STRUCTURAL,GGS-3,,,,,2026-09-03,2026-09-15,12,,,140.0,MT,True
 ACT-1055,GGS-3 Inlet Separator Vessel V-101 Erection,WBS-230,NBG.GGS3.MEC,5,MECHANICAL,GGS-3,,,,,2026-09-03,2026-09-15,12,,,1.0,Item,True
 ACT-1056,GGS-3 Crude Transfer Pump P-301A Installation,WBS-230,NBG.GGS3.MEC,5,MECHANICAL,GGS-3,,,,,2026-09-03,2026-09-15,12,,,1.0,Item,True
 ACT-1057,GGS-3 Crude Transfer Pump P-301B Installation,WBS-230,NBG.GGS3.MEC,5,MECHANICAL,GGS-3,,,,,2026-09-03,2026-09-15,12,,,1.0,Item,True
 ACT-1058,GGS-3 Gas Compressor Package K-201 Erection,WBS-230,NBG.GGS3.MEC,5,MECHANICAL,GGS-3,,,,,2026-09-03,2026-09-15,12,,,1.0,Item,True
 ACT-1059,GGS-3 Flare Stack Erection & Alignment,WBS-230,NBG.GGS3.MEC,5,MECHANICAL,GGS-3,,,,,2026-09-03,2026-09-15,12,,,1.0,Item,True
-ACT-1060,GGS-3 Manifold Piping Fabrication 8-inch Line L-101,WBS-220,NBG.GGS3.PIP,5,PIPING,GGS-3,L-101,,,,2026-09-03,2026-09-15,12,,,45.0,Spools,True
-ACT-1061,GGS-3 Manifold Piping Erection 8-inch Line L-101,WBS-220,NBG.GGS3.PIP,5,PIPING,GGS-3,L-101,,,,2026-09-03,2026-09-15,12,,,45.0,Spools,True
-ACT-1062,GGS-3 Hydrostatic Testing GGS Manifold Header,WBS-220,NBG.GGS3.PIP,5,PIPING,GGS-3,Header,,,,2026-09-03,2026-09-15,12,,,1.0,Test,True
-ACT-1063,GGS-3 Substation Building Transformer T-01 Erection,WBS-240,NBG.GGS3.ELE,5,ELECTRICAL,GGS-3,,,,,2026-09-03,2026-09-15,12,,,1.0,Item,True
-ACT-1064,GGS-3 Main Electrical Cable Trench & Cable Pulling,WBS-240,NBG.GGS3.ELE,5,ELECTRICAL,GGS-3,,,,,2026-09-03,2026-09-15,12,,,1200.0,Meters,True
-ACT-1065,GGS-3 Plant Earthing Grid Installation,WBS-240,NBG.GGS3.ELE,5,ELECTRICAL,GGS-3,,,,,2026-09-03,2026-09-15,12,,,800.0,Meters,True
-ACT-1066,GGS-3 Control Room DCS Panel Cabinet Erection,WBS-250,NBG.GGS3.INS,5,INSTRUMENTATION,GGS-3,,,,,2026-09-03,2026-09-15,12,,,1.0,Lot,True
-ACT-1067,GGS-3 Pressure Transmitter PT-101 Calibration & Fitting,WBS-250,NBG.GGS3.INS,5,INSTRUMENTATION,GGS-3,,,,,2026-09-03,2026-09-15,12,,,1.0,Item,True
-ACT-1068,GGS-3 Cold Loop Testing Instrument Loops,WBS-250,NBG.GGS3.INS,5,INSTRUMENTATION,GGS-3,Loops,,,,2026-09-03,2026-09-15,12,,,40.0,Loops,True
+ACT-1060,GGS-3 Manifold Piping Spool Erection 8-inch L-101,WBS-220,NBG.GGS3.PIP,5,PIPING,GGS-3,L-101,,,,2026-09-03,2026-09-15,12,,,45.0,Spools,True
+ACT-1061,GGS-3 Hydrostatic Testing GGS Manifold Header,WBS-220,NBG.GGS3.PIP,5,PIPING,GGS-3,Header,,,,2026-09-03,2026-09-15,12,,,1.0,Test,True
+ACT-1062,GGS-3 Substation Building Transformer T-01 Erection,WBS-240,NBG.GGS3.ELE,5,ELECTRICAL,GGS-3,,,,,2026-09-03,2026-09-15,12,,,1.0,Item,True
+ACT-1063,GGS-3 Main Electrical Cable Pulling & Glanding,WBS-240,NBG.GGS3.ELE,5,ELECTRICAL,GGS-3,,,,,2026-09-03,2026-09-15,12,,,1200.0,Meters,True
+ACT-1064,GGS-3 Plant Earthing Grid Installation & Megger Test,WBS-240,NBG.GGS3.ELE,5,ELECTRICAL,GGS-3,Test,,,,2026-09-03,2026-09-15,12,,,800.0,Meters,True
+ACT-1065,GGS-3 Control Room DCS Panel Cabinet Erection,WBS-250,NBG.GGS3.INS,5,INSTRUMENTATION,GGS-3,,,,,2026-09-03,2026-09-15,12,,,1.0,Lot,True
+ACT-1066,GGS-3 Pressure Transmitter PT-101 Calibration & Fitting,WBS-250,NBG.GGS3.INS,5,INSTRUMENTATION,GGS-3,,,,,2026-09-03,2026-09-15,12,,,1.0,Item,True
+ACT-1067,GGS-3 Cold Loop Testing Instrument Loops,WBS-250,NBG.GGS3.INS,5,INSTRUMENTATION,GGS-3,Loops,,,,2026-09-03,2026-09-15,12,,,40.0,Loops,True
 ACT-4010,River HDD Crossing Pilot Hole Drilling - Ch 12+400,WBS-330,NBG.PL.HDD,5,PIPING,River Crossing,HDD-RIG-01,PL-16-HDD,12.4,12.8,2026-09-02,2026-09-08,6,,ACT-4020,400.0,Meters,True
 ACT-4020,River HDD Crossing 16-inch Pipe Pullback - Ch 12+400,WBS-330,NBG.PL.HDD,5,PIPING,River Crossing,HDD-RIG-01,PL-16-HDD,12.4,12.8,2026-09-09,2026-09-14,5,ACT-4010,,400.0,Meters,True
+ACT-SCP-8010,20-inch Trunkline Trench Excavation Spread A - Km 0.0 to 5.0,WBS-S310,SCP.TRK.SpreadA,5,CIVIL,Spread A,,TRK-20-01,0.0,5.0,2026-09-01,2026-09-07,6,,,5000.0,Meters,True
+ACT-SCP-8011,20-inch Trunkline Mainline Welding Spread A - Km 0.0 to 5.0,WBS-S310,SCP.TRK.SpreadA,5,PIPING,Spread A,,TRK-20-01,0.0,5.0,2026-09-01,2026-09-07,6,,,420.0,Joints,True
+ACT-SCP-8012,20-inch Trunkline Radiography NDT Inspection Spread A - Km 0.0 to 5.0,WBS-S310,SCP.TRK.SpreadA,5,QA_QC,Spread A,,TRK-20-01,0.0,5.0,2026-09-01,2026-09-07,6,,,420.0,Joints,True
+ACT-SCP-8013,20-inch Trunkline Joint Coating & Lowering Spread A - Km 0.0 to 5.0,WBS-S310,SCP.TRK.SpreadA,5,CIVIL,Spread A,,TRK-20-01,0.0,5.0,2026-09-01,2026-09-07,6,,,5000.0,Meters,True
+ACT-SCP-8014,20-inch Trunkline Hydrostatic Test Spread A - Km 0.0 to 5.0,WBS-S310,SCP.TRK.SpreadA,5,PIPING,Spread A,,TRK-20-01,0.0,5.0,2026-09-01,2026-09-07,6,,,1.0,Test,True
+ACT-SCP-8015,20-inch Trunkline Trench Excavation Spread A - Km 5.0 to 10.0,WBS-S310,SCP.TRK.SpreadA,5,CIVIL,Spread A,,TRK-20-01,5.0,10.0,2026-09-04,2026-09-10,6,,,5000.0,Meters,True
+ACT-SCP-8016,20-inch Trunkline Mainline Welding Spread A - Km 5.0 to 10.0,WBS-S310,SCP.TRK.SpreadA,5,PIPING,Spread A,,TRK-20-01,5.0,10.0,2026-09-04,2026-09-10,6,,,420.0,Joints,True
+ACT-SCP-8017,20-inch Trunkline Radiography NDT Inspection Spread A - Km 5.0 to 10.0,WBS-S310,SCP.TRK.SpreadA,5,QA_QC,Spread A,,TRK-20-01,5.0,10.0,2026-09-04,2026-09-10,6,,,420.0,Joints,True
+ACT-SCP-8018,20-inch Trunkline Joint Coating & Lowering Spread A - Km 5.0 to 10.0,WBS-S310,SCP.TRK.SpreadA,5,CIVIL,Spread A,,TRK-20-01,5.0,10.0,2026-09-04,2026-09-10,6,,,5000.0,Meters,True
+ACT-SCP-8019,20-inch Trunkline Hydrostatic Test Spread A - Km 5.0 to 10.0,WBS-S310,SCP.TRK.SpreadA,5,PIPING,Spread A,,TRK-20-01,5.0,10.0,2026-09-04,2026-09-10,6,,,1.0,Test,True
+ACT-SCP-8020,20-inch Trunkline Trench Excavation Spread A - Km 10.0 to 15.0,WBS-S310,SCP.TRK.SpreadA,5,CIVIL,Spread A,,TRK-20-01,10.0,15.0,2026-09-07,2026-09-13,6,,,5000.0,Meters,True
+ACT-SCP-8021,20-inch Trunkline Mainline Welding Spread A - Km 10.0 to 15.0,WBS-S310,SCP.TRK.SpreadA,5,PIPING,Spread A,,TRK-20-01,10.0,15.0,2026-09-07,2026-09-13,6,,,420.0,Joints,True
+ACT-SCP-8022,20-inch Trunkline Radiography NDT Inspection Spread A - Km 10.0 to 15.0,WBS-S310,SCP.TRK.SpreadA,5,QA_QC,Spread A,,TRK-20-01,10.0,15.0,2026-09-07,2026-09-13,6,,,420.0,Joints,True
+ACT-SCP-8023,20-inch Trunkline Joint Coating & Lowering Spread A - Km 10.0 to 15.0,WBS-S310,SCP.TRK.SpreadA,5,CIVIL,Spread A,,TRK-20-01,10.0,15.0,2026-09-07,2026-09-13,6,,,5000.0,Meters,True
+ACT-SCP-8024,20-inch Trunkline Hydrostatic Test Spread A - Km 10.0 to 15.0,WBS-S310,SCP.TRK.SpreadA,5,PIPING,Spread A,,TRK-20-01,10.0,15.0,2026-09-07,2026-09-13,6,,,1.0,Test,True
+ACT-SCP-8025,20-inch Trunkline Trench Excavation Spread B - Km 15.0 to 20.0,WBS-S320,SCP.TRK.SpreadB,5,CIVIL,Spread B,,TRK-20-01,15.0,20.0,2026-09-01,2026-09-07,6,,,5000.0,Meters,True
+ACT-SCP-8026,20-inch Trunkline Mainline Welding Spread B - Km 15.0 to 20.0,WBS-S320,SCP.TRK.SpreadB,5,PIPING,Spread B,,TRK-20-01,15.0,20.0,2026-09-01,2026-09-07,6,,,420.0,Joints,True
+ACT-SCP-8027,20-inch Trunkline Radiography NDT Inspection Spread B - Km 15.0 to 20.0,WBS-S320,SCP.TRK.SpreadB,5,QA_QC,Spread B,,TRK-20-01,15.0,20.0,2026-09-01,2026-09-07,6,,,420.0,Joints,True
+ACT-SCP-8028,20-inch Trunkline Joint Coating & Lowering Spread B - Km 15.0 to 20.0,WBS-S320,SCP.TRK.SpreadB,5,CIVIL,Spread B,,TRK-20-01,15.0,20.0,2026-09-01,2026-09-07,6,,,5000.0,Meters,True
+ACT-SCP-8029,20-inch Trunkline Hydrostatic Test Spread B - Km 15.0 to 20.0,WBS-S320,SCP.TRK.SpreadB,5,PIPING,Spread B,,TRK-20-01,15.0,20.0,2026-09-01,2026-09-07,6,,,1.0,Test,True
+ACT-SCP-8030,20-inch Trunkline Trench Excavation Spread B - Km 20.0 to 25.0,WBS-S320,SCP.TRK.SpreadB,5,CIVIL,Spread B,,TRK-20-01,20.0,25.0,2026-09-04,2026-09-10,6,,,5000.0,Meters,True
+ACT-SCP-8031,20-inch Trunkline Mainline Welding Spread B - Km 20.0 to 25.0,WBS-S320,SCP.TRK.SpreadB,5,PIPING,Spread B,,TRK-20-01,20.0,25.0,2026-09-04,2026-09-10,6,,,420.0,Joints,True
+ACT-SCP-8032,20-inch Trunkline Radiography NDT Inspection Spread B - Km 20.0 to 25.0,WBS-S320,SCP.TRK.SpreadB,5,QA_QC,Spread B,,TRK-20-01,20.0,25.0,2026-09-04,2026-09-10,6,,,420.0,Joints,True
+ACT-SCP-8033,20-inch Trunkline Joint Coating & Lowering Spread B - Km 20.0 to 25.0,WBS-S320,SCP.TRK.SpreadB,5,CIVIL,Spread B,,TRK-20-01,20.0,25.0,2026-09-04,2026-09-10,6,,,5000.0,Meters,True
+ACT-SCP-8034,20-inch Trunkline Hydrostatic Test Spread B - Km 20.0 to 25.0,WBS-S320,SCP.TRK.SpreadB,5,PIPING,Spread B,,TRK-20-01,20.0,25.0,2026-09-04,2026-09-10,6,,,1.0,Test,True
+ACT-SCP-8035,20-inch Trunkline Trench Excavation Spread B - Km 25.0 to 30.0,WBS-S320,SCP.TRK.SpreadB,5,CIVIL,Spread B,,TRK-20-01,25.0,30.0,2026-09-07,2026-09-13,6,,,5000.0,Meters,True
+ACT-SCP-8036,20-inch Trunkline Mainline Welding Spread B - Km 25.0 to 30.0,WBS-S320,SCP.TRK.SpreadB,5,PIPING,Spread B,,TRK-20-01,25.0,30.0,2026-09-07,2026-09-13,6,,,420.0,Joints,True
+ACT-SCP-8037,20-inch Trunkline Radiography NDT Inspection Spread B - Km 25.0 to 30.0,WBS-S320,SCP.TRK.SpreadB,5,QA_QC,Spread B,,TRK-20-01,25.0,30.0,2026-09-07,2026-09-13,6,,,420.0,Joints,True
+ACT-SCP-8038,20-inch Trunkline Joint Coating & Lowering Spread B - Km 25.0 to 30.0,WBS-S320,SCP.TRK.SpreadB,5,CIVIL,Spread B,,TRK-20-01,25.0,30.0,2026-09-07,2026-09-13,6,,,5000.0,Meters,True
+ACT-SCP-8039,20-inch Trunkline Hydrostatic Test Spread B - Km 25.0 to 30.0,WBS-S320,SCP.TRK.SpreadB,5,PIPING,Spread B,,TRK-20-01,25.0,30.0,2026-09-07,2026-09-13,6,,,1.0,Test,True
+ACT-SCP-8040,Tank Farm 1 Crude Tank T-101 Ring Foundation Concreting,WBS-S210,SCP.TF1.CIV,5,CIVIL,Tank Farm 1,,,,,2026-09-02,2026-09-18,16,,,350.0,Cu.M,True
+ACT-SCP-8041,Tank Farm 1 Dyke Wall Reinforced Earth Construction,WBS-S210,SCP.TF1.CIV,5,CIVIL,Tank Farm 1,,,,,2026-09-02,2026-09-18,16,,,850.0,Cu.M,True
+ACT-SCP-8042,Tank Farm 1 Main Pipe Rack Structural Steel Fabrication,WBS-S220,SCP.TF1.STR,5,STRUCTURAL,Tank Farm 1,,,,,2026-09-02,2026-09-18,16,,,120.0,MT,True
+ACT-SCP-8043,Tank Farm 1 Main Pipe Rack Structural Steel Erection,WBS-S220,SCP.TF1.STR,5,STRUCTURAL,Tank Farm 1,,,,,2026-09-02,2026-09-18,16,,,120.0,MT,True
+ACT-SCP-8044,Tank Farm 1 Pump House Overhead Crane Structure Erection,WBS-S220,SCP.TF1.STR,5,STRUCTURAL,Tank Farm 1,,,,,2026-09-02,2026-09-18,16,,,45.0,MT,True
+ACT-SCP-8045,Tank Farm 1 Crude Oil Main Transfer Pump P-101 Erection,WBS-S200,SCP.TF1.MEC,5,MECHANICAL,Tank Farm 1,,,,,2026-09-02,2026-09-18,16,,,1.0,Item,True
+ACT-SCP-8046,Tank Farm 1 Crude Oil Standby Transfer Pump P-102 Erection,WBS-S200,SCP.TF1.MEC,5,MECHANICAL,Tank Farm 1,,,,,2026-09-02,2026-09-18,16,,,1.0,Item,True
+ACT-SCP-8047,Tank Farm 1 14-inch Crude Header Suction Piping Fabrication,WBS-S230,SCP.TF1.PIP,5,PIPING,Tank Farm 1,,,,,2026-09-02,2026-09-18,16,,,60.0,Spools,True
+ACT-SCP-8048,Tank Farm 1 14-inch Crude Header Suction Piping Erection,WBS-S230,SCP.TF1.PIP,5,PIPING,Tank Farm 1,,,,,2026-09-02,2026-09-18,16,,,60.0,Spools,True
+ACT-SCP-8049,Tank Farm 1 Fire Water Ring Main Piping Trenching,WBS-S200,SCP.TF1.SAF,5,SAFETY_HSE,Tank Farm 1,,,,,2026-09-02,2026-09-18,16,,,1500.0,Meters,True
+ACT-SCP-8050,Tank Farm 1 Fire Water Hydrant & Monitor Installation,WBS-S200,SCP.TF1.SAF,5,SAFETY_HSE,Tank Farm 1,,,,,2026-09-02,2026-09-18,16,,,24.0,Nos,True

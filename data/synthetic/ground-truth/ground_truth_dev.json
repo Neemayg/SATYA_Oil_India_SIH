@@ -1,64 +1,625 @@
 {
   "split": "DEVELOPMENT",
+  "total_records": 62,
   "records": [
     {
-      "source_id": "SRC-001",
+      "source_id": "SRC-OBS-100",
       "scenario_id": "SCN-001",
       "expected_activity_ids": [
         "ACT-1010"
       ],
       "expected_outcome": "MATCHED",
-      "raw_snippet": "ACT-1010: Mainline ROW Clearing & Grading Sec 1 - Km 0.0 to 2.0 completed 400m today.",
+      "raw_snippet": "ACT-1010: Mainline ROW Clearing & Grading Sec 1 - Km 0.0 to 2.0 completed 500.0 Meters today.",
       "split_type": "DEV"
     },
     {
-      "source_id": "SRC-002",
+      "source_id": "SRC-OBS-101",
       "scenario_id": "SCN-002",
       "expected_activity_ids": [
         "ACT-1011"
       ],
       "expected_outcome": "MATCHED",
-      "raw_snippet": "Trench excavation in progress Section 1 from Km 0.0 to 2.0 with 350m dug.",
+      "raw_snippet": "Completed 400.0 Meters for civil work in Section 1.",
       "split_type": "DEV"
     },
     {
-      "source_id": "SRC-003",
-      "scenario_id": "SCN-003",
+      "source_id": "SRC-OBS-104",
+      "scenario_id": "SCN-011",
       "expected_activity_ids": [
-        "ACT-4020"
+        "ACT-1014"
+      ],
+      "expected_outcome": "MATCHED_AGGREGATED",
+      "raw_snippet": "Shift log: Mainline ROW Clearing & Gradin progress 200.0 Meters achieved.",
+      "split_type": "DEV"
+    },
+    {
+      "source_id": "SRC-OBS-105",
+      "scenario_id": "SCN-001",
+      "expected_activity_ids": [
+        "ACT-1015"
       ],
       "expected_outcome": "MATCHED",
-      "raw_snippet": "HDD 16-inch Pullback at river section completed successfully with 400m pipe pulled.",
+      "raw_snippet": "ACT-1015: Mainline Trench Excavation Sec 1 - Km 2.0 to 4.0 completed 500.0 Meters today.",
       "split_type": "DEV"
     },
     {
-      "source_id": "SRC-004",
-      "scenario_id": "SCN-004",
+      "source_id": "SRC-OBS-106",
+      "scenario_id": "SCN-002",
       "expected_activity_ids": [
-        "ACT-1010"
+        "ACT-1016"
       ],
       "expected_outcome": "MATCHED",
-      "raw_snippet": "ROW clrg & grdg Sec 1 Ch 0-2km done 500m.",
+      "raw_snippet": "Completed 32.0 Joints for piping work in Section 1.",
       "split_type": "DEV"
     },
     {
-      "source_id": "SRC-010",
-      "scenario_id": "SCN-010",
+      "source_id": "SRC-OBS-109",
+      "scenario_id": "SCN-011",
+      "expected_activity_ids": [
+        "ACT-1019"
+      ],
+      "expected_outcome": "MATCHED_AGGREGATED",
+      "raw_snippet": "Shift log: Mainline Trench Excavation Sec progress 200.0 Meters achieved.",
+      "split_type": "DEV"
+    },
+    {
+      "source_id": "SRC-OBS-110",
+      "scenario_id": "SCN-001",
+      "expected_activity_ids": [
+        "ACT-1020"
+      ],
+      "expected_outcome": "MATCHED",
+      "raw_snippet": "ACT-1020: Mainline Pipe Stringing & Welding Sec 1 - Km 4.0 to 6.0 completed 40.0 Joints today.",
+      "split_type": "DEV"
+    },
+    {
+      "source_id": "SRC-OBS-111",
+      "scenario_id": "SCN-002",
+      "expected_activity_ids": [
+        "ACT-1021"
+      ],
+      "expected_outcome": "MATCHED",
+      "raw_snippet": "Completed 400.0 Meters for civil work in Section 1.",
+      "split_type": "DEV"
+    },
+    {
+      "source_id": "SRC-OBS-114",
+      "scenario_id": "SCN-011",
+      "expected_activity_ids": [
+        "ACT-1024"
+      ],
+      "expected_outcome": "MATCHED_AGGREGATED",
+      "raw_snippet": "Shift log: Mainline Pipe Stringing & Weld progress 16.0 Joints achieved.",
+      "split_type": "DEV"
+    },
+    {
+      "source_id": "SRC-OBS-115",
+      "scenario_id": "SCN-001",
+      "expected_activity_ids": [
+        "ACT-1025"
+      ],
+      "expected_outcome": "MATCHED",
+      "raw_snippet": "ACT-1025: Mainline Lowering & Backfilling Sec 1 - Km 6.0 to 8.0 completed 500.0 Meters today.",
+      "split_type": "DEV"
+    },
+    {
+      "source_id": "SRC-OBS-116",
+      "scenario_id": "SCN-002",
+      "expected_activity_ids": [
+        "ACT-1026"
+      ],
+      "expected_outcome": "MATCHED",
+      "raw_snippet": "Completed 400.0 Meters for civil work in Section 1.",
+      "split_type": "DEV"
+    },
+    {
+      "source_id": "SRC-OBS-119",
+      "scenario_id": "SCN-011",
+      "expected_activity_ids": [
+        "ACT-1029"
+      ],
+      "expected_outcome": "MATCHED_AGGREGATED",
+      "raw_snippet": "Shift log: Mainline Lowering & Backfillin progress 200.0 Meters achieved.",
+      "split_type": "DEV"
+    },
+    {
+      "source_id": "SRC-OBS-120",
+      "scenario_id": "SCN-001",
+      "expected_activity_ids": [
+        "ACT-1030"
+      ],
+      "expected_outcome": "MATCHED",
+      "raw_snippet": "ACT-1030: Mainline ROW Clearing & Grading Sec 2 - Km 10.0 to 12.0 completed 500.0 Meters today.",
+      "split_type": "DEV"
+    },
+    {
+      "source_id": "SRC-OBS-121",
+      "scenario_id": "SCN-002",
+      "expected_activity_ids": [
+        "ACT-1031"
+      ],
+      "expected_outcome": "MATCHED",
+      "raw_snippet": "Completed 400.0 Meters for civil work in Section 2.",
+      "split_type": "DEV"
+    },
+    {
+      "source_id": "SRC-OBS-124",
+      "scenario_id": "SCN-011",
+      "expected_activity_ids": [
+        "ACT-1034"
+      ],
+      "expected_outcome": "MATCHED_AGGREGATED",
+      "raw_snippet": "Shift log: Mainline ROW Clearing & Gradin progress 200.0 Meters achieved.",
+      "split_type": "DEV"
+    },
+    {
+      "source_id": "SRC-OBS-125",
+      "scenario_id": "SCN-001",
+      "expected_activity_ids": [
+        "ACT-1035"
+      ],
+      "expected_outcome": "MATCHED",
+      "raw_snippet": "ACT-1035: Mainline Trench Excavation Sec 2 - Km 12.0 to 14.0 completed 500.0 Meters today.",
+      "split_type": "DEV"
+    },
+    {
+      "source_id": "SRC-OBS-126",
+      "scenario_id": "SCN-002",
+      "expected_activity_ids": [
+        "ACT-1036"
+      ],
+      "expected_outcome": "MATCHED",
+      "raw_snippet": "Completed 32.0 Joints for piping work in Section 2.",
+      "split_type": "DEV"
+    },
+    {
+      "source_id": "SRC-OBS-129",
+      "scenario_id": "SCN-011",
+      "expected_activity_ids": [
+        "ACT-1039"
+      ],
+      "expected_outcome": "MATCHED_AGGREGATED",
+      "raw_snippet": "Shift log: Mainline Trench Excavation Sec progress 200.0 Meters achieved.",
+      "split_type": "DEV"
+    },
+    {
+      "source_id": "SRC-OBS-130",
+      "scenario_id": "SCN-001",
+      "expected_activity_ids": [
+        "ACT-1040"
+      ],
+      "expected_outcome": "MATCHED",
+      "raw_snippet": "ACT-1040: Mainline Pipe Stringing & Welding Sec 2 - Km 14.0 to 16.0 completed 40.0 Joints today.",
+      "split_type": "DEV"
+    },
+    {
+      "source_id": "SRC-OBS-131",
+      "scenario_id": "SCN-002",
+      "expected_activity_ids": [
+        "ACT-1041"
+      ],
+      "expected_outcome": "MATCHED",
+      "raw_snippet": "Completed 400.0 Meters for civil work in Section 2.",
+      "split_type": "DEV"
+    },
+    {
+      "source_id": "SRC-OBS-134",
+      "scenario_id": "SCN-011",
+      "expected_activity_ids": [
+        "ACT-1044"
+      ],
+      "expected_outcome": "MATCHED_AGGREGATED",
+      "raw_snippet": "Shift log: Mainline Pipe Stringing & Weld progress 16.0 Joints achieved.",
+      "split_type": "DEV"
+    },
+    {
+      "source_id": "SRC-OBS-135",
+      "scenario_id": "SCN-001",
+      "expected_activity_ids": [
+        "ACT-1045"
+      ],
+      "expected_outcome": "MATCHED",
+      "raw_snippet": "ACT-1045: Mainline Lowering & Backfilling Sec 2 - Km 16.0 to 18.0 completed 500.0 Meters today.",
+      "split_type": "DEV"
+    },
+    {
+      "source_id": "SRC-OBS-136",
+      "scenario_id": "SCN-002",
+      "expected_activity_ids": [
+        "ACT-1046"
+      ],
+      "expected_outcome": "MATCHED",
+      "raw_snippet": "Completed 400.0 Meters for civil work in Section 2.",
+      "split_type": "DEV"
+    },
+    {
+      "source_id": "SRC-OBS-139",
+      "scenario_id": "SCN-011",
+      "expected_activity_ids": [
+        "ACT-1049"
+      ],
+      "expected_outcome": "MATCHED_AGGREGATED",
+      "raw_snippet": "Shift log: Mainline Lowering & Backfillin progress 200.0 Meters achieved.",
+      "split_type": "DEV"
+    },
+    {
+      "source_id": "SRC-OBS-140",
+      "scenario_id": "SCN-001",
       "expected_activity_ids": [
         "ACT-1050"
       ],
       "expected_outcome": "MATCHED",
-      "raw_snippet": "Shift 2 yesterday completed erection and leveling of GGS-3 Inlet Separator Vessel V-101.",
+      "raw_snippet": "ACT-1050: GGS-3 Main Site Grading & Earthworks completed 0.2 Lot today.",
       "split_type": "DEV"
     },
     {
-      "source_id": "SRC-015",
-      "scenario_id": "SCN-015",
+      "source_id": "SRC-OBS-141",
+      "scenario_id": "SCN-002",
       "expected_activity_ids": [
         "ACT-1051"
       ],
-      "expected_outcome": "MATCHED_VERIFIED",
-      "raw_snippet": "GGS-3 Crude Transfer Pump P-301A Installation complete with geotagged photo IMG_9012.jpg and TPIA Clearance Cert #QA-9041.",
+      "expected_outcome": "MATCHED",
+      "raw_snippet": "Completed 24.0 Cu.M for civil work in GGS-3.",
+      "split_type": "DEV"
+    },
+    {
+      "source_id": "SRC-OBS-144",
+      "scenario_id": "SCN-011",
+      "expected_activity_ids": [
+        "ACT-1054"
+      ],
+      "expected_outcome": "MATCHED_AGGREGATED",
+      "raw_snippet": "Shift log: GGS-3 Compressor Building Stru progress 14.0 MT achieved.",
+      "split_type": "DEV"
+    },
+    {
+      "source_id": "SRC-OBS-145",
+      "scenario_id": "SCN-001",
+      "expected_activity_ids": [
+        "ACT-1055"
+      ],
+      "expected_outcome": "MATCHED",
+      "raw_snippet": "ACT-1055: GGS-3 Inlet Separator Vessel V-101 Erection completed 0.2 Item today.",
+      "split_type": "DEV"
+    },
+    {
+      "source_id": "SRC-OBS-146",
+      "scenario_id": "SCN-002",
+      "expected_activity_ids": [
+        "ACT-1056"
+      ],
+      "expected_outcome": "MATCHED",
+      "raw_snippet": "Completed 0.2 Item for mechanical work in GGS-3.",
+      "split_type": "DEV"
+    },
+    {
+      "source_id": "SRC-OBS-149",
+      "scenario_id": "SCN-011",
+      "expected_activity_ids": [
+        "ACT-1059"
+      ],
+      "expected_outcome": "MATCHED_AGGREGATED",
+      "raw_snippet": "Shift log: GGS-3 Flare Stack Erection & A progress 0.1 Item achieved.",
+      "split_type": "DEV"
+    },
+    {
+      "source_id": "SRC-OBS-150",
+      "scenario_id": "SCN-001",
+      "expected_activity_ids": [
+        "ACT-1060"
+      ],
+      "expected_outcome": "MATCHED",
+      "raw_snippet": "ACT-1060: GGS-3 Manifold Piping Spool Erection 8-inch L-101 completed 11.2 Spools today.",
+      "split_type": "DEV"
+    },
+    {
+      "source_id": "SRC-OBS-151",
+      "scenario_id": "SCN-002",
+      "expected_activity_ids": [
+        "ACT-1061"
+      ],
+      "expected_outcome": "MATCHED",
+      "raw_snippet": "Completed 0.2 Test for piping work in GGS-3.",
+      "split_type": "DEV"
+    },
+    {
+      "source_id": "SRC-OBS-154",
+      "scenario_id": "SCN-011",
+      "expected_activity_ids": [
+        "ACT-1064"
+      ],
+      "expected_outcome": "MATCHED_AGGREGATED",
+      "raw_snippet": "Shift log: GGS-3 Plant Earthing Grid Inst progress 80.0 Meters achieved.",
+      "split_type": "DEV"
+    },
+    {
+      "source_id": "SRC-OBS-155",
+      "scenario_id": "SCN-001",
+      "expected_activity_ids": [
+        "ACT-1065"
+      ],
+      "expected_outcome": "MATCHED",
+      "raw_snippet": "ACT-1065: GGS-3 Control Room DCS Panel Cabinet Erection completed 0.2 Lot today.",
+      "split_type": "DEV"
+    },
+    {
+      "source_id": "SRC-OBS-156",
+      "scenario_id": "SCN-002",
+      "expected_activity_ids": [
+        "ACT-1066"
+      ],
+      "expected_outcome": "MATCHED",
+      "raw_snippet": "Completed 0.2 Item for instrumentation work in GGS-3.",
+      "split_type": "DEV"
+    },
+    {
+      "source_id": "SRC-OBS-159",
+      "scenario_id": "SCN-011",
+      "expected_activity_ids": [
+        "ACT-4020"
+      ],
+      "expected_outcome": "MATCHED_AGGREGATED",
+      "raw_snippet": "Shift log: River HDD Crossing 16-inch Pip progress 40.0 Meters achieved.",
+      "split_type": "DEV"
+    },
+    {
+      "source_id": "SRC-OBS-160",
+      "scenario_id": "SCN-001",
+      "expected_activity_ids": [
+        "ACT-SCP-8010"
+      ],
+      "expected_outcome": "MATCHED",
+      "raw_snippet": "ACT-SCP-8010: 20-inch Trunkline Trench Excavation Spread A - Km 0.0 to 5.0 completed 1250.0 Meters today.",
+      "split_type": "DEV"
+    },
+    {
+      "source_id": "SRC-OBS-161",
+      "scenario_id": "SCN-002",
+      "expected_activity_ids": [
+        "ACT-SCP-8011"
+      ],
+      "expected_outcome": "MATCHED",
+      "raw_snippet": "Completed 84.0 Joints for piping work in Spread A.",
+      "split_type": "DEV"
+    },
+    {
+      "source_id": "SRC-OBS-164",
+      "scenario_id": "SCN-011",
+      "expected_activity_ids": [
+        "ACT-SCP-8014"
+      ],
+      "expected_outcome": "MATCHED_AGGREGATED",
+      "raw_snippet": "Shift log: 20-inch Trunkline Hydrostatic  progress 0.1 Test achieved.",
+      "split_type": "DEV"
+    },
+    {
+      "source_id": "SRC-OBS-165",
+      "scenario_id": "SCN-001",
+      "expected_activity_ids": [
+        "ACT-SCP-8015"
+      ],
+      "expected_outcome": "MATCHED",
+      "raw_snippet": "ACT-SCP-8015: 20-inch Trunkline Trench Excavation Spread A - Km 5.0 to 10.0 completed 1250.0 Meters today.",
+      "split_type": "DEV"
+    },
+    {
+      "source_id": "SRC-OBS-166",
+      "scenario_id": "SCN-002",
+      "expected_activity_ids": [
+        "ACT-SCP-8016"
+      ],
+      "expected_outcome": "MATCHED",
+      "raw_snippet": "Completed 84.0 Joints for piping work in Spread A.",
+      "split_type": "DEV"
+    },
+    {
+      "source_id": "SRC-OBS-169",
+      "scenario_id": "SCN-011",
+      "expected_activity_ids": [
+        "ACT-SCP-8019"
+      ],
+      "expected_outcome": "MATCHED_AGGREGATED",
+      "raw_snippet": "Shift log: 20-inch Trunkline Hydrostatic  progress 0.1 Test achieved.",
+      "split_type": "DEV"
+    },
+    {
+      "source_id": "SRC-OBS-170",
+      "scenario_id": "SCN-001",
+      "expected_activity_ids": [
+        "ACT-SCP-8020"
+      ],
+      "expected_outcome": "MATCHED",
+      "raw_snippet": "ACT-SCP-8020: 20-inch Trunkline Trench Excavation Spread A - Km 10.0 to 15.0 completed 1250.0 Meters today.",
+      "split_type": "DEV"
+    },
+    {
+      "source_id": "SRC-OBS-171",
+      "scenario_id": "SCN-002",
+      "expected_activity_ids": [
+        "ACT-SCP-8021"
+      ],
+      "expected_outcome": "MATCHED",
+      "raw_snippet": "Completed 84.0 Joints for piping work in Spread A.",
+      "split_type": "DEV"
+    },
+    {
+      "source_id": "SRC-OBS-174",
+      "scenario_id": "SCN-011",
+      "expected_activity_ids": [
+        "ACT-SCP-8024"
+      ],
+      "expected_outcome": "MATCHED_AGGREGATED",
+      "raw_snippet": "Shift log: 20-inch Trunkline Hydrostatic  progress 0.1 Test achieved.",
+      "split_type": "DEV"
+    },
+    {
+      "source_id": "SRC-OBS-175",
+      "scenario_id": "SCN-001",
+      "expected_activity_ids": [
+        "ACT-SCP-8025"
+      ],
+      "expected_outcome": "MATCHED",
+      "raw_snippet": "ACT-SCP-8025: 20-inch Trunkline Trench Excavation Spread B - Km 15.0 to 20.0 completed 1250.0 Meters today.",
+      "split_type": "DEV"
+    },
+    {
+      "source_id": "SRC-OBS-176",
+      "scenario_id": "SCN-002",
+      "expected_activity_ids": [
+        "ACT-SCP-8026"
+      ],
+      "expected_outcome": "MATCHED",
+      "raw_snippet": "Completed 84.0 Joints for piping work in Spread B.",
+      "split_type": "DEV"
+    },
+    {
+      "source_id": "SRC-OBS-179",
+      "scenario_id": "SCN-011",
+      "expected_activity_ids": [
+        "ACT-SCP-8029"
+      ],
+      "expected_outcome": "MATCHED_AGGREGATED",
+      "raw_snippet": "Shift log: 20-inch Trunkline Hydrostatic  progress 0.1 Test achieved.",
+      "split_type": "DEV"
+    },
+    {
+      "source_id": "SRC-OBS-180",
+      "scenario_id": "SCN-001",
+      "expected_activity_ids": [
+        "ACT-SCP-8030"
+      ],
+      "expected_outcome": "MATCHED",
+      "raw_snippet": "ACT-SCP-8030: 20-inch Trunkline Trench Excavation Spread B - Km 20.0 to 25.0 completed 1250.0 Meters today.",
+      "split_type": "DEV"
+    },
+    {
+      "source_id": "SRC-OBS-181",
+      "scenario_id": "SCN-002",
+      "expected_activity_ids": [
+        "ACT-SCP-8031"
+      ],
+      "expected_outcome": "MATCHED",
+      "raw_snippet": "Completed 84.0 Joints for piping work in Spread B.",
+      "split_type": "DEV"
+    },
+    {
+      "source_id": "SRC-OBS-184",
+      "scenario_id": "SCN-011",
+      "expected_activity_ids": [
+        "ACT-SCP-8034"
+      ],
+      "expected_outcome": "MATCHED_AGGREGATED",
+      "raw_snippet": "Shift log: 20-inch Trunkline Hydrostatic  progress 0.1 Test achieved.",
+      "split_type": "DEV"
+    },
+    {
+      "source_id": "SRC-OBS-185",
+      "scenario_id": "SCN-001",
+      "expected_activity_ids": [
+        "ACT-SCP-8035"
+      ],
+      "expected_outcome": "MATCHED",
+      "raw_snippet": "ACT-SCP-8035: 20-inch Trunkline Trench Excavation Spread B - Km 25.0 to 30.0 completed 1250.0 Meters today.",
+      "split_type": "DEV"
+    },
+    {
+      "source_id": "SRC-OBS-186",
+      "scenario_id": "SCN-002",
+      "expected_activity_ids": [
+        "ACT-SCP-8036"
+      ],
+      "expected_outcome": "MATCHED",
+      "raw_snippet": "Completed 84.0 Joints for piping work in Spread B.",
+      "split_type": "DEV"
+    },
+    {
+      "source_id": "SRC-OBS-189",
+      "scenario_id": "SCN-011",
+      "expected_activity_ids": [
+        "ACT-SCP-8039"
+      ],
+      "expected_outcome": "MATCHED_AGGREGATED",
+      "raw_snippet": "Shift log: 20-inch Trunkline Hydrostatic  progress 0.1 Test achieved.",
+      "split_type": "DEV"
+    },
+    {
+      "source_id": "SRC-OBS-190",
+      "scenario_id": "SCN-001",
+      "expected_activity_ids": [
+        "ACT-SCP-8040"
+      ],
+      "expected_outcome": "MATCHED",
+      "raw_snippet": "ACT-SCP-8040: Tank Farm 1 Crude Tank T-101 Ring Foundation Concreting completed 87.5 Cu.M today.",
+      "split_type": "DEV"
+    },
+    {
+      "source_id": "SRC-OBS-191",
+      "scenario_id": "SCN-002",
+      "expected_activity_ids": [
+        "ACT-SCP-8041"
+      ],
+      "expected_outcome": "MATCHED",
+      "raw_snippet": "Completed 170.0 Cu.M for civil work in Tank Farm 1.",
+      "split_type": "DEV"
+    },
+    {
+      "source_id": "SRC-OBS-194",
+      "scenario_id": "SCN-011",
+      "expected_activity_ids": [
+        "ACT-SCP-8044"
+      ],
+      "expected_outcome": "MATCHED_AGGREGATED",
+      "raw_snippet": "Shift log: Tank Farm 1 Pump House Overhea progress 4.5 MT achieved.",
+      "split_type": "DEV"
+    },
+    {
+      "source_id": "SRC-OBS-195",
+      "scenario_id": "SCN-001",
+      "expected_activity_ids": [
+        "ACT-SCP-8045"
+      ],
+      "expected_outcome": "MATCHED",
+      "raw_snippet": "ACT-SCP-8045: Tank Farm 1 Crude Oil Main Transfer Pump P-101 Erection completed 0.2 Item today.",
+      "split_type": "DEV"
+    },
+    {
+      "source_id": "SRC-OBS-196",
+      "scenario_id": "SCN-002",
+      "expected_activity_ids": [
+        "ACT-SCP-8046"
+      ],
+      "expected_outcome": "MATCHED",
+      "raw_snippet": "Completed 0.2 Item for mechanical work in Tank Farm 1.",
+      "split_type": "DEV"
+    },
+    {
+      "source_id": "SRC-OBS-199",
+      "scenario_id": "SCN-011",
+      "expected_activity_ids": [
+        "ACT-SCP-8049"
+      ],
+      "expected_outcome": "MATCHED_AGGREGATED",
+      "raw_snippet": "Shift log: Tank Farm 1 Fire Water Ring Ma progress 150.0 Meters achieved.",
+      "split_type": "DEV"
+    },
+    {
+      "source_id": "SRC-OBS-200",
+      "scenario_id": "SCN-001",
+      "expected_activity_ids": [
+        "ACT-SCP-8050"
+      ],
+      "expected_outcome": "MATCHED",
+      "raw_snippet": "ACT-SCP-8050: Tank Farm 1 Fire Water Hydrant & Monitor Installation completed 6.0 Nos today.",
+      "split_type": "DEV"
+    },
+    {
+      "source_id": "SRC-OBS-905",
+      "scenario_id": "SCN-001",
+      "expected_activity_ids": [
+        "ACT-1051"
+      ],
+      "expected_outcome": "MATCHED",
+      "raw_snippet": "GGS-3 Pipe Rack Structural Steel Erection & Alignment (ACT-1051) completed 45 MT steel framework.",
       "split_type": "DEV"
     }
   ]
