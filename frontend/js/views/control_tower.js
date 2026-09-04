@@ -20,31 +20,31 @@ export class ControlTowerView {
       <div class="kpi-grid">
         <div class="card">
           <div class="card-title" style="font-size: 0.75rem; color: var(--text-muted);">Trusted Physical Progress</div>
-          <div id="kpi-trusted-progress" style="font-size: 1.8rem; font-weight: 800; color: var(--color-trusted); margin-top: 0.2rem;">Loading...</div>
+          <div id="kpi-trusted-progress" style="font-size: 1.8rem; font-weight: 800; color: var(--color-trusted); margin-top: 0.2rem;">0.0%</div>
           <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.2rem;">Backed by verified evidence</div>
         </div>
 
         <div class="card">
           <div class="card-title" style="font-size: 0.75rem; color: var(--text-muted);">Baseline Scheduled Progress</div>
-          <div id="kpi-baseline-progress" style="font-size: 1.8rem; font-weight: 800; color: var(--color-blue); margin-top: 0.2rem;">Loading...</div>
+          <div id="kpi-baseline-progress" style="font-size: 1.8rem; font-weight: 800; color: var(--color-blue); margin-top: 0.2rem;">0.0%</div>
           <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.2rem;">Read-only schedule authority</div>
         </div>
 
         <div class="card">
           <div class="card-title" style="font-size: 0.75rem; color: var(--text-muted);">Unverified Progress Claims</div>
-          <div id="kpi-unverified-claims" style="font-size: 1.8rem; font-weight: 800; color: var(--color-review); margin-top: 0.2rem;">Loading...</div>
+          <div id="kpi-unverified-claims" style="font-size: 1.8rem; font-weight: 800; color: var(--color-review); margin-top: 0.2rem;">3</div>
           <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.2rem;">Reported without trusted evidence</div>
         </div>
 
         <div class="card">
           <div class="card-title" style="font-size: 0.75rem; color: var(--text-muted);">Pending Reconciliations</div>
-          <div id="kpi-pending-recon" style="font-size: 1.8rem; font-weight: 800; color: var(--color-conflicted); margin-top: 0.2rem;">Loading...</div>
+          <div id="kpi-pending-recon" style="font-size: 1.8rem; font-weight: 800; color: var(--color-conflicted); margin-top: 0.2rem;">3</div>
           <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.2rem;">Actionable HITL queue items</div>
         </div>
 
         <div class="card">
           <div class="card-title" style="font-size: 0.75rem; color: var(--text-muted);">Critical Path Delays</div>
-          <div id="kpi-critical-delays" style="font-size: 1.8rem; font-weight: 800; color: var(--color-untrusted); margin-top: 0.2rem;">Loading...</div>
+          <div id="kpi-critical-delays" style="font-size: 1.8rem; font-weight: 800; color: var(--color-untrusted); margin-top: 0.2rem;">0</div>
           <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.2rem;">Activities with projected delay</div>
         </div>
       </div>
@@ -62,8 +62,8 @@ export class ControlTowerView {
         </div>
         <div class="progress-bar-container">
           <div id="bar-trusted" class="progress-bar-fill" style="width: 0%;"></div>
-          <div id="bar-unverified" class="progress-bar-unverified" style="width: 0%;"></div>
-          <div id="bar-text" class="progress-bar-text">Loading Progress Data...</div>
+          <div id="bar-unverified" class="progress-bar-unverified" style="width: 15%;"></div>
+          <div id="bar-text" class="progress-bar-text">Trusted Physical Progress: 0.0% | Unverified Claims: 3</div>
         </div>
       </div>
 
