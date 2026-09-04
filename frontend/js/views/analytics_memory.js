@@ -4,15 +4,17 @@
  * Contractor Reporting Scorecards, and Conflict Resolution Analytics.
  */
 
-import { apiClient } from '../api_client.js';
-import { state } from '../state.js';
+import { SATYAApiClient } from '../api_client.js';
+import { appState } from '../state.js';
 import { renderStatusBadge } from '../formatters.js';
 
-export async function renderAnalyticsMemoryView() {
-    const container = document.getElementById('main-content');
-    if (!container) return;
+export async function renderAnalyticsMemoryView(container, apiClientInstance, appStateInstance) {
+    const targetContainer = container || document.getElementById('view-container') || document.getElementById('main-content');
+    if (!targetContainer) return;
 
-    const projectId = state.selectedProjectId || 'PRJ-NBG-2026';
+    const api = apiClientInstance || new SATYAApiClient('/api/v1');
+    const state = appStateInstance || appState;
+    const projectId = state.currentProjectId || 'PRJ-NBG-2026';
 
     container.innerHTML = `
         <div class="view-header">
@@ -90,7 +92,7 @@ export async function renderAnalyticsMemoryView() {
             distillBtn.disabled = true;
             distillBtn.innerText = '🧠 Distilling Memory...';
             try {
-                const res = await apiClient.distillMemory(projectId);
+                const res = await api.distillMemory(projectId);
                 const alertBox = document.getElementById('analytics-alert-container');
                 if (alertBox && res.distillation_run) {
                     const run = res.distillation_run;
@@ -101,7 +103,7 @@ export async function renderAnalyticsMemoryView() {
                         </div>
                     `;
                 }
-                await loadAllAnalyticsData(projectId);
+                await loadAllAnalyticsData(projectId, api);
             } catch (err) {
                 alert(`Memory Distillation Failed: ${err.message}`);
             } finally {
@@ -111,13 +113,13 @@ export async function renderAnalyticsMemoryView() {
         });
     }
 
-    await loadAllAnalyticsData(projectId);
+    await loadAllAnalyticsData(projectId, api);
 }
 
-async function loadAllAnalyticsData(projectId) {
+async function loadAllAnalyticsData(projectId, api) {
     // 1. Load Terminology Memory Aliases
     try {
-        const res = await apiClient.getMemoryAliases(projectId);
+        const res = await api.getMemoryAliases(projectId);
         const listEl = document.getElementById('memory-aliases-list');
         if (listEl) {
             if (!res.aliases || res.aliases.length === 0) {
@@ -156,7 +158,7 @@ async function loadAllAnalyticsData(projectId) {
 
     // 2. Load Productivity Rate Benchmarks
     try {
-        const res = await apiClient.getProductivityAnalytics(projectId);
+        const res = await api.getProductivityAnalytics(projectId);
         const listEl = document.getElementById('productivity-benchmarks-list');
         if (listEl) {
             if (!res.benchmarks || res.benchmarks.length === 0) {
@@ -199,7 +201,7 @@ async function loadAllAnalyticsData(projectId) {
 
     // 3. Load Contractor Reporting Profiles
     try {
-        const res = await apiClient.getContractorAnalytics(projectId);
+        const res = await api.getContractorAnalytics(projectId);
         const listEl = document.getElementById('contractor-scorecard-list');
         if (listEl) {
             if (!res.profiles || res.profiles.length === 0) {
@@ -237,7 +239,7 @@ async function loadAllAnalyticsData(projectId) {
 
     // 4. Load Conflict & Warning Resolution Patterns
     try {
-        const res = await apiClient.getConflictAnalytics(projectId);
+        const res = await api.getConflictAnalytics(projectId);
         const listEl = document.getElementById('conflict-patterns-list');
         if (listEl) {
             if (!res.patterns || res.patterns.length === 0) {

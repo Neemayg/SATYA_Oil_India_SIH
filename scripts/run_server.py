@@ -28,6 +28,29 @@ db_file = os.path.join(BASE_DIR, "satya_dev.db")
 db_engine = DatabaseEngine(db_file)
 api_router = SATYAApplicationAPI(db_engine)
 
+def _auto_seed_database(api: SATYAApplicationAPI):
+    try:
+        proj_id = "PRJ-NBG-2026"
+        schedule_path = os.path.join(BASE_DIR, "data", "synthetic", "schedules", "baseline_schedule.json")
+        if os.path.exists(schedule_path):
+            fps = api.db.get_activity_fingerprints_by_project(proj_id)
+            if not fps:
+                logger.info(f"Seeding baseline schedule for project {proj_id}...")
+                api.fingerprint_service.process_schedule_file(schedule_path)
+                vocab = api.fingerprint_service.get_valid_activity_vocabulary()
+                api.pipeline_service.set_schedule_vocabulary(vocab)
+                api.validation_service.set_valid_vocabulary(vocab)
+
+            proj = api.db.get_latest_schedule_projection(proj_id)
+            if not proj:
+                logger.info(f"Generating initial schedule projection for project {proj_id}...")
+                api.projection_service.generate_projection_for_project(proj_id)
+                api.monitoring_service.run_monitoring_evaluation(proj_id)
+    except Exception as e:
+        logger.warning(f"Auto-seeding check encountered notice: {e}")
+
+_auto_seed_database(api_router)
+
 class SATYAHTTPRequestHandler(BaseHTTPRequestHandler):
     """
     Standard library HTTP request handler wrapping SATYAApplicationAPI router.
