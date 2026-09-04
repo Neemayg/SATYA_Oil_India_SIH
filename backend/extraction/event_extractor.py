@@ -163,23 +163,25 @@ class ExecutionEventExtractionService:
 
     def split_into_action_clauses(self, text: str) -> List[str]:
         """Splits compound statements into individual action clauses when distinct actions are present."""
-        raw_clauses = re.split(r';|\.|\b(?:and|while|plus)\b', text, flags=re.IGNORECASE)
+        # Protect common abbreviations from splitting on period
+        protected_text = re.sub(r'\b(approx|no|sec|km|vol|ref|drg)\.', r'\1_DOT_', text, flags=re.IGNORECASE)
+        raw_clauses = re.split(r';|\.|\b(?:and|while|plus)\b', protected_text, flags=re.IGNORECASE)
         clauses = []
         for c in raw_clauses:
-            cleaned = c.strip()
+            cleaned = c.strip().replace('_DOT_', '.').replace('_dot_', '.')
             if cleaned and len(cleaned) > 3:
                 clauses.append(cleaned)
 
         if len(clauses) <= 1:
             return [text]
 
-        action_count = 0
+        valid_clauses = []
         for c in clauses:
             if self.infer_event_type(c) != EventType.UNKNOWN or any(w in c.lower() for w in ["pending", "qa", "clearance", "balance", "rework"]):
-                action_count += 1
+                valid_clauses.append(c)
 
-        if action_count > 1:
-            return clauses
+        if valid_clauses:
+            return valid_clauses
 
         return [text]
 
