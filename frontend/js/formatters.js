@@ -100,3 +100,13 @@ export function renderSignalBadge(signalType) {
   if (t === "QA_CLEARANCE_BOTTLENECK") return `<span class="badge badge-review">🔒 QA BOTTLENECK</span>`;
   return `<span class="badge badge-neutral">${t}</span>`;
 }
+
+export function renderStatusBadge(status) {
+  if (!status) return `<span class="badge badge-neutral">N/A</span>`;
+  const s = String(status).toUpperCase();
+  if (s === "ACTIVE" || s === "STABLE" || s === "VERIFIED") return `<span class="badge badge-trusted">${s}</span>`;
+  if (s === "PENDING" || s === "DRAFT" || s === "REVIEW_REQUIRED") return `<span class="badge badge-review">${s}</span>`;
+  if (s === "DISTILLED") return `<span class="badge badge-trusted">🧠 DISTILLED</span>`;
+  return `<span class="badge badge-neutral">${s}</span>`;
+}
+
