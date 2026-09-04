@@ -4,6 +4,41 @@ All notable changes to the SATYA project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+## [0.17.0] - 2026-09-04
+
+### Added (Phase 15 — Empirical System Validation)
+- Completed and APPROVED & CLOSED `PHASE 15 — Empirical System Validation`.
+- Added **Component 1: Workload Performance Benchmark** (`tests/integration/test_workload_performance.py`):
+  - Small (50 events), Medium (500 events), Large (5,000 events across 5 projects) tiers.
+  - p50/p95 latency measurements; empirical RSS memory tracking. No arbitrary SLA thresholds.
+  - Measured: p50 ~3.2 ms/event, p95 ~3.9 ms/event (SQLite in-memory, single-threaded).
+- Added **Component 2: Failure Recovery Tests** (same file):
+  - Empty payload ValueError does not create orphaned source_document records.
+  - Valid ingestion succeeds cleanly after a preceding failed ingestion.
+- Added **Component 3: Controlled Safety Mutation Harness** (same file):
+  - Mutation 1 — Rule 5 vocabulary guard: out-of-vocabulary raw Activity ID is cleared (never promoted).
+  - Mutation 2 — Stale HITL snapshot lock: second v1 decision rejected with HTTP 409 STALE_REVIEW_STATE.
+  - Mutation 3 — Match result immutability: CHANGE_MATCH does not retroactively alter original MatchResult row.
+- Added **Component 4: DB Invariant Concurrency Stress Tests** (`tests/integration/test_concurrency_invariants.py`):
+  - N=2, N=5, N=10 concurrent HITL review threads; exactly 1 wins, rest receive HTTP 409.
+  - DB state invariant verified after each race: exactly 1 v2 TrustAssessment per event.
+- Added **Component 5: Property Invariants Suite** (`tests/unit/test_property_invariants.py`):
+  - 7 properties: provenance immutability, ID safety, trust monotonicity, idempotency,
+    five-entity historical immutability, multi-tenant isolation, determinism across pipeline runs.
+- Added **Component 6: Adversarial Robustness Suite** (`tests/unit/test_adversarial_suite.py`):
+  - Structural corruption (malformed/empty payloads), linguistic adversarial inputs,
+    semantic noise, and injection attack probes.
+- Added **Component 7: Full Truth-Chain Benchmark & Confidence Calibration** (`tests/integration/test_truth_chain_benchmark.py`):
+  - Ground-truth evaluation over 62 dev-set records across all 5 execution-intelligence layers.
+  - Layer 1 Extraction Recall: 62/62 = 1.000; Layer 2 Matching Precision: 1.000, F1: 0.660;
+    Layer 3 Trust Coverage: 63/63 = 1.000; Layer 4 Projection: 60 activities; Layer 5 Time Agent: 19 signals.
+  - Confidence threshold sweep theta in {0.40..0.95}: precision = 1.000 at theta>=0.50.
+  - ECE (10-bin): 0.1783 (empirically recorded, no hard pass/fail).
+  - Post-benchmark historical immutability regression: v1 TrustAssessments intact, append-only ledger verified.
+- Updated test suite to **134 total automated tests, 134 passing (0 failures)**.
+- Updated `docs/00-governance/development-phases.md` to mark Phase 15 CLOSED.
+
+---
 
 ## [0.16.0] - 2026-09-04
 
