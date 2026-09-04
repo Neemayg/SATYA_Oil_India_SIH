@@ -1,0 +1,57 @@
+{
+  "split": "EVALUATION",
+  "records": [
+    {
+      "source_id": "SRC-005",
+      "scenario_id": "SCN-005",
+      "expected_activity_ids": [
+        "ACT-1012",
+        "ACT-1016"
+      ],
+      "expected_outcome": "AMBIGUOUS",
+      "raw_snippet": "12 joints of 16-inch pipe welding completed near main road crossing.",
+      "split_type": "EVAL"
+    },
+    {
+      "source_id": "SRC-008",
+      "scenario_id": "SCN-008",
+      "expected_activity_ids": [
+        "ACT-1011"
+      ],
+      "expected_outcome": "DUPLICATE_FLAGGED",
+      "raw_snippet": "Trench excavation Sec 1 Km 0 to 2 completed 350m (duplicate entry).",
+      "split_type": "EVAL"
+    },
+    {
+      "source_id": "SRC-009",
+      "scenario_id": "SCN-009",
+      "expected_activity_ids": [
+        "ACT-1010"
+      ],
+      "expected_outcome": "MATCHED",
+      "raw_snippet": "Mainline ROW Clearing & Grading Sec 1 - Km 0.0 to 2.0 completed 300m on Sept 2.",
+      "split_type": "EVAL"
+    },
+    {
+      "source_id": "SRC-011",
+      "scenario_id": "SCN-011",
+      "expected_activity_ids": [
+        "ACT-1012"
+      ],
+      "expected_outcome": "MATCHED_AGGREGATED",
+      "raw_snippet": "Daily shift report 5 of 15: Welded 12 joints on line PL-16-01 Section 1.",
+      "split_type": "EVAL"
+    },
+    {
+      "source_id": "SRC-012",
+      "scenario_id": "SCN-012",
+      "expected_activity_ids": [
+        "ACT-1014",
+        "ACT-1015"
+      ],
+      "expected_outcome": "SPLIT_MATCHED",
+      "raw_snippet": "Cleared 200m ROW and completed 200m trenching at Section 1 Km 2.0 to 4.0.",
+      "split_type": "EVAL"
+    }
+  ]
+}
