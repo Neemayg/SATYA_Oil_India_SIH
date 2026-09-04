@@ -38,7 +38,7 @@ class FingerprintsRouteHandler:
         """
         GET /api/v1/fingerprints/projects/{project_id}
         """
-        fps_dicts = self.fingerprint_service.db.get_activity_fingerprints_by_project(project_id)
+        fps_dicts = self.fingerprint_service.db.get_fingerprints_by_project(project_id)
         if not fps_dicts:
             raise SATYAError(
                 code="PROJECT_NOT_FOUND",
