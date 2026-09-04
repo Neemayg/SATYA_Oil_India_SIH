@@ -60,7 +60,7 @@ def _auto_seed_database(api: SATYAApplicationAPI):
                 )
                 for ev in run_res.events_extracted:
                     api.matching_service.match_event(ev)
-                    api.trust_service.evaluate_event_trust(ev.event_id)
+                    api.trust_service.evaluate_trust(ev.event_id)
 
             proj = api.db.get_latest_schedule_projection(proj_id)
             if not proj:
