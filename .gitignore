@@ -1,0 +1,15 @@
+# Python Bytecode & Cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+
+# Databases & Local Artifacts
+*.db
+*.sqlite
+*.sqlite3
+
+# OS Artifacts
+.DS_Store
+Thumbs.db
