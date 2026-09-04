@@ -477,7 +477,7 @@ class DatabaseEngine:
         with self._get_connection() as conn:
             cursor = conn.cursor()
             cursor.execute("""
-                INSERT INTO execution_events (
+                INSERT OR REPLACE INTO execution_events (
                     event_id, source_id, fragment_id, event_type, observed_timestamp,
                     source_timestamp, extracted_statement, raw_observed_activity_id, observed_activity_id,
                     activity_id_validation_status, temporal_resolution_status, temporal_resolution_basis,
@@ -499,7 +499,7 @@ class DatabaseEngine:
             if event.provenance:
                 p = event.provenance
                 cursor.execute("""
-                    INSERT INTO provenance_records (
+                    INSERT OR REPLACE INTO provenance_records (
                         provenance_id, event_id, source_id, source_type, locator_type,
                         locator_value, raw_text_snippet, field_provenance_map_json
                     ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
