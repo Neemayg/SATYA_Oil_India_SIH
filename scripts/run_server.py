@@ -41,6 +41,27 @@ def _auto_seed_database(api: SATYAApplicationAPI):
                 api.pipeline_service.set_schedule_vocabulary(vocab)
                 api.validation_service.set_valid_vocabulary(vocab)
 
+            events = api.db.get_all_execution_events()
+            if not events:
+                logger.info(f"Seeding hero demo DPR observation payload for project {proj_id}...")
+                demo_text = (
+                    "Daily Progress Report - Duliajan Field Office - Date: 2026-09-04\n"
+                    "Contractor: North Basin Constructors Pvt Ltd | Sector: PL-SEC3\n"
+                    '"Night shift: HDD Section 3 crossing completed. Approx. 420 m drilling completed on Line PL-16-01. '
+                    'QA/NDT clearance pending due to hydrotest delay. Work reported today, execution started yesterday."'
+                )
+                run_res = api.pipeline_service.process_source_payload(
+                    raw_content=demo_text,
+                    file_name="demo_dpr_001.txt",
+                    project_id=proj_id,
+                    source_type="DPR_EXCEL",
+                    author="Duliajan Field Office",
+                    submitted_at="2026-09-04T08:00:00Z"
+                )
+                for ev in run_res.events_extracted:
+                    api.matching_service.match_event(ev)
+                    api.trust_service.evaluate_event_trust(ev.event_id)
+
             proj = api.db.get_latest_schedule_projection(proj_id)
             if not proj:
                 logger.info(f"Generating initial schedule projection for project {proj_id}...")
