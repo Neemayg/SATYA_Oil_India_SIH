@@ -121,9 +121,20 @@ export class ReconciliationDeskView {
       this.traceData = null;
     }
 
-    // Fetch candidate matches via API
-    const matchRes = await this.api.getEventMatches(item.event_id);
-    const matchesData = matchRes.ok ? matchRes.data : null;
+    // Fetch candidate matches via API (or trigger matching on demand if 404)
+    let matchRes = await this.api.getEventMatches(item.event_id);
+    if (!matchRes.ok && matchRes.status === 404) {
+      matchRes = await this.api.matchEvent(item.event_id);
+    }
+
+    let matchesData = null;
+    if (matchRes.ok && matchRes.data) {
+      if (Array.isArray(matchRes.data.match_results) && matchRes.data.match_results.length > 0) {
+        matchesData = matchRes.data.match_results[0];
+      } else if (matchRes.data.confidence_score !== undefined) {
+        matchesData = matchRes.data;
+      }
+    }
 
     // Fetch schedule fingerprints vocabulary for Rule 5 dropdown
     const vocabRes = await this.api.searchFingerprints("");
