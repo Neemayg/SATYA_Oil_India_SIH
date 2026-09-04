@@ -41,6 +41,24 @@ class IngestionRouteHandler:
             submitted_at=observed_ts
         )
 
+        try:
+            db = self.pipeline_service.db
+            from backend.services.matching_service import ScheduleMatchingService
+            from backend.services.trust_evaluator_service import TrustEvaluatorService
+            from backend.projection.projection_service import ScheduleProjectionService
+
+            matching_svc = ScheduleMatchingService(db)
+            trust_svc = TrustEvaluatorService(db)
+            proj_svc = ScheduleProjectionService(db)
+
+            for ev in run_res.events_extracted:
+                matching_svc.match_event(ev)
+                trust_svc.evaluate_trust(ev.event_id)
+
+            proj_svc.generate_projection_for_project(project_id)
+        except Exception as e:
+            pass
+
         return {
             "pipeline_run_id": run_res.pipeline_run_id,
             "source_id": run_res.source_id,
