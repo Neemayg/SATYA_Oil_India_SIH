@@ -33,7 +33,7 @@ def _auto_seed_database(api: SATYAApplicationAPI):
         proj_id = "PRJ-NBG-2026"
         schedule_path = os.path.join(BASE_DIR, "data", "synthetic", "schedules", "baseline_schedule.json")
         if os.path.exists(schedule_path):
-            fps = api.db.get_activity_fingerprints_by_project(proj_id)
+            fps = api.db.get_fingerprints_by_project(proj_id)
             if not fps:
                 logger.info(f"Seeding baseline schedule for project {proj_id}...")
                 api.fingerprint_service.process_schedule_file(schedule_path)

@@ -625,6 +625,8 @@ class DatabaseEngine:
             rows = cursor.fetchall()
             return [dict(r) for r in rows]
 
+    get_activity_fingerprints_by_project = get_fingerprints_by_project
+
     def get_all_fingerprints(self) -> List[Dict[str, Any]]:
         with self._get_connection() as conn:
             cursor = conn.cursor()
