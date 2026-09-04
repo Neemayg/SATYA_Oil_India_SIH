@@ -49,7 +49,7 @@ class ExecutionAnalyticsEngine:
             if e.get("trust_status") in (TrustStatus.TRUSTED, "TRUSTED") or e.get("resulting_trust_status") in (TrustStatus.TRUSTED, "TRUSTED") or e.get("lifecycle_state") in ("TRUSTED", "EXTRACTED")
         ]
 
-        # Group observations by (wbs_id, activity_type, unit_of_measure, quantity_basis)
+        # Group observations by (wbs_id, activity_type, discipline, unit_of_measure, quantity_basis)
         grouped_rates: Dict[str, Dict[str, Any]] = {}
 
         for act_id, act_data in act_progress_map.items():
@@ -59,13 +59,14 @@ class ExecutionAnalyticsEngine:
             actual_qty = float(act_data.get("actual_quantity", 0.0) or 0.0)
             wbs_id = act_data.get("wbs_id", "WBS-UNSPECIFIED")
             act_type = act_data.get("activity_type", "GENERAL")
+            discipline = act_data.get("discipline", "GENERAL")
             planned_dur = float(act_data.get("planned_duration_days", 0.0) or act_data.get("actual_duration_days", 0.0) or 0.0)
 
             # Skip unquantified or unknown quantity basis
             if not uom or qty_basis in ("UNKNOWN", "", "NONE") or planned_qty <= 0:
                 continue
 
-            group_key = f"{wbs_id}|{act_type}|{uom}|{qty_basis}"
+            group_key = f"{wbs_id}|{act_type}|{discipline}|{uom}|{qty_basis}"
 
             # Calculate planned rate (None if duration or quantity missing)
             planned_rate = (planned_qty / planned_dur) if planned_dur > 0 else None
@@ -87,6 +88,7 @@ class ExecutionAnalyticsEngine:
                 grouped_rates[group_key] = {
                     "wbs_id": wbs_id,
                     "activity_type": act_type,
+                    "discipline": discipline,
                     "unit_of_measure": uom,
                     "quantity_basis": qty_basis,
                     "planned_rates": [],
@@ -122,6 +124,7 @@ class ExecutionAnalyticsEngine:
                 project_id=project_id,
                 wbs_id=data["wbs_id"],
                 activity_type=data["activity_type"],
+                discipline=data["discipline"],
                 unit_of_measure=data["unit_of_measure"],
                 quantity_basis=data["quantity_basis"],
                 planned_rate=round(avg_planned, 4) if avg_planned is not None else None,

@@ -124,10 +124,10 @@ class InstitutionalMemoryService:
                 as_of_iso=as_of_iso
             )
 
-            # Determine promotion status
-            if distinct_planners >= 2 and confirmation_count >= 3:
+            # Determine promotion status (Requires independent planners or independent sources)
+            if (distinct_planners >= 2 or distinct_sources >= 2) and confirmation_count >= 3:
                 status = AliasStatus.ACTIVE
-            elif confirmation_count >= self.policy.min_candidate_confirmations or distinct_planners >= 2:
+            elif (distinct_planners >= 2 or distinct_sources >= 2) and confirmation_count >= self.policy.min_candidate_confirmations:
                 status = AliasStatus.VALIDATED
             else:
                 status = AliasStatus.CANDIDATE

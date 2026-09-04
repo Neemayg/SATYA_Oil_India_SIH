@@ -88,7 +88,7 @@ $$S_{\text{non\_id\_boosted}} = S_{\text{non\_id}} + 0.15 \cdot S_{\text{alias}}
 
 ## 4. Execution Rate Analytics
 
-Empirical progress and productivity analytics calculate baseline vs actual execution rates grouped by `(project_id, wbs_id, activity_type, unit_of_measure, quantity_basis)`.
+Empirical progress and productivity analytics calculate baseline vs actual execution rates grouped by `(project_id, wbs_id, activity_type, discipline, unit_of_measure, quantity_basis)`.
 
 ### 4.1 Unit of Measure & Basis Safety
 Rate benchmarks strictly aggregate observations sharing identical Units of Measure (UOM) and quantity bases (e.g., `DAILY_DELTA` vs `CUMULATIVE_TOTAL`). Mixed UOM aggregations are rejected to prevent invalid rate math.
