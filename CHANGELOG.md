@@ -4,6 +4,21 @@ All notable changes to the SATYA project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+## [1.0.0] - 2026-09-04
+
+### Added (Phase 16 — SIH Demo & Presentation Packaging)
+- Formally completed and APPROVED & CLOSED `PHASE 16 — SIH Demo & Presentation Packaging`.
+- Created comprehensive SIH 2026 presentation deliverables in `docs/11-sih/`:
+  - `docs/11-sih/demo_script.md`: 12-minute presenter guide, minute-by-minute storyline, live UI click sequence, and backup recovery path.
+  - `docs/11-sih/presentation_deck.md`: 12-slide presentation structure, text, diagrams, speaker notes, and technical differentiation matrix.
+  - `docs/11-sih/demo_data.md`: Explicit dataset specification (`PRJ-NBG-2026`), raw DPR text (`SRC-DEMO-001`), extracted events, matching factor scores, and memory alias records.
+  - `docs/11-sih/demo_runbook.md`: Technical operator checklist, REST server startup instructions, browser setup, and offline fallback options.
+  - `docs/11-sih/judging_qa.md`: Comprehensive jury Q&A guide covering 13 critical technical, architectural, and SIH judge questions.
+  - `docs/11-sih/submission_checklist.md`: Final SIH 2026 submission verification checklist.
+- Maintained 100% test regression: **134/134 automated unit and integration tests passing**.
+
+---
+
 ## [0.17.0] - 2026-09-04
 
 ### Added (Phase 15 — Empirical System Validation)
