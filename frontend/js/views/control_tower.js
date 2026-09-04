@@ -86,7 +86,11 @@ export class ControlTowerView {
             </div>
             <div style="margin-bottom: 0.8rem;">
               <label style="display: block; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.25rem;">Field Raw Observation Text</label>
-              <textarea id="upload-content" style="width: 100%; height: 100px; background: var(--bg-dark-input); color: var(--text-main); border: 1px solid var(--border-color); border-radius: 6px; padding: 0.5rem; font-family: var(--font-mono); font-size: 0.85rem;" placeholder="e.g. 2026-09-02: Mainline trench excavation 350m completed on PL-NBG-SEC1 ACT-1010. QA cleared."></textarea>
+              <textarea id="upload-content" style="width: 100%; height: 110px; background: var(--bg-dark-input); color: var(--text-main); border: 1px solid var(--border-color); border-radius: 6px; padding: 0.5rem; font-family: var(--font-mono); font-size: 0.82rem;" placeholder="Paste raw DPR snippet here...">Daily Progress Report - Duliajan Field Office - Date: 2026-09-04
+Contractor: North Basin Constructors Pvt Ltd | Sector: PL-SEC1
+ACT-1010: Mainline ROW Clearing & Grading Sec 1 1800m completed.
+ACT-1011: Mainline Trench Excavation Sec 1 1500m completed.
+ACT-1020: Mainline HDD River Crossing Section 3 420m drilling completed. QA/NDT clearance pending.</textarea>
             </div>
             <button type="submit" class="btn btn-primary" style="width: 100%;">Upload & Process Pipeline</button>
           </form>

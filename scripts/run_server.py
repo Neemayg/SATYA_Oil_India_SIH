@@ -37,18 +37,20 @@ def _auto_seed_database(api: SATYAApplicationAPI):
             if not fps:
                 logger.info(f"Seeding baseline schedule for project {proj_id}...")
                 api.fingerprint_service.process_schedule_file(schedule_path)
-                vocab = api.fingerprint_service.get_valid_activity_vocabulary()
-                api.pipeline_service.set_schedule_vocabulary(vocab)
-                api.validation_service.set_valid_vocabulary(vocab)
+
+            vocab = api.fingerprint_service.get_valid_activity_vocabulary()
+            api.pipeline_service.set_schedule_vocabulary(vocab)
+            api.validation_service.set_valid_vocabulary(vocab)
 
             events = api.db.get_all_execution_events()
             if not events:
                 logger.info(f"Seeding hero demo DPR observation payload for project {proj_id}...")
                 demo_text = (
                     "Daily Progress Report - Duliajan Field Office - Date: 2026-09-04\n"
-                    "Contractor: North Basin Constructors Pvt Ltd | Sector: PL-SEC3\n"
-                    '"Night shift: HDD Section 3 crossing completed. Approx. 420 m drilling completed on Line PL-16-01. '
-                    'QA/NDT clearance pending due to hydrotest delay. Work reported today, execution started yesterday."'
+                    "Contractor: North Basin Constructors Pvt Ltd | Sector: PL-SEC1\n"
+                    "ACT-1010: Mainline ROW Clearing & Grading Sec 1 1800m completed.\n"
+                    "ACT-1011: Mainline Trench Excavation Sec 1 1500m completed.\n"
+                    "ACT-1020: Mainline HDD River Crossing Section 3 420m drilling completed. QA/NDT clearance pending."
                 )
                 run_res = api.pipeline_service.process_source_payload(
                     raw_content=demo_text,
