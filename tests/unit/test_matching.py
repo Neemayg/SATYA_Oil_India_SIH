@@ -72,5 +72,35 @@ class TestScheduleMatchingEngine(unittest.TestCase):
         self.assertIsNone(res.selected_activity_id)
         self.assertLess(res.confidence_score, 0.45)
 
+    def test_insufficient_evidence_outcome_when_locators_missing(self):
+        # Event with vague statement lacking line number, equipment tag, and chainage range
+        event = ExecutionEvent(
+            event_id="EVT-004", source_id="SRC-004", fragment_id="FRG-004",
+            event_type="PROGRESS", observed_timestamp="2026-09-03", source_timestamp="2026-09-03",
+            extracted_statement="Execution ongoing for civil task in Section 1.",
+            raw_observed_activity_id=None, observed_activity_id=None,
+            activity_id_validation_status="NO_EXPLICIT_REFERENCE", discipline="CIVIL",
+            area_location="Section 1"
+        )
+        res = self.engine.match_event_to_fingerprints(event, [self.fp_act1010])
+        self.assertEqual(res.outcome, MatchOutcome.INSUFFICIENT_EVIDENCE)
+        self.assertIsNone(res.selected_activity_id)
+        self.assertIn("line_number_or_equipment_tag", res.missing_discriminators)
+        self.assertIn("chainage_km_range", res.missing_discriminators)
+
+    def test_hard_constraint_project_mismatch_elimination(self):
+        event = ExecutionEvent(
+            event_id="EVT-005", source_id="SRC-005", fragment_id="FRG-005",
+            event_type="PROGRESS", observed_timestamp="2026-09-03", source_timestamp="2026-09-03",
+            extracted_statement="ROW clearing in Section 1.",
+            raw_observed_activity_id=None, observed_activity_id=None,
+            discipline="CIVIL", area_location="Section 1"
+        )
+        # Set event project to another project
+        setattr(event, "project_id", "PRJ-OTHER-2026")
+        res = self.engine.match_event_to_fingerprints(event, [self.fp_act1010])
+        self.assertEqual(res.outcome, MatchOutcome.UNMATCHED)
+        self.assertEqual(res.confidence_score, 0.0)
+
 if __name__ == "__main__":
     unittest.main()

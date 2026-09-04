@@ -5,6 +5,168 @@ All notable changes to the SATYA project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.16.0] - 2026-09-04
+
+### Added (Phase 14 Analytics & Institutional Memory Store)
+- Completed and 🟢 **APPROVED & CLOSED** `PHASE 14 — Analytics & Institutional Memory Store`.
+- Implemented domain models in `backend/models/domain_models.py`: `AliasStatus`, `BenchmarkStatus`, `InstitutionalMemoryPolicy`, `MemoryDistillationRun`, `TerminologyAliasRecord`, `ExecutionRateBenchmark`, `ContractorReportingProfile`, `ConflictResolutionPattern`.
+- Implemented `InstitutionalMemoryService` (`backend/analytics/memory_service.py`):
+  - Auditable memory distillation run tracking.
+  - Terminology alias promotion lifecycle (`CANDIDATE` $\rightarrow$ `VALIDATED` $\rightarrow$ `ACTIVE` $\rightarrow$ `SUPERSEDED`).
+  - Multi-factor alias confidence math: $C_{\text{alias}} = \text{clamp}(w_{\text{plan}} N_{\text{planners}} + w_{\text{src}} N_{\text{sources}} + R(\Delta t) - w_{\text{over}} N_{\text{reoverrides}}, 0.0, 1.0)$.
+  - Configurable `InstitutionalMemoryPolicy` weights ($w_{\text{plan}} = 0.3$, $w_{\text{src}} = 0.2$, $w_{\text{over}} = 0.4$, $T_{1/2} = 90$ days).
+  - Strictly project-scoped alias lookup (`project_id`).
+- Implemented `ExecutionAnalyticsEngine` (`backend/analytics/analytics_engine.py`):
+  - UOM and quantity-basis compatible rate benchmarking.
+  - Sample-size threshold gating (`INSUFFICIENT_SAMPLE` for $N < 3$, `PROVISIONAL` for $3 \le N < 10$, `VALIDATED` for $N \ge 10$).
+  - Explicit planned rate formula with `None` handling for missing baseline values.
+  - Contractor Reporting & Verification Profile with reporting latency ($t_{\text{reported}} - t_{\text{observed}}$) and nullable contractor ID.
+  - Conflict & Warning resolution pattern tracking with separation of Time Agent acknowledgments vs physical condition resolutions.
+- Integrated additive alias factor ($S_{\text{alias}}$) into `ScheduleAwareMatchingEngine` (`backend/matching/matching_engine.py`) and `ScheduleMatchingService` (`backend/services/matching_service.py`).
+- Added REST API routes for memory and analytics (`backend/api/routes_analytics.py`, `backend/api/app.py`).
+- Added ES6 dynamic Analytics & Memory tab view component to Phase 12 Frontend Console (`frontend/js/views/analytics_memory.js`, `frontend/js/api_client.js`, `frontend/js/app.js`, `frontend/index.html`).
+- Created unit and integration test suite (`tests/unit/test_institutional_memory.py`, `tests/unit/test_execution_analytics.py`, `tests/integration/test_analytics_integration.py`). Extended test coverage to **99 total automated tests** passing 100%.
+- Verified matching evaluation benchmark before and after memory activation using `scripts/evaluate_matching_engine.py`.
+- Published core engine specification `docs/05-core-engines/institutional-memory-analytics.md`.
+
+---
+
+## [0.15.0] - 2026-09-04
+
+### Added (Phase 13 Time Agent - Proactive Schedule Monitoring Engine)
+- Completed and 🟢 **APPROVED & CLOSED** `PHASE 13 — Time Agent (Proactive Schedule Monitoring Engine)`.
+- Extended domain models in `backend/models/domain_models.py` with `TemporalSignalType`, `SignalSeverity`, `SignalStatus`, `TemporalMonitoringPolicy`, `MonitoringEvaluationRun`, and `TemporalWarningSignal`.
+- Implemented deterministic policy-driven monitoring engine in `backend/monitoring/time_agent_engine.py`:
+  - 6 early-warning evaluation rules: `SILENT_CRITICAL_PATH_RISK`, `OUT_OF_SEQUENCE_EXECUTION`, `FORECAST_FINISH_SLIPPAGE`, `EVIDENCE_COVERAGE_GAP`, `STAGNANT_IN_PROGRESS`, `UNTRUSTED_CLAIM_ACCUMULATION`.
+  - Null-forecast safe slippage calculation and explicit rationale traces for every warning signal.
+  - Strict `as_of_date` temporal bounding ($t_{\text{observed}} \le t_{\text{as\_of}}$).
+- Implemented service orchestration & SQLite persistence in `backend/monitoring/time_agent_service.py` and `backend/persistence/database_engine.py`:
+  - Persistent tables `monitoring_evaluation_runs` and `temporal_warning_signals`.
+  - Auditable evaluation run tracking and signal deduplication via `signal_key` (`{project_id}|{activity_id}|{signal_type}`).
+  - Automatic signal lifecycle management (`ACTIVE`, `RESOLVED`, `SUPERSEDED`, `ACKNOWLEDGED`).
+- Exposed REST API monitoring endpoints (`backend/api/routes_monitoring.py` and `backend/api/app.py`):
+  - `POST /api/v1/monitoring/evaluate`
+  - `GET /api/v1/monitoring/projects/{id}/signals`
+  - `GET /api/v1/monitoring/signals/{id}`
+  - `POST /api/v1/monitoring/signals/{id}/acknowledge`
+- Integrated Time Agent Monitoring into Phase 12 Frontend Console (`frontend/js/api_client.js`, `frontend/js/formatters.js`, `frontend/js/views/control_tower.js`).
+- Extended test coverage to **88 total automated tests** (74 unit tests, 14 integration tests) passing 100%.
+- Published canonical specification `docs/05-core-engines/time-agent-monitoring.md`.
+
+---
+
+## [0.14.0] - 2026-09-04
+
+### Added (Phase 12 Frontend Planner Dashboard & HITL Interface)
+- Completed and 🟢 **APPROVED & CLOSED** `PHASE 12 — Frontend Planner Dashboard & HITL Interface`.
+- Implemented zero-dependency, zero-CDN ES6 module web application in `frontend/`:
+  - Design system tokens, layout grid, and high-density dark slate engineering console styles (`frontend/css/`).
+  - REST API Client (`frontend/js/api_client.js`) communicating with `http://127.0.0.1:8000/api/v1`.
+  - Application state manager (`frontend/js/state.js`) with dynamic project discovery (`PRJ-NBG-2026`, `PRJ-SCP-2026`).
+  - Formatting helpers & "Why SATYA Believes This" factor renderer (`frontend/js/formatters.js`).
+  - Control Tower Dashboard View (`frontend/js/views/control_tower.js`).
+  - Reconciliation Desk View (`frontend/js/views/reconciliation_desk.js`) with 6-step visual hierarchy & snapshot locked decision form.
+  - Evidence & Provenance Center View (`frontend/js/views/evidence_center.js`).
+  - Schedule Explorer View (`frontend/js/views/schedule_explorer.js`) with SATYA Overlay.
+  - App router and operational health monitor (`frontend/js/app.js`, `frontend/index.html`).
+- Added read-model provenance trace endpoint `GET /api/v1/evidence/events/{event_id}/trace` to Phase 11 (`backend/api/routes_evidence.py`).
+- Updated executable server runner `scripts/run_server.py` to serve `frontend/` static assets under `/` while routing `/api/v1/*` REST requests.
+- Extended test suite to 82 total tests (69 unit tests, 13 integration tests) passing 100%.
+- Published canonical frontend documentation `docs/09-frontend/frontend-app.md`.
+
+---
+
+## [0.13.0] - 2026-09-04
+
+### Added (Phase 11 Backend Application Services & REST API)
+- Completed and 🟢 **APPROVED & CLOSED** `PHASE 11 — Backend Application Services`.
+- Implemented thin HTTP application layer in `backend/api/`:
+  - `SATYAError` exception and standardized error response formatter (`backend/api/errors.py`).
+  - Transport serializers for all domain models (`backend/api/serializers.py`).
+  - Automatic OpenAPI 3.0 specification generator (`backend/api/openapi.py`).
+  - Ingestion route handler (`backend/api/routes_ingestion.py`).
+  - Fingerprints route handler (`backend/api/routes_fingerprints.py`).
+  - Matching route handler (`backend/api/routes_matching.py`).
+  - Evidence & Trust route handler (`backend/api/routes_evidence.py`).
+  - HITL Review Queue & Decision route handler (`backend/api/routes_hitl.py`) with REST Snapshot Lock `HTTP 409 Conflict` enforcement.
+  - Schedule Projection route handler (`backend/api/routes_projections.py`).
+  - Main `SATYAApplicationAPI` HTTP router & CORS middleware (`backend/api/app.py`).
+- Implemented CLI server runner script `scripts/run_server.py`.
+- Added API unit and integration test suites (`tests/unit/test_api_endpoints.py`, `tests/unit/test_api_hitl_concurrency.py`, `tests/integration/test_api_integration.py`).
+- Extended test coverage to 81 total tests (68 unit tests, 13 integration tests) passing 100%.
+- Published canonical REST API documentation `docs/08-api/backend-api.md`.
+
+---
+
+## [0.12.0] - 2026-09-04
+
+### Added (Phase 10 Actual Progress + Schedule Projection Engine)
+- Completed and 🟢 **APPROVED & CLOSED** `PHASE 10 — Actual Progress + Schedule Projection Engine`.
+- Implemented domain models in `backend/models/domain_models.py`: `ActivityProgress`, `WBSProgress`, `ScheduleProjection`, `ProgressCalculationPolicy`, `QuantityObservationType`, `ProgressCalculationStatus`, `ForecastStatus`, `ProgressWeightPolicy`, `ActivityProgressStatus`, `QAClearanceStatus`.
+- Implemented `ActualProgressEngine` (`backend/projection/actual_progress_engine.py`) establishing a baseline-immutable, recomputable derived `ProgressLayer` over the Execution Truth Ledger.
+- Implemented Policy-Based Progress Calculation (`QUANTITY_BASED`, `MILESTONE_BASED`, `STATUS_BASED`).
+- Implemented Quantity Observation Type Resolution (`CUMULATIVE_TOTAL` vs `DAILY_DELTA` vs `UNKNOWN`).
+- Implemented Event Contribution Filtering for Actual Start (derived strictly from `START`, `PROGRESS`, `QUANTITY_UPDATE`, `RESUME` events).
+- Implemented Defensible Forecast Engine with Null-Forecast Safety (`ForecastStatus` returns `INSUFFICIENT_HISTORY` / `ZERO_RATE` and `forecast_finish = None` when evidence/history is insufficient).
+- Implemented QA Clearance separation (`qa_clearance_status`), allowing 100% physical completion while QA clearance remains `PENDING`.
+- Implemented Duration-Weighted WBS Rollup (`ProgressWeightPolicy`) with mixed-unit safety (`physical_progress_pct = None`).
+- Implemented Baseline Authority Schedule Variances ($SV_{\text{finish}}$) and Critical Activity Projected Delay (`critical_activity_projected_delay`).
+- Implemented Retained Unverified Progress Claims tracking (`unverified_event_count`, `unverified_reported_quantity`).
+- Implemented `ScheduleProjectionService` (`backend/projection/projection_service.py`) orchestrating project snapshot generation and SQLite persistence.
+- Extended `DatabaseEngine` (`backend/persistence/database_engine.py`) with `schedule_projections` table.
+- Published core engine specification `docs/05-core-engines/schedule-projection.md`.
+- Expanded test suite to 61 unit and integration tests passing 100%.
+
+---
+
+## [0.11.0] - 2026-09-04
+
+### Added (Phase 9 Human Validation HITL Workflow)
+- Completed and 🟢 **APPROVED & CLOSED** `PHASE 9 — Human Validation (HITL) Workflow`.
+- Implemented core domain models in `backend/models/domain_models.py`: `ValidationDecisionType` (`VALIDATE`, `CHANGE_MATCH`, `REJECT`, `REQUEST_EVIDENCE`, `DEFER`), `OverrideReasonCategory`, `QueuePriority`, `ValidationDecision`, `PlannerCorrectionRecord`, and `PlannerQueueItem`.
+- Implemented `PlannerQueueManager` (`backend/hitl/queue_manager.py`) prioritizing review queue items by severity ($P1$ Critical > $P2$ High/Ambiguous > $P3$ Medium/Gap > $P4$ Low Confidence) with deterministic tie-breaking.
+- Implemented `ValidationService` (`backend/hitl/validation_service.py`) providing 5 explicit decision handlers (`validate_event`, `change_match`, `reject_event`, `request_evidence`, `defer_event`).
+- Enforced non-mutating audit trails: planner re-mapping (`CHANGE_MATCH`) creates a new `ValidationDecision` record, a versioned `TrustAssessment v(N+1)`, and a derived `PlannerCorrectionRecord` without mutating existing `MatchResult` or `ExecutionEvent` records (`UPDATE` SQL statements strictly prohibited).
+- Enforced Decision State Snapshot Lock (`reviewed_trust_version`, `reviewed_match_result_id`, `reviewed_evidence_assessment_id`) preventing race conditions during review.
+- Enforced Rule 5 schedule vocabulary guardrails on planner re-mapping (`new_activity_id` must exist in baseline schedule).
+- Extended `DatabaseEngine` (`backend/persistence/database_engine.py`) with append-only tables `validation_decisions` and `planner_corrections`.
+- Published core engine specification `docs/05-core-engines/human-validation-hitl.md`.
+- Expanded test suite to 44 unit and integration tests passing 100%.
+
+---
+
+## [0.10.0] - 2026-09-04
+
+### Added (Phase 8 Evidence, Confidence & Conflict Engine)
+- Completed `PHASE 8 — Evidence + Confidence + Conflict Engine`.
+- Implemented `EvidenceClaim` domain model in `backend/models/domain_models.py` decomposing source fragments into atomic claims (status, quantity, progress, QA, location, temporal).
+- Implemented `ClaimExtractor` (`backend/evidence/claim_extractor.py`) extracting structured claims from execution events and fragments.
+- Implemented `ReliabilityEvaluator` (`backend/evidence/reliability_evaluator.py`) assessing multi-factor evidence quality (authority, verification status, provenance completeness, timestamp quality, consistency).
+- Implemented `CorroborationEngine` (`backend/evidence/corroboration_engine.py`) tracking `origin_group_id` to enforce true independent corroboration credit.
+- Implemented `GapEngine` (`backend/evidence/gap_engine.py`) enforcing activity and discipline-aware `EvidenceRequirementPolicy` (e.g. mandatory QA clearance for piping/welding completion claims vs excavation).
+- Implemented `ConflictEngine` (`backend/evidence/conflict_engine.py`) detecting 7 conflict categories (`TEMPORAL_CONFLICT`, `STATUS_CONFLICT`, `QUANTITY_CONFLICT`, `QA_CONFLICT`, `SCHEDULE_CONFLICT`, `LOCATION_CONFLICT`, `DUPLICATE_CONFLICT`) with reporting delay awareness, out-of-sequence semantics, and `DUPLICATE_EVIDENCE` separation.
+- Implemented `TrustEvaluatorService` (`backend/services/trust_evaluator_service.py`) applying a deterministic gating tree (Match Sufficient? $\rightarrow$ Evidence Sufficient? $\rightarrow$ Severe Conflict Present? $\rightarrow$ Mandatory Gap Present?) to evaluate `TrustStatus` (`TRUSTED`, `REVIEW_REQUIRED`, `UNTRUSTED`).
+- Extended `DatabaseEngine` (`backend/persistence/database_engine.py`) with append-only versioned tables: `evidence_ledger`, `evidence_claims`, `evidence_assessments`, `conflict_flags`, and `trust_assessments`.
+- Published core engine specification `docs/05-core-engines/evidence-confidence-conflict.md`.
+- Expanded test suite to 35 unit and integration tests passing 100%.
+
+---
+
+## [0.9.1] - 2026-09-04
+
+### Changed / Hardened (Phase 7.1 Calibration & Failure Analysis Pass)
+- Completed and 🟢 **APPROVED** `PHASE 7.1 — Matching Engine Calibration & Failure Analysis`.
+- Upgraded `MatchOutcome` enum in `backend/models/domain_models.py` to add `INSUFFICIENT_EVIDENCE` (distinct from `AMBIGUOUS` and `UNMATCHED`).
+- Added `missing_discriminators` field to `MatchResult` dataclass to identify explicit missing locators (`line_number`, `chainage_km_range`, `equipment_tag`) for planner action.
+- Upgraded `ScheduleAwareMatchingEngine` (`backend/matching/matching_engine.py`) with Stage 1 Hard Constraints Filter (project identity, discipline contradiction, chainage non-overlap) and Stage 2 Discriminative Multi-Factor Ranking.
+- Implemented `parse_chainage_range` parsing interval bounds ($Km\ X.X\ \text{to}\ Y.Y$ and $CH\ X+XXX$) for spatial overlap matching.
+- Eliminated "Missing explicit Activity ID = Ambiguous" fallacy; unambiguous multi-factor spatial, discipline, and terminology evidence now produces high-confidence `MATCHED` outcomes without explicit Activity IDs.
+- Fixed cached event dictionary conversion in `ExecutionEventPipelineService` (`backend/services/pipeline_service.py`) for duplicate source document payloads.
+- Expanded discipline keywords in `backend/extraction/event_extractor.py` to recognize field report shorthands (`civ`, `pip`, `str`, `mec`, `ele`, `ins`, `qa_`, `radiogr`).
+- Upgraded `scripts/evaluate_matching_engine.py` into a full benchmark evaluation harness measuring candidate retrieval (`Recall@1`, `Recall@3`, `Recall@5`, `Recall@10`), outcome precision, and failure taxonomy breakdown (`RETRIEVAL_FAILURE`, `RANKING_FAILURE`, `GENUINE_AMBIGUITY`, `INSUFFICIENT_EVIDENCE`, `EXTRACTION_FAILURE`).
+- Updated specification document `docs/05-core-engines/schedule-matching.md`.
+- Expanded unit and integration test suite to 27 tests passing 100%.
+
 ---
 
 ## [0.9.0] - 2026-09-04

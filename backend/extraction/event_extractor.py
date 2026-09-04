@@ -31,13 +31,13 @@ class ExecutionEventExtractionService:
 
         # Discipline Keywords Taxonomy
         self.discipline_keywords = {
-            "CIVIL": ["trench", "row", "grading", "grubbing", "excavation", "backfill", "lowering", "dyke", "concreting", "foundation", "earthworks"],
-            "PIPING": ["weld", "welding", "spool", "stringing", "hdd", "pullback", "hydrotest", "manifold", "header", "pipeline", "joint"],
-            "STRUCTURAL": ["steel", "structural", "pipe rack", "shelter", "erection", "anchor bolt", "crane structure"],
-            "MECHANICAL": ["pump", "vessel", "separator", "compressor", "flare stack", "p-301", "v-101", "k-201"],
-            "ELECTRICAL": ["transformer", "cable", "earthing", "megger", "glanding", "substation"],
-            "INSTRUMENTATION": ["dcs", "panel", "transmitter", "pt-101", "loop", "calibration"],
-            "QA_QC": ["ndt", "radiography", "ultrasonic", "tpia", "non-conformance", "ncr"],
+            "CIVIL": ["trench", "row", "grading", "grubbing", "excavation", "backfill", "lowering", "dyke", "concreting", "foundation", "earthworks", "civ"],
+            "PIPING": ["weld", "welding", "spool", "stringing", "hdd", "pullback", "hydrotest", "manifold", "header", "pipeline", "joint", "pip", "trunkline"],
+            "STRUCTURAL": ["steel", "structural", "pipe rack", "shelter", "erection", "anchor bolt", "crane structure", "str"],
+            "MECHANICAL": ["pump", "vessel", "separator", "compressor", "flare stack", "p-301", "v-101", "k-201", "mec"],
+            "ELECTRICAL": ["transformer", "cable", "earthing", "megger", "glanding", "substation", "ele"],
+            "INSTRUMENTATION": ["dcs", "panel", "transmitter", "pt-101", "loop", "calibration", "ins"],
+            "QA_QC": ["ndt", "radiography", "ultrasonic", "tpia", "non-conformance", "ncr", "radiogr", "qa_"],
             "SAFETY_HSE": ["fire water", "ptw", "permit", "safety", "hydrant"]
         }
 
