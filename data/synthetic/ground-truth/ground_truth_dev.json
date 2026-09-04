@@ -1,0 +1,65 @@
+{
+  "split": "DEVELOPMENT",
+  "records": [
+    {
+      "source_id": "SRC-001",
+      "scenario_id": "SCN-001",
+      "expected_activity_ids": [
+        "ACT-1010"
+      ],
+      "expected_outcome": "MATCHED",
+      "raw_snippet": "ACT-1010: Mainline ROW Clearing & Grading Sec 1 - Km 0.0 to 2.0 completed 400m today.",
+      "split_type": "DEV"
+    },
+    {
+      "source_id": "SRC-002",
+      "scenario_id": "SCN-002",
+      "expected_activity_ids": [
+        "ACT-1011"
+      ],
+      "expected_outcome": "MATCHED",
+      "raw_snippet": "Trench excavation in progress Section 1 from Km 0.0 to 2.0 with 350m dug.",
+      "split_type": "DEV"
+    },
+    {
+      "source_id": "SRC-003",
+      "scenario_id": "SCN-003",
+      "expected_activity_ids": [
+        "ACT-4020"
+      ],
+      "expected_outcome": "MATCHED",
+      "raw_snippet": "HDD 16-inch Pullback at river section completed successfully with 400m pipe pulled.",
+      "split_type": "DEV"
+    },
+    {
+      "source_id": "SRC-004",
+      "scenario_id": "SCN-004",
+      "expected_activity_ids": [
+        "ACT-1010"
+      ],
+      "expected_outcome": "MATCHED",
+      "raw_snippet": "ROW clrg & grdg Sec 1 Ch 0-2km done 500m.",
+      "split_type": "DEV"
+    },
+    {
+      "source_id": "SRC-010",
+      "scenario_id": "SCN-010",
+      "expected_activity_ids": [
+        "ACT-1050"
+      ],
+      "expected_outcome": "MATCHED",
+      "raw_snippet": "Shift 2 yesterday completed erection and leveling of GGS-3 Inlet Separator Vessel V-101.",
+      "split_type": "DEV"
+    },
+    {
+      "source_id": "SRC-015",
+      "scenario_id": "SCN-015",
+      "expected_activity_ids": [
+        "ACT-1051"
+      ],
+      "expected_outcome": "MATCHED_VERIFIED",
+      "raw_snippet": "GGS-3 Crude Transfer Pump P-301A Installation complete with geotagged photo IMG_9012.jpg and TPIA Clearance Cert #QA-9041.",
+      "split_type": "DEV"
+    }
+  ]
+}

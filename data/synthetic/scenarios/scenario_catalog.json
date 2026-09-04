@@ -1,0 +1,125 @@
+{
+  "total_scenarios": 15,
+  "scenarios": [
+    {
+      "scenario_id": "SCN-001",
+      "name": "Exact Activity ID Match",
+      "difficulty": "EASY",
+      "description": "Field report contains explicit Activity ID (ACT-1010) and matching description.",
+      "expected_outcome": "MATCHED",
+      "expected_confidence": 0.98
+    },
+    {
+      "scenario_id": "SCN-002",
+      "name": "Missing Activity ID with Clear Chainage",
+      "difficulty": "MEDIUM",
+      "description": "Field report lacks Activity ID but specifies clear chainage Km 0.0 to 2.0 and action trenching.",
+      "expected_outcome": "MATCHED",
+      "expected_confidence": 0.88
+    },
+    {
+      "scenario_id": "SCN-003",
+      "name": "Local Terminology Mismatch (Jargon)",
+      "difficulty": "HARD",
+      "description": "Report says 'HDD 16-inch Pullback' instead of formal WBS title 'River HDD Crossing 16-inch Pipe Pullback'.",
+      "expected_outcome": "MATCHED",
+      "expected_confidence": 0.82
+    },
+    {
+      "scenario_id": "SCN-004",
+      "name": "Heavy Acronym & Abbreviation Usage",
+      "difficulty": "HARD",
+      "description": "Report reads 'ROW clrg & grdg Sec 1 Ch 0-2km done'.",
+      "expected_outcome": "MATCHED",
+      "expected_confidence": 0.8
+    },
+    {
+      "scenario_id": "SCN-005",
+      "name": "Ambiguous Candidates (Section 1 vs Section 2 Welding)",
+      "difficulty": "HARD",
+      "description": "Report says '12 joints 16in pipe welded' without specifying Section 1 or Section 2.",
+      "expected_outcome": "AMBIGUOUS",
+      "expected_confidence": 0.62
+    },
+    {
+      "scenario_id": "SCN-006",
+      "name": "Unmatched Out-of-Scope Field Work",
+      "difficulty": "HARD",
+      "description": "Report states 'Constructed temporary bypass culvert near stream Ch 12+800' (not in baseline).",
+      "expected_outcome": "UNMATCHED",
+      "expected_confidence": 0.2
+    },
+    {
+      "scenario_id": "SCN-007",
+      "name": "Contradictory Opposing Reports (Contractor vs. QA NDT)",
+      "difficulty": "HARD",
+      "description": "Contractor DPR claims 100% welding complete; TPIA QA report uploaded same day notes NDT radiography failure on 4 joints.",
+      "expected_outcome": "CONFLICTED",
+      "expected_confidence": 0.5
+    },
+    {
+      "scenario_id": "SCN-008",
+      "name": "Near-Duplicate Field Report Re-submission",
+      "difficulty": "MEDIUM",
+      "description": "Same 150m trenching quantities submitted twice in separate DPR transmittals 24h apart.",
+      "expected_outcome": "DUPLICATE_FLAGGED",
+      "expected_confidence": 0.95
+    },
+    {
+      "scenario_id": "SCN-009",
+      "name": "Delayed Field Reporting (7-day Transmittal Lag)",
+      "difficulty": "MEDIUM",
+      "description": "Work performed Sept 2 reported in Sept 9 DPR batch.",
+      "expected_outcome": "MATCHED",
+      "expected_confidence": 0.86
+    },
+    {
+      "scenario_id": "SCN-010",
+      "name": "Relative Date Phrase Parsing",
+      "difficulty": "MEDIUM",
+      "description": "Report says 'Shift 2 yesterday completed alignment of Vessel V-101'.",
+      "expected_outcome": "MATCHED",
+      "expected_confidence": 0.84
+    },
+    {
+      "scenario_id": "SCN-011",
+      "name": "Granularity Mismatch (N micro-events to 1 macro activity)",
+      "difficulty": "HARD",
+      "description": "15 daily shift reports incrementally reporting 10-15 joints welding for 1 macro activity.",
+      "expected_outcome": "MATCHED_AGGREGATED",
+      "expected_confidence": 0.9
+    },
+    {
+      "scenario_id": "SCN-012",
+      "name": "Single Report Describing Multiple WBS Activities",
+      "difficulty": "HARD",
+      "description": "Report states 'Cleared ROW and completed 200m trenching at Section 1'.",
+      "expected_outcome": "SPLIT_MATCHED",
+      "expected_confidence": 0.81
+    },
+    {
+      "scenario_id": "SCN-013",
+      "name": "Active Critical Path Evidence Gap",
+      "difficulty": "HARD",
+      "description": "Activity ACT-1040 is active on critical path but zero reports received for 8 days.",
+      "expected_outcome": "EVIDENCE_GAP",
+      "expected_confidence": 0.0
+    },
+    {
+      "scenario_id": "SCN-014",
+      "name": "Out-of-Sequence Execution Logic Warning",
+      "difficulty": "HARD",
+      "description": "Pipe lowering reported completed before trench excavation activity is reported started.",
+      "expected_outcome": "OUT_OF_SEQUENCE_WARNING",
+      "expected_confidence": 0.55
+    },
+    {
+      "scenario_id": "SCN-015",
+      "name": "Independent Corroborating Multi-Source Evidence",
+      "difficulty": "EASY",
+      "description": "DPR entry + attached site photo + QA clearance slip all referencing Pump P-301A erection.",
+      "expected_outcome": "MATCHED_VERIFIED",
+      "expected_confidence": 0.97
+    }
+  ]
+}

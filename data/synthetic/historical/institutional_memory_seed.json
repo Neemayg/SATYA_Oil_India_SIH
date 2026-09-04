@@ -1,0 +1,23 @@
+{
+  "total_seed_entries": 2,
+  "entries": [
+    {
+      "entry_id": "MEM-SEED-01",
+      "entry_type": "TERMINOLOGY_ALIAS",
+      "jargon_term": "HDD 16-inch Pullback",
+      "formal_activity_id": "ACT-4020",
+      "formal_activity_name": "River HDD Crossing 16-inch Pipe Pullback - Ch 12+400",
+      "verified_by_planner": "Planner_S_Gogoi",
+      "times_approved": 8
+    },
+    {
+      "entry_id": "MEM-SEED-02",
+      "entry_type": "PRODUCTIVITY_RATE",
+      "discipline": "CIVIL",
+      "work_action": "TRENCHING",
+      "planned_rate": "500m/day",
+      "historical_actual_rate": "320m/day",
+      "sample_size_activities": 14
+    }
+  ]
+}

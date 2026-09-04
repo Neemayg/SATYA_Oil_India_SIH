@@ -1,0 +1,62 @@
+activity_id,activity_name,wbs_id,wbs_path,level,discipline,area,equipment_tag,line_number,start_km,end_km,planned_start,planned_finish,baseline_duration_days,predecessor_id,successor_id,planned_quantity,unit,is_critical
+ACT-1010,Mainline ROW Clearing & Grading Sec 1 - Km 0.0 to 2.0,WBS-310,NBG.PL.SEC1,5,CIVIL,Section 1,,PL-16-01,0.0,2.0,2026-09-01,2026-09-05,4,,ACT-1011,2000.0,Meters,True
+ACT-1011,Mainline Trench Excavation Sec 1 - Km 0.0 to 2.0,WBS-310,NBG.PL.SEC1,5,CIVIL,Section 1,EXC-01,PL-16-01,0.0,2.0,2026-09-03,2026-09-07,4,ACT-1010,ACT-1012,2000.0,Meters,True
+ACT-1012,Mainline Pipe Stringing & Welding Sec 1 - Km 0.0 to 2.0,WBS-310,NBG.PL.SEC1,5,PIPING,Section 1,WELD-CREW-A,PL-16-01,0.0,2.0,2026-09-05,2026-09-09,4,ACT-1011,ACT-1013,160.0,Joints,True
+ACT-1013,Mainline Lowering & Backfilling Sec 1 - Km 0.0 to 2.0,WBS-310,NBG.PL.SEC1,5,CIVIL,Section 1,SIDEBOOM-01,PL-16-01,0.0,2.0,2026-09-07,2026-09-11,4,ACT-1012,,2000.0,Meters,True
+ACT-1014,Mainline ROW Clearing & Grading Sec 1 - Km 2.0 to 4.0,WBS-310,NBG.PL.SEC1,5,CIVIL,Section 1,,PL-16-01,2.0,4.0,2026-09-03,2026-09-07,4,,ACT-1015,2000.0,Meters,True
+ACT-1015,Mainline Trench Excavation Sec 1 - Km 2.0 to 4.0,WBS-310,NBG.PL.SEC1,5,CIVIL,Section 1,EXC-01,PL-16-01,2.0,4.0,2026-09-05,2026-09-09,4,ACT-1014,ACT-1016,2000.0,Meters,True
+ACT-1016,Mainline Pipe Stringing & Welding Sec 1 - Km 2.0 to 4.0,WBS-310,NBG.PL.SEC1,5,PIPING,Section 1,WELD-CREW-A,PL-16-01,2.0,4.0,2026-09-07,2026-09-11,4,ACT-1015,ACT-1017,160.0,Joints,True
+ACT-1017,Mainline Lowering & Backfilling Sec 1 - Km 2.0 to 4.0,WBS-310,NBG.PL.SEC1,5,CIVIL,Section 1,SIDEBOOM-01,PL-16-01,2.0,4.0,2026-09-09,2026-09-13,4,ACT-1016,,2000.0,Meters,True
+ACT-1018,Mainline ROW Clearing & Grading Sec 1 - Km 4.0 to 6.0,WBS-310,NBG.PL.SEC1,5,CIVIL,Section 1,,PL-16-01,4.0,6.0,2026-09-05,2026-09-09,4,,ACT-1019,2000.0,Meters,True
+ACT-1019,Mainline Trench Excavation Sec 1 - Km 4.0 to 6.0,WBS-310,NBG.PL.SEC1,5,CIVIL,Section 1,EXC-01,PL-16-01,4.0,6.0,2026-09-07,2026-09-11,4,ACT-1018,ACT-1020,2000.0,Meters,True
+ACT-1020,Mainline Pipe Stringing & Welding Sec 1 - Km 4.0 to 6.0,WBS-310,NBG.PL.SEC1,5,PIPING,Section 1,WELD-CREW-A,PL-16-01,4.0,6.0,2026-09-09,2026-09-13,4,ACT-1019,ACT-1021,160.0,Joints,True
+ACT-1021,Mainline Lowering & Backfilling Sec 1 - Km 4.0 to 6.0,WBS-310,NBG.PL.SEC1,5,CIVIL,Section 1,SIDEBOOM-01,PL-16-01,4.0,6.0,2026-09-11,2026-09-15,4,ACT-1020,,2000.0,Meters,True
+ACT-1022,Mainline ROW Clearing & Grading Sec 1 - Km 6.0 to 8.0,WBS-310,NBG.PL.SEC1,5,CIVIL,Section 1,,PL-16-01,6.0,8.0,2026-09-07,2026-09-11,4,,ACT-1023,2000.0,Meters,True
+ACT-1023,Mainline Trench Excavation Sec 1 - Km 6.0 to 8.0,WBS-310,NBG.PL.SEC1,5,CIVIL,Section 1,EXC-01,PL-16-01,6.0,8.0,2026-09-09,2026-09-13,4,ACT-1022,ACT-1024,2000.0,Meters,True
+ACT-1024,Mainline Pipe Stringing & Welding Sec 1 - Km 6.0 to 8.0,WBS-310,NBG.PL.SEC1,5,PIPING,Section 1,WELD-CREW-A,PL-16-01,6.0,8.0,2026-09-11,2026-09-15,4,ACT-1023,ACT-1025,160.0,Joints,True
+ACT-1025,Mainline Lowering & Backfilling Sec 1 - Km 6.0 to 8.0,WBS-310,NBG.PL.SEC1,5,CIVIL,Section 1,SIDEBOOM-01,PL-16-01,6.0,8.0,2026-09-13,2026-09-17,4,ACT-1024,,2000.0,Meters,True
+ACT-1026,Mainline ROW Clearing & Grading Sec 1 - Km 8.0 to 10.0,WBS-310,NBG.PL.SEC1,5,CIVIL,Section 1,,PL-16-01,8.0,10.0,2026-09-09,2026-09-13,4,,ACT-1027,2000.0,Meters,True
+ACT-1027,Mainline Trench Excavation Sec 1 - Km 8.0 to 10.0,WBS-310,NBG.PL.SEC1,5,CIVIL,Section 1,EXC-01,PL-16-01,8.0,10.0,2026-09-11,2026-09-15,4,ACT-1026,ACT-1028,2000.0,Meters,True
+ACT-1028,Mainline Pipe Stringing & Welding Sec 1 - Km 8.0 to 10.0,WBS-310,NBG.PL.SEC1,5,PIPING,Section 1,WELD-CREW-A,PL-16-01,8.0,10.0,2026-09-13,2026-09-17,4,ACT-1027,ACT-1029,160.0,Joints,True
+ACT-1029,Mainline Lowering & Backfilling Sec 1 - Km 8.0 to 10.0,WBS-310,NBG.PL.SEC1,5,CIVIL,Section 1,SIDEBOOM-01,PL-16-01,8.0,10.0,2026-09-15,2026-09-19,4,ACT-1028,,2000.0,Meters,True
+ACT-1030,Mainline ROW Clearing & Grading Sec 2 - Km 10.0 to 12.0,WBS-320,NBG.PL.SEC2,5,CIVIL,Section 2,,PL-16-02,10.0,12.0,2026-09-05,2026-09-09,4,,,2000.0,Meters,False
+ACT-1031,Mainline Trench Excavation Sec 2 - Km 10.0 to 12.0,WBS-320,NBG.PL.SEC2,5,CIVIL,Section 2,,PL-16-02,10.0,12.0,2026-09-05,2026-09-09,4,,,2000.0,Meters,False
+ACT-1032,Mainline Pipe Stringing & Welding Sec 2 - Km 10.0 to 12.0,WBS-320,NBG.PL.SEC2,5,PIPING,Section 2,,PL-16-02,10.0,12.0,2026-09-05,2026-09-09,4,,,160.0,Joints,False
+ACT-1033,Mainline Lowering & Backfilling Sec 2 - Km 10.0 to 12.0,WBS-320,NBG.PL.SEC2,5,CIVIL,Section 2,,PL-16-02,10.0,12.0,2026-09-05,2026-09-09,4,,,2000.0,Meters,False
+ACT-1034,Mainline ROW Clearing & Grading Sec 2 - Km 12.0 to 14.0,WBS-320,NBG.PL.SEC2,5,CIVIL,Section 2,,PL-16-02,12.0,14.0,2026-09-07,2026-09-11,4,,,2000.0,Meters,False
+ACT-1035,Mainline Trench Excavation Sec 2 - Km 12.0 to 14.0,WBS-320,NBG.PL.SEC2,5,CIVIL,Section 2,,PL-16-02,12.0,14.0,2026-09-07,2026-09-11,4,,,2000.0,Meters,False
+ACT-1036,Mainline Pipe Stringing & Welding Sec 2 - Km 12.0 to 14.0,WBS-320,NBG.PL.SEC2,5,PIPING,Section 2,,PL-16-02,12.0,14.0,2026-09-07,2026-09-11,4,,,160.0,Joints,False
+ACT-1037,Mainline Lowering & Backfilling Sec 2 - Km 12.0 to 14.0,WBS-320,NBG.PL.SEC2,5,CIVIL,Section 2,,PL-16-02,12.0,14.0,2026-09-07,2026-09-11,4,,,2000.0,Meters,False
+ACT-1038,Mainline ROW Clearing & Grading Sec 2 - Km 14.0 to 16.0,WBS-320,NBG.PL.SEC2,5,CIVIL,Section 2,,PL-16-02,14.0,16.0,2026-09-09,2026-09-13,4,,,2000.0,Meters,False
+ACT-1039,Mainline Trench Excavation Sec 2 - Km 14.0 to 16.0,WBS-320,NBG.PL.SEC2,5,CIVIL,Section 2,,PL-16-02,14.0,16.0,2026-09-09,2026-09-13,4,,,2000.0,Meters,False
+ACT-1040,Mainline Pipe Stringing & Welding Sec 2 - Km 14.0 to 16.0,WBS-320,NBG.PL.SEC2,5,PIPING,Section 2,,PL-16-02,14.0,16.0,2026-09-09,2026-09-13,4,,,160.0,Joints,False
+ACT-1041,Mainline Lowering & Backfilling Sec 2 - Km 14.0 to 16.0,WBS-320,NBG.PL.SEC2,5,CIVIL,Section 2,,PL-16-02,14.0,16.0,2026-09-09,2026-09-13,4,,,2000.0,Meters,False
+ACT-1042,Mainline ROW Clearing & Grading Sec 2 - Km 16.0 to 18.0,WBS-320,NBG.PL.SEC2,5,CIVIL,Section 2,,PL-16-02,16.0,18.0,2026-09-11,2026-09-15,4,,,2000.0,Meters,False
+ACT-1043,Mainline Trench Excavation Sec 2 - Km 16.0 to 18.0,WBS-320,NBG.PL.SEC2,5,CIVIL,Section 2,,PL-16-02,16.0,18.0,2026-09-11,2026-09-15,4,,,2000.0,Meters,False
+ACT-1044,Mainline Pipe Stringing & Welding Sec 2 - Km 16.0 to 18.0,WBS-320,NBG.PL.SEC2,5,PIPING,Section 2,,PL-16-02,16.0,18.0,2026-09-11,2026-09-15,4,,,160.0,Joints,False
+ACT-1045,Mainline Lowering & Backfilling Sec 2 - Km 16.0 to 18.0,WBS-320,NBG.PL.SEC2,5,CIVIL,Section 2,,PL-16-02,16.0,18.0,2026-09-11,2026-09-15,4,,,2000.0,Meters,False
+ACT-1046,Mainline ROW Clearing & Grading Sec 2 - Km 18.0 to 20.0,WBS-320,NBG.PL.SEC2,5,CIVIL,Section 2,,PL-16-02,18.0,20.0,2026-09-13,2026-09-17,4,,,2000.0,Meters,False
+ACT-1047,Mainline Trench Excavation Sec 2 - Km 18.0 to 20.0,WBS-320,NBG.PL.SEC2,5,CIVIL,Section 2,,PL-16-02,18.0,20.0,2026-09-13,2026-09-17,4,,,2000.0,Meters,False
+ACT-1048,Mainline Pipe Stringing & Welding Sec 2 - Km 18.0 to 20.0,WBS-320,NBG.PL.SEC2,5,PIPING,Section 2,,PL-16-02,18.0,20.0,2026-09-13,2026-09-17,4,,,160.0,Joints,False
+ACT-1049,Mainline Lowering & Backfilling Sec 2 - Km 18.0 to 20.0,WBS-320,NBG.PL.SEC2,5,CIVIL,Section 2,,PL-16-02,18.0,20.0,2026-09-13,2026-09-17,4,,,2000.0,Meters,False
+ACT-1050,GGS-3 Main Site Grading & Earthworks,WBS-210,NBG.GGS3.CIV,5,CIVIL,GGS-3,,,,,2026-09-03,2026-09-15,12,,,1.0,Lot,True
+ACT-1051,GGS-3 Separator Foundation Concreting V-101,WBS-210,NBG.GGS3.CIV,5,CIVIL,GGS-3,V-101,,,,2026-09-03,2026-09-15,12,,,120.0,Cu.M,True
+ACT-1052,GGS-3 Pump House Foundation Concreting P-301 A/B,WBS-210,NBG.GGS3.CIV,5,CIVIL,GGS-3,A/B,,,,2026-09-03,2026-09-15,12,,,85.0,Cu.M,True
+ACT-1053,GGS-3 Compressor Building Foundation K-201,WBS-210,NBG.GGS3.CIV,5,CIVIL,GGS-3,K-201,,,,2026-09-03,2026-09-15,12,,,250.0,Cu.M,True
+ACT-1054,GGS-3 Boundary Wall & Security Gate Construction,WBS-210,NBG.GGS3.CIV,5,CIVIL,GGS-3,,,,,2026-09-03,2026-09-15,12,,,450.0,Meters,True
+ACT-1055,GGS-3 Inlet Separator Vessel V-101 Erection,WBS-230,NBG.GGS3.MEC,5,MECHANICAL,GGS-3,,,,,2026-09-03,2026-09-15,12,,,1.0,Item,True
+ACT-1056,GGS-3 Crude Transfer Pump P-301A Installation,WBS-230,NBG.GGS3.MEC,5,MECHANICAL,GGS-3,,,,,2026-09-03,2026-09-15,12,,,1.0,Item,True
+ACT-1057,GGS-3 Crude Transfer Pump P-301B Installation,WBS-230,NBG.GGS3.MEC,5,MECHANICAL,GGS-3,,,,,2026-09-03,2026-09-15,12,,,1.0,Item,True
+ACT-1058,GGS-3 Gas Compressor Package K-201 Erection,WBS-230,NBG.GGS3.MEC,5,MECHANICAL,GGS-3,,,,,2026-09-03,2026-09-15,12,,,1.0,Item,True
+ACT-1059,GGS-3 Flare Stack Erection & Alignment,WBS-230,NBG.GGS3.MEC,5,MECHANICAL,GGS-3,,,,,2026-09-03,2026-09-15,12,,,1.0,Item,True
+ACT-1060,GGS-3 Manifold Piping Fabrication 8-inch Line L-101,WBS-220,NBG.GGS3.PIP,5,PIPING,GGS-3,L-101,,,,2026-09-03,2026-09-15,12,,,45.0,Spools,True
+ACT-1061,GGS-3 Manifold Piping Erection 8-inch Line L-101,WBS-220,NBG.GGS3.PIP,5,PIPING,GGS-3,L-101,,,,2026-09-03,2026-09-15,12,,,45.0,Spools,True
+ACT-1062,GGS-3 Hydrostatic Testing GGS Manifold Header,WBS-220,NBG.GGS3.PIP,5,PIPING,GGS-3,Header,,,,2026-09-03,2026-09-15,12,,,1.0,Test,True
+ACT-1063,GGS-3 Substation Building Transformer T-01 Erection,WBS-240,NBG.GGS3.ELE,5,ELECTRICAL,GGS-3,,,,,2026-09-03,2026-09-15,12,,,1.0,Item,True
+ACT-1064,GGS-3 Main Electrical Cable Trench & Cable Pulling,WBS-240,NBG.GGS3.ELE,5,ELECTRICAL,GGS-3,,,,,2026-09-03,2026-09-15,12,,,1200.0,Meters,True
+ACT-1065,GGS-3 Plant Earthing Grid Installation,WBS-240,NBG.GGS3.ELE,5,ELECTRICAL,GGS-3,,,,,2026-09-03,2026-09-15,12,,,800.0,Meters,True
+ACT-1066,GGS-3 Control Room DCS Panel Cabinet Erection,WBS-250,NBG.GGS3.INS,5,INSTRUMENTATION,GGS-3,,,,,2026-09-03,2026-09-15,12,,,1.0,Lot,True
+ACT-1067,GGS-3 Pressure Transmitter PT-101 Calibration & Fitting,WBS-250,NBG.GGS3.INS,5,INSTRUMENTATION,GGS-3,,,,,2026-09-03,2026-09-15,12,,,1.0,Item,True
+ACT-1068,GGS-3 Cold Loop Testing Instrument Loops,WBS-250,NBG.GGS3.INS,5,INSTRUMENTATION,GGS-3,Loops,,,,2026-09-03,2026-09-15,12,,,40.0,Loops,True
+ACT-4010,River HDD Crossing Pilot Hole Drilling - Ch 12+400,WBS-330,NBG.PL.HDD,5,PIPING,River Crossing,HDD-RIG-01,PL-16-HDD,12.4,12.8,2026-09-02,2026-09-08,6,,ACT-4020,400.0,Meters,True
+ACT-4020,River HDD Crossing 16-inch Pipe Pullback - Ch 12+400,WBS-330,NBG.PL.HDD,5,PIPING,River Crossing,HDD-RIG-01,PL-16-HDD,12.4,12.8,2026-09-09,2026-09-14,5,ACT-4010,,400.0,Meters,True
