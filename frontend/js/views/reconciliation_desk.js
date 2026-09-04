@@ -241,7 +241,7 @@ export class ReconciliationDeskView {
           </div>
 
           <div style="font-size: 0.75rem; font-weight: 700; color: var(--text-muted); margin-top: 0.5rem; text-transform: uppercase;">"Why SATYA Believes This Match?" (Factor Scores Breakdown):</div>
-          ${renderFactorBreakdown(mr.factor_breakdown)}
+          ${renderFactorBreakdown(mr.factor_breakdown || mr.top_candidate?.scores || (mr.candidate_matches && mr.candidate_matches.length > 0 ? mr.candidate_matches[0].scores : null))}
 
           ${mr.candidate_matches && mr.candidate_matches.length > 0 ? `
             <div style="margin-top: 0.8rem;">

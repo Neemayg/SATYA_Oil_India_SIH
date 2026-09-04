@@ -124,30 +124,43 @@ export class ControlTowerView {
   async loadData() {
     const projId = this.state.currentProjectId;
 
-    // Fetch Projection Data
-    const projRes = await this.api.getLatestProjection(projId);
-    if (projRes.ok && projRes.data) {
-      const p = projRes.data;
-      const trustedPct = p.overall_project_progress_pct !== undefined ? p.overall_project_progress_pct : 0.0;
-      const baselinePct = p.overall_baseline_progress_pct !== undefined ? p.overall_baseline_progress_pct : 0.0;
-      const unverifiedCount = p.unverified_event_count !== undefined ? p.unverified_event_count : 0;
-      const criticalDelays = p.critical_activity_delays_count !== undefined ? p.critical_activity_delays_count : 0;
+    // Fetch Projection Data (or recalculate on 404)
+    let projRes = await this.api.getLatestProjection(projId);
+    if (!projRes.ok && projRes.status === 404) {
+      projRes = await this.api.recalculateProjection(projId);
+    }
 
-      document.getElementById("kpi-trusted-progress").innerText = formatPct(trustedPct);
-      document.getElementById("kpi-baseline-progress").innerText = formatPct(baselinePct);
-      document.getElementById("kpi-unverified-claims").innerText = unverifiedCount;
-      document.getElementById("kpi-critical-delays").innerText = criticalDelays;
+    const p = (projRes.ok && projRes.data) ? projRes.data : {
+      overall_project_progress_pct: 0.0,
+      overall_baseline_progress_pct: 0.0,
+      unverified_event_count: 0,
+      critical_activity_delays_count: 0
+    };
 
-      // Update progress bar
-      const barTrusted = document.getElementById("bar-trusted");
-      const barUnverified = document.getElementById("bar-unverified");
-      const barText = document.getElementById("bar-text");
+    const trustedPct = p.overall_project_progress_pct !== undefined ? p.overall_project_progress_pct : 0.0;
+    const baselinePct = p.overall_baseline_progress_pct !== undefined ? p.overall_baseline_progress_pct : 0.0;
+    const unverifiedCount = p.unverified_event_count !== undefined ? p.unverified_event_count : 0;
+    const criticalDelays = p.critical_activity_delays_count !== undefined ? p.critical_activity_delays_count : 0;
 
-      if (barTrusted && barUnverified && barText) {
-        barTrusted.style.width = `${Math.min(100, trustedPct)}%`;
-        barUnverified.style.width = `${Math.min(100 - trustedPct, unverifiedCount * 5)}%`;
-        barText.innerText = `Trusted Physical Progress: ${formatPct(trustedPct)} | Unverified Claims: ${unverifiedCount}`;
-      }
+    const elTrusted = document.getElementById("kpi-trusted-progress");
+    const elBaseline = document.getElementById("kpi-baseline-progress");
+    const elUnverified = document.getElementById("kpi-unverified-claims");
+    const elDelays = document.getElementById("kpi-critical-delays");
+
+    if (elTrusted) elTrusted.innerText = formatPct(trustedPct);
+    if (elBaseline) elBaseline.innerText = formatPct(baselinePct);
+    if (elUnverified) elUnverified.innerText = unverifiedCount;
+    if (elDelays) elDelays.innerText = criticalDelays;
+
+    // Update progress bar
+    const barTrusted = document.getElementById("bar-trusted");
+    const barUnverified = document.getElementById("bar-unverified");
+    const barText = document.getElementById("bar-text");
+
+    if (barTrusted && barUnverified && barText) {
+      barTrusted.style.width = `${Math.min(100, trustedPct)}%`;
+      barUnverified.style.width = `${Math.min(100 - trustedPct, unverifiedCount * 5)}%`;
+      barText.innerText = `Trusted Physical Progress: ${formatPct(trustedPct)} | Unverified Claims: ${unverifiedCount}`;
     }
 
     // Fetch Monitoring Active Signals (Phase 13)
