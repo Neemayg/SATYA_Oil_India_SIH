@@ -1,8 +1,10 @@
 import { Outlet, NavLink } from 'react-router-dom';
-import { Search, User } from 'lucide-react';
+import { Search, Sun, Moon } from 'lucide-react';
+import { cn } from '../lib/utils';
+import { useTheme } from '../lib/theme';
 
-const NAV_ITEMS = [
-  { label: 'Control Tower', path: '/' },
+const NAV = [
+  { label: 'Control Tower', path: '/', end: true },
   { label: 'Schedule', path: '/schedule' },
   { label: 'Field Capture', path: '/field-capture' },
   { label: 'Reconciliation', path: '/reconciliation' },
@@ -11,56 +13,34 @@ const NAV_ITEMS = [
 ];
 
 export function GlobalShell() {
+  const [theme, toggle] = useTheme();
   return (
-    <div className="min-h-screen bg-industrial-950 flex flex-col text-industrial-300">
-      {/* Top Navigation */}
-      <header className="h-14 border-b border-industrial-800 flex items-center px-6 shrink-0 bg-industrial-950 z-50">
-        <div className="flex items-center gap-10">
-          <div className="font-bold text-white tracking-[0.2em] text-lg">
-            SATYA
-          </div>
-          
-          <nav className="flex items-center gap-8 h-full">
-            {NAV_ITEMS.map((item) => (
-              <NavLink
-                key={item.path}
-                to={item.path}
-                className={({ isActive }) =>
-                  `text-sm tracking-wide h-14 flex items-center border-b-2 transition-colors ${
-                    isActive
-                      ? 'border-accent-500 text-white font-medium'
-                      : 'border-transparent text-industrial-400 hover:text-industrial-200'
-                  }`
-                }
-              >
-                {item.label}
-              </NavLink>
-            ))}
-          </nav>
-        </div>
-
-        <div className="ml-auto flex items-center gap-4">
-          {/* Search Bar */}
+    <div className="min-h-screen flex flex-col bg-bg">
+      <header className="h-14 border-b border-line bg-bg flex items-center px-8 shrink-0 sticky top-0 z-40">
+        <div className="font-bold tracking-[0.3em] text-ink text-base mr-10">SATYA</div>
+        <nav className="flex items-center gap-8 h-full">
+          {NAV.map(({ label, path, end }) => (
+            <NavLink key={path} to={path} end={end}
+              className={({ isActive }) => cn('h-14 flex items-center text-[12px] tracking-[0.18em] uppercase border-b-2 transition-colors',
+                isActive ? 'border-brand text-ink font-semibold' : 'border-transparent text-ink-3 hover:text-ink-2')}>
+              {label}
+            </NavLink>
+          ))}
+        </nav>
+        <div className="ml-auto flex items-center gap-3">
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-industrial-500" />
-            <input
-              type="text"
-              placeholder="Search activities, events..."
-              className="bg-industrial-900 border border-industrial-800 rounded px-9 py-1.5 text-sm text-white placeholder-industrial-500 focus:outline-none focus:border-industrial-600 focus:ring-1 focus:ring-industrial-600 w-64 transition-all"
-            />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-ink-3" />
+            <input placeholder="Search activities, events…"
+              className="bg-surface border border-line rounded-sm pl-9 pr-3 py-1.5 text-sm text-ink placeholder-ink-3 w-64 focus:outline-none focus:border-ink-3 font-mono" />
           </div>
-          
-          {/* Avatar Placeholder */}
-          <div className="w-8 h-8 bg-industrial-800 rounded border border-industrial-700 flex items-center justify-center text-sm font-medium text-white">
-            R
-          </div>
+          <button onClick={toggle} title={theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
+            className="w-8 h-8 bg-surface-2 border border-line rounded-sm flex items-center justify-center text-ink-2 hover:text-ink">
+            {theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+          </button>
+          <div className="w-8 h-8 bg-surface-2 border border-line rounded-sm flex items-center justify-center text-sm font-semibold text-ink">R</div>
         </div>
       </header>
-
-      {/* Main Content Area */}
-      <main className="flex-1 flex overflow-hidden">
-        <Outlet />
-      </main>
+      <main className="flex-1 min-w-0"><Outlet /></main>
     </div>
   );
 }
