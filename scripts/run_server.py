@@ -52,17 +52,15 @@ def _auto_seed_database(api: SATYAApplicationAPI):
                     "ACT-1011: Mainline Trench Excavation Sec 1 1500m completed.\n"
                     "ACT-1020: Mainline HDD River Crossing Section 3 420m drilling completed. QA/NDT clearance pending."
                 )
-                run_res = api.pipeline_service.process_source_payload(
-                    raw_content=demo_text,
-                    file_name="demo_dpr_001.txt",
-                    project_id=proj_id,
-                    source_type="DPR_EXCEL",
-                    author="Duliajan Field Office",
-                    submitted_at="2026-09-04T08:00:00Z"
-                )
-                for ev in run_res.events_extracted:
-                    api.matching_service.match_event(ev)
-                    api.trust_service.evaluate_trust(ev.event_id)
+                # Route through the upload handler so matching, trust evaluation
+                # and projection run exactly as they do for live uploads.
+                api.ingestion_handler.handle_upload({
+                    "project_id": proj_id,
+                    "source_type": "DPR_EXCEL",
+                    "file_name": "demo_dpr_001.txt",
+                    "content": demo_text,
+                    "observed_timestamp": "2026-09-04T08:00:00Z",
+                })
 
             proj = api.db.get_latest_schedule_projection(proj_id)
             if not proj:

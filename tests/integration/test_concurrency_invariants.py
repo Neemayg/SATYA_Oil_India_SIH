@@ -44,17 +44,17 @@ class TestConcurrencyInvariants(unittest.TestCase):
         self.assertEqual(code1, 201)
         event_id = body1["events_extracted"][0]["event_id"]
 
-        code2, _, _ = self.api.dispatch("POST", "/api/v1/matching/match", body={"event_id": event_id})
-        self.assertEqual(code2, 200)
-
-        code3, _, _ = self.api.dispatch("POST", "/api/v1/evidence/evaluate", body={"event_id": event_id})
-        self.assertEqual(code3, 200)
+        # Upload auto-runs matching and trust evaluation, producing TrustAssessment v1.
+        ta_v1 = self.api.db.get_latest_trust_assessment(event_id)
+        self.assertIsNotNone(ta_v1)
+        self.assertEqual(ta_v1["version_index"], 1)
 
         return event_id
 
     def _run_concurrency_stress(self, n_workers):
         """Run N concurrent threads submitting CHANGE_MATCH on the same event_id with reviewed_trust_version=1."""
         event_id = self._seed_review_state(f"N{n_workers}")
+        current_version = self.api.db.get_latest_trust_assessment(event_id)["version_index"]
 
         results = []
 
@@ -63,7 +63,7 @@ class TestConcurrencyInvariants(unittest.TestCase):
                 "event_id": event_id,
                 "planner_id": f"PLN-WORKER-{worker_id}",
                 "decision_type": ValidationDecisionType.CHANGE_MATCH,
-                "reviewed_trust_version": 1,
+                "reviewed_trust_version": current_version,
                 "reviewed_match_result_id": "MTH-1",
                 "reviewed_evidence_assessment_id": "EVA-1",
                 "selected_activity_id": "ACT-1020",

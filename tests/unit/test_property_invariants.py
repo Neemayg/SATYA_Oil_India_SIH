@@ -66,7 +66,7 @@ class TestPropertyInvariants(unittest.TestCase):
             "event_id": event_id,
             "planner_id": "PLN-IMMUTABLE",
             "decision_type": ValidationDecisionType.CHANGE_MATCH,
-            "reviewed_trust_version": 1,
+            "reviewed_trust_version": orig_trust_v1["version_index"],
             "reviewed_match_result_id": orig_match["match_id"],
             "reviewed_evidence_assessment_id": "EVA-1",
             "selected_activity_id": "ACT-1020",
@@ -125,7 +125,7 @@ class TestPropertyInvariants(unittest.TestCase):
             "event_id": evt_id,
             "planner_id": "PLN-RULE5",
             "decision_type": ValidationDecisionType.CHANGE_MATCH,
-            "reviewed_trust_version": 1,
+            "reviewed_trust_version": self.db.get_latest_trust_assessment(evt_id)["version_index"],
             "selected_activity_id": "ACT-FORBIDDEN-999"
         })
         self.assertEqual(code_bad, 400)
@@ -219,11 +219,11 @@ class TestPropertyInvariants(unittest.TestCase):
             "event_id": evt_id,
             "planner_id": "PLN-MONOTONE",
             "decision_type": ValidationDecisionType.VALIDATE,
-            "reviewed_trust_version": 1
+            "reviewed_trust_version": ta_v1["version_index"]
         })
         ta_v2 = self.db.get_latest_trust_assessment(evt_id)
         self.assertEqual(ta_v2["trust_status"], TrustStatus.TRUSTED)
-        self.assertEqual(ta_v2["version_index"], 2)
+        self.assertEqual(ta_v2["version_index"], ta_v1["version_index"] + 1)
 
 if __name__ == "__main__":
     unittest.main()

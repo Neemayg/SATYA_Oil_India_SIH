@@ -24,6 +24,9 @@ class ReliabilityEvaluator:
         if source_type in ("QA_REPORT", "INSPECTION_CERTIFICATE", "TPIA_LOG"):
             authority_score = 0.95
             reasoning.append("Source Authority: High (Independent QA / TPIA Inspection report)")
+        elif source_type == "MANAGER_AUDIT":
+            authority_score = 0.90
+            reasoning.append("Source Authority: High (Independent manager site audit)")
         elif source_type in ("SITE_DIARY", "SUPERVISOR_NOTE", "ENGINEER_LOG"):
             authority_score = 0.75
             reasoning.append("Source Authority: Medium-High (Site engineer / supervisor log)")

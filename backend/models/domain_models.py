@@ -21,6 +21,7 @@ class SourceType:
     SUPERVISOR_NOTE = "SUPERVISOR_NOTE"
     VOICE_TRANSCRIPT = "VOICE_TRANSCRIPT"
     QA_REPORT = "QA_REPORT"
+    MANAGER_AUDIT = "MANAGER_AUDIT"  # Independent site audit submitted by a manager
     UNKNOWN = "UNKNOWN"
 
 class EventType:

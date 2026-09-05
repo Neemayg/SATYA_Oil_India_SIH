@@ -32,6 +32,7 @@ from backend.api.routes_hitl import HITLRouteHandler
 from backend.api.routes_projections import ProjectionsRouteHandler
 from backend.api.routes_monitoring import MonitoringRouteHandler
 from backend.api.routes_analytics import AnalyticsRouteHandler
+from backend.api.routes_audit import AuditRouteHandler
 
 logger = logging.getLogger("SATYA.API")
 
@@ -63,6 +64,7 @@ class SATYAApplicationAPI:
         self.projections_handler = ProjectionsRouteHandler(self.projection_service)
         self.monitoring_handler = MonitoringRouteHandler(self.monitoring_service)
         self.analytics_handler = AnalyticsRouteHandler(self.db)
+        self.audit_handler = AuditRouteHandler(self.db)
 
         # Configurable CORS origins
         allowed_origins_raw = os.environ.get(
@@ -237,6 +239,12 @@ class SATYAApplicationAPI:
                 parts = path.split("/")
                 project_id = parts[-2]
                 res = self.analytics_handler.get_conflict_patterns(project_id)
+                return 200, headers, res
+
+            # --- Manager audit report ---
+            elif method == "GET" and path.startswith("/api/v1/audit/projects/"):
+                project_id = path.replace("/api/v1/audit/projects/", "").strip("/")
+                res = self.audit_handler.get_project_audit(project_id)
                 return 200, headers, res
 
             else:

@@ -4,10 +4,13 @@ Delegates document and raw text payload ingestion to ExecutionEventPipelineServi
 Does NOT create duplicate domain logic inside route handlers.
 """
 
+import logging
 from typing import Dict, Any
 from backend.services.pipeline_service import ExecutionEventPipelineService
 from backend.api.errors import SATYAError
 from backend.api.serializers import serialize_source_bounded, serialize_execution_event
+
+logger = logging.getLogger("SATYA.API.Ingestion")
 
 class IngestionRouteHandler:
 
@@ -24,6 +27,7 @@ class IngestionRouteHandler:
         source_type = payload.get("source_type", "TEXT_DOCUMENT")
         file_name = payload.get("file_name", "dpr_upload.txt")
         observed_ts = payload.get("observed_timestamp")
+        author = (payload.get("author") or "API_Client").strip() or "API_Client"
 
         if not project_id or not content:
             raise SATYAError(
@@ -37,7 +41,7 @@ class IngestionRouteHandler:
             project_id=project_id,
             source_type=source_type,
             file_name=file_name,
-            author="API_Client",
+            author=author,
             submitted_at=observed_ts
         )
 
@@ -51,13 +55,22 @@ class IngestionRouteHandler:
             trust_svc = TrustEvaluatorService(db)
             proj_svc = ScheduleProjectionService(db)
 
+            from backend.api.routes_evidence import EvidenceRouteHandler
+            evidence_handler = EvidenceRouteHandler(trust_svc)
+
             for ev in run_res.events_extracted:
-                matching_svc.match_event(ev)
-                trust_svc.evaluate_trust(ev.event_id)
+                try:
+                    match_res = matching_svc.match_event(ev)
+                    evidence_handler.handle_evaluate_trust({
+                        "event_id": ev.event_id,
+                        "match_result_id": getattr(match_res, "match_id", None),
+                    })
+                except Exception as inner:
+                    logger.warning(f"Post-ingestion processing failed for event {ev.event_id}: {inner}")
 
             proj_svc.generate_projection_for_project(project_id)
         except Exception as e:
-            pass
+            logger.warning(f"Post-ingestion pipeline failed for source {run_res.source_id}: {e}")
 
         return {
             "pipeline_run_id": run_res.pipeline_run_id,
