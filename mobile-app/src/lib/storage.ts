@@ -1,37 +1,25 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Observation, Settings } from './types';
+import { Observation, Settings, Activity } from './types';
 
-const OBS_KEY = 'satya.observations';
-const SETTINGS_KEY = 'satya.settings';
+const K = { obs: 'satya.obs.v2', settings: 'satya.settings.v2', acts: 'satya.activities.v2' };
 
 export const DEFAULT_SETTINGS: Settings = {
-  serverUrl: 'http://10.0.2.2:8000',
-  projectId: 'NBG',
-  author: 'Field Engineer',
+  signedIn: false,
+  name: '',
+  crew: 'Field Crew',
+  role: 'FIELD',
+  projectId: 'PRJ-NBG-2026',
+  serverUrl: 'http://31.42.125.16:8000',
 };
 
-export async function loadObservations(): Promise<Observation[]> {
-  try {
-    const raw = await AsyncStorage.getItem(OBS_KEY);
-    return raw ? (JSON.parse(raw) as Observation[]) : [];
-  } catch {
-    return [];
-  }
+async function read<T>(key: string, fallback: T): Promise<T> {
+  try { const raw = await AsyncStorage.getItem(key); return raw ? (JSON.parse(raw) as T) : fallback; } catch { return fallback; }
 }
+async function write(key: string, v: unknown) { try { await AsyncStorage.setItem(key, JSON.stringify(v)); } catch {} }
 
-export async function saveObservations(list: Observation[]): Promise<void> {
-  await AsyncStorage.setItem(OBS_KEY, JSON.stringify(list));
-}
-
-export async function loadSettings(): Promise<Settings> {
-  try {
-    const raw = await AsyncStorage.getItem(SETTINGS_KEY);
-    return raw ? { ...DEFAULT_SETTINGS, ...JSON.parse(raw) } : DEFAULT_SETTINGS;
-  } catch {
-    return DEFAULT_SETTINGS;
-  }
-}
-
-export async function saveSettings(s: Settings): Promise<void> {
-  await AsyncStorage.setItem(SETTINGS_KEY, JSON.stringify(s));
-}
+export const loadObservations = () => read<Observation[]>(K.obs, []);
+export const saveObservations = (v: Observation[]) => write(K.obs, v);
+export const loadSettings = async () => ({ ...DEFAULT_SETTINGS, ...(await read<Partial<Settings>>(K.settings, {})) });
+export const saveSettings = (v: Settings) => write(K.settings, v);
+export const loadActivities = () => read<Activity[]>(K.acts, []);
+export const saveActivities = (v: Activity[]) => write(K.acts, v);
