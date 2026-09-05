@@ -1,4 +1,4 @@
-const BASE_URL = 'http://127.0.0.1:8000/api/v1';
+const BASE_URL = 'http://31.42.125.16:8000/api/v1';
 
 export const apiClient = {
   get: async <T>(endpoint: string): Promise<T> => {
