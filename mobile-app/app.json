@@ -4,15 +4,38 @@
     "slug": "satya-field-capture",
     "version": "1.0.0",
     "orientation": "portrait",
-    "userInterfaceStyle": "dark",
-    "backgroundColor": "#0B0F14",
+    "userInterfaceStyle": "light",
+    "backgroundColor": "#F4F5F7",
     "android": {
       "package": "com.satya.fieldcapture",
-      "permissions": ["CAMERA", "RECORD_AUDIO", "READ_MEDIA_IMAGES"]
+      "permissions": [
+        "CAMERA",
+        "RECORD_AUDIO",
+        "READ_MEDIA_IMAGES"
+      ],
+      "usesCleartextTraffic": true
     },
     "plugins": [
-      ["expo-image-picker", { "cameraPermission": "SATYA needs the camera to capture site photos as evidence." }],
-      ["expo-audio", { "microphonePermission": "SATYA needs the microphone to record voice observations." }]
+      [
+        "expo-image-picker",
+        {
+          "cameraPermission": "SATYA needs the camera to capture site photos as evidence."
+        }
+      ],
+      [
+        "expo-audio",
+        {
+          "microphonePermission": "SATYA needs the microphone to record voice observations."
+        }
+      ],
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "usesCleartextTraffic": true
+          }
+        }
+      ]
     ]
   }
 }
