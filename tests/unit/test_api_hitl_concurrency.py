@@ -42,9 +42,10 @@ class TestAPIHITLConcurrency(unittest.TestCase):
         code2, _, body2 = self.api.dispatch("POST", "/api/v1/matching/match", body={"event_id": event_id})
         self.assertEqual(code2, 200)
 
-        # 3. Evaluate Trust (Generates v1 TrustAssessment)
-        code3, _, body3 = self.api.dispatch("POST", "/api/v1/evidence/evaluate", body={"event_id": event_id})
-        self.assertEqual(code3, 200)
+        # 3. Upload already auto-evaluates trust (v1 TrustAssessment exists)
+        ta_v1 = self.api.db.get_latest_trust_assessment(event_id)
+        self.assertIsNotNone(ta_v1)
+        self.assertEqual(ta_v1["version_index"], 1)
 
         # Planner A reads v1 TrustAssessment
         planner_a_reviewed_ver = 1

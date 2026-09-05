@@ -72,7 +72,7 @@ class TestAnalyticsIntegration(unittest.TestCase):
                 "event_id": event_id,
                 "planner_id": "PLN-CHIEF-01",
                 "decision_type": "CHANGE_MATCH",
-                "reviewed_trust_version": 1,
+                "reviewed_trust_version": self.api.db.get_latest_trust_assessment(event_id)["version_index"],
                 "reviewed_match_result_id": mth_res["match_id"],
                 "reviewed_evidence_assessment_id": tru_res.get("assessment_id", ""),
                 "selected_activity_id": "ACT-1010",

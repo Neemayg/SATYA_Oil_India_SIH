@@ -58,7 +58,7 @@ class TestAPIIntegration(unittest.TestCase):
             "event_id": event_id,
             "planner_id": "PLN-CHIEF-01",
             "decision_type": ValidationDecisionType.VALIDATE,
-            "reviewed_trust_version": 1,
+            "reviewed_trust_version": self.api.db.get_latest_trust_assessment(event_id)["version_index"],
             "reviewed_match_result_id": body2["match_id"],
             "reviewed_evidence_assessment_id": "EVA-1",
             "reason_notes": "Validated via API."
