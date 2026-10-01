@@ -34,8 +34,14 @@ class ValidationService:
         """Sets active schedule Activity ID vocabulary for Rule 5 validation."""
         self.valid_vocabulary = {v.upper() for v in vocab}
 
-    def _get_active_vocabulary(self) -> Set[str]:
-        return self.valid_vocabulary
+    def _get_latest_trust_assessment(self, event_id: str) -> Dict[str, Any]:
+        latest_ta = self.db.get_latest_trust_assessment(event_id)
+        if not latest_ta:
+            from backend.services.trust_evaluator_service import TrustEvaluatorService
+            evaluator = TrustEvaluatorService(self.db)
+            eval_obj = evaluator.evaluate_trust(event_id)
+            latest_ta = eval_obj.to_dict()
+        return latest_ta
 
     def validate_event(
         self,
@@ -48,9 +54,7 @@ class ValidationService:
         [VALIDATE]: Planner concurs with machine recommendation & activity match.
         Appends ValidationDecision and new TrustAssessment v(N+1) with status TRUSTED.
         """
-        latest_ta = self.db.get_latest_trust_assessment(event_id)
-        if not latest_ta:
-            raise ValueError(f"No TrustAssessment found for event ID '{event_id}'")
+        latest_ta = self._get_latest_trust_assessment(event_id)
 
         match_results = self.db.get_match_results_by_event(event_id)
         latest_match = match_results[-1] if match_results else None
@@ -128,9 +132,7 @@ class ValidationService:
         if self.valid_vocabulary and new_act_upper not in self.valid_vocabulary:
             raise ValueError(f"Rule 5 Violation: Target Activity ID '{new_activity_id}' is not present in the ingested schedule baseline vocabulary.")
 
-        latest_ta = self.db.get_latest_trust_assessment(event_id)
-        if not latest_ta:
-            raise ValueError(f"No TrustAssessment found for event ID '{event_id}'")
+        latest_ta = self._get_latest_trust_assessment(event_id)
 
         match_results = self.db.get_match_results_by_event(event_id)
         latest_match = match_results[-1] if match_results else None
@@ -215,9 +217,7 @@ class ValidationService:
         [REJECT]: Planner rejects reported execution claim.
         Appends ValidationDecision and new TrustAssessment v(N+1) with status UNTRUSTED.
         """
-        latest_ta = self.db.get_latest_trust_assessment(event_id)
-        if not latest_ta:
-            raise ValueError(f"No TrustAssessment found for event ID '{event_id}'")
+        latest_ta = self._get_latest_trust_assessment(event_id)
 
         match_results = self.db.get_match_results_by_event(event_id)
         latest_match = match_results[-1] if match_results else None
@@ -277,9 +277,7 @@ class ValidationService:
         [REQUEST_EVIDENCE]: Planner flags event back to site for missing locators/proof.
         Represents "insufficient information to conclude yet". Keeps status REVIEW_REQUIRED.
         """
-        latest_ta = self.db.get_latest_trust_assessment(event_id)
-        if not latest_ta:
-            raise ValueError(f"No TrustAssessment found for event ID '{event_id}'")
+        latest_ta = self._get_latest_trust_assessment(event_id)
 
         match_results = self.db.get_match_results_by_event(event_id)
         latest_match = match_results[-1] if match_results else None
@@ -341,9 +339,7 @@ class ValidationService:
         Appends ValidationDecision (DEFER), keeps event in queue with status REVIEW_REQUIRED.
         Does NOT manufacture a new false trust conclusion.
         """
-        latest_ta = self.db.get_latest_trust_assessment(event_id)
-        if not latest_ta:
-            raise ValueError(f"No TrustAssessment found for event ID '{event_id}'")
+        latest_ta = self._get_latest_trust_assessment(event_id)
 
         match_results = self.db.get_match_results_by_event(event_id)
         latest_match = match_results[-1] if match_results else None

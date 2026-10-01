@@ -32,6 +32,12 @@ class AnalyticsRouteHandler:
     def get_aliases(self, project_id: str, status_filter: Optional[str] = None) -> Dict[str, Any]:
         """GET /api/v1/memory/projects/{project_id}/aliases"""
         aliases = self.db.get_terminology_aliases_by_project(project_id, status_filter)
+        if not aliases:
+            try:
+                self.memory_service.distill_planner_corrections(project_id)
+                aliases = self.db.get_terminology_aliases_by_project(project_id, status_filter)
+            except Exception:
+                pass
         return {
             "project_id": project_id,
             "total_count": len(aliases),

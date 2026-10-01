@@ -51,6 +51,49 @@ class TrustEvaluatorService:
         self.gap_engine = GapEngine()
         self.conflict_engine = ConflictEngine()
 
+    def evaluate_trust(self, event_id: str) -> TrustAssessment:
+        """Convenience method to evaluate trust by event_id."""
+        event_dict = self.db.get_execution_event(event_id)
+        if not event_dict:
+            raise ValueError(f"ExecutionEvent '{event_id}' not found.")
+        
+        # Build ExecutionEvent from dict fields
+        from dataclasses import fields
+        valid_event_fields = {f.name for f in fields(ExecutionEvent)}
+        clean_event_dict = {k: v for k, v in event_dict.items() if k in valid_event_fields}
+        if "quarantine_reasons" in clean_event_dict and isinstance(clean_event_dict["quarantine_reasons"], str):
+            try:
+                clean_event_dict["quarantine_reasons"] = json.loads(clean_event_dict["quarantine_reasons"])
+            except Exception:
+                clean_event_dict["quarantine_reasons"] = []
+        clean_event_dict["provenance"] = None
+        event = ExecutionEvent(**clean_event_dict)
+
+        match_results = self.db.get_match_results_by_event(event_id)
+        match_result = None
+        if match_results:
+            mr_dict = match_results[-1]
+            valid_mr_fields = {f.name for f in fields(MatchResult)}
+            clean_mr_dict = {k: v for k, v in mr_dict.items() if k in valid_mr_fields}
+            match_result = MatchResult(**clean_mr_dict)
+        else:
+            from backend.matching.matching_engine import ActivityFingerprintMatcher
+            matcher = ActivityFingerprintMatcher(self.db)
+            match_result = matcher.match_event(event_id)
+
+        source_doc = None
+        if event.source_id:
+            source_doc = self.db.get_source_document(event.source_id)
+
+        source_frag = None
+
+        return self.evaluate_trust_for_event(
+            event=event,
+            match_result=match_result,
+            source_doc=source_doc,
+            source_fragment=source_frag
+        )
+
     def evaluate_trust_for_event(
         self,
         event: ExecutionEvent,

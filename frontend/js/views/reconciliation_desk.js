@@ -136,6 +136,24 @@ export class ReconciliationDeskView {
       }
     }
 
+    if (matchesData) {
+      const confScore = matchesData.confidence_score !== undefined 
+        ? matchesData.confidence_score 
+        : (matchesData.top_candidate?.scores?.overall_confidence_score || matchesData.candidate_matches?.[0]?.scores?.overall_confidence_score || 0);
+      
+      item.match_confidence = confScore;
+
+      const sidebarCard = document.querySelector(`.queue-item[data-queue-id="${item.queue_item_id}"]`);
+      if (sidebarCard) {
+        const matchSpans = sidebarCard.querySelectorAll("span");
+        matchSpans.forEach(sp => {
+          if (sp.textContent.includes("Match:")) {
+            sp.textContent = `Match: ${(confScore * 100).toFixed(0)}%`;
+          }
+        });
+      }
+    }
+
     // Fetch schedule fingerprints vocabulary for Rule 5 dropdown
     const vocabRes = await this.api.searchFingerprints("");
     const fingerprints = vocabRes.ok && vocabRes.data ? vocabRes.data.results : [];

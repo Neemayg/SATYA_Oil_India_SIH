@@ -65,11 +65,17 @@ class HITLRouteHandler:
             # Snapshot Lock Concurrency Validation
             latest_ta = self.validation_service.db.get_latest_trust_assessment(event_id)
             if not latest_ta:
-                raise SATYAError(
-                    code="EVENT_NOT_FOUND",
-                    message=f"No reviewable trust state found for event '{event_id}'.",
-                    status_code=404
-                )
+                try:
+                    from backend.services.trust_evaluator_service import TrustEvaluatorService
+                    trust_evaluator = TrustEvaluatorService(self.validation_service.db)
+                    latest_ta_obj = trust_evaluator.evaluate_trust(event_id)
+                    latest_ta = latest_ta_obj.to_dict()
+                except Exception:
+                    raise SATYAError(
+                        code="EVENT_NOT_FOUND",
+                        message=f"No reviewable trust state found for event '{event_id}'.",
+                        status_code=404
+                    )
 
             current_trust_version = latest_ta.get("version_index", 1)
             if reviewed_trust_ver != current_trust_version:
@@ -146,5 +152,14 @@ class HITLRouteHandler:
                     message=str(ve),
                     status_code=400
                 )
+
+        # Auto-recalculate schedule projection for instant downstream tab sync
+        try:
+            proj_id = payload.get("project_id") or "PRJ-NBG-2026"
+            from backend.projection.projection_service import ScheduleProjectionService
+            proj_svc = ScheduleProjectionService(self.validation_service.db)
+            proj_svc.generate_projection_for_project(proj_id)
+        except Exception:
+            pass
 
         return serialize_validation_decision(decision)

@@ -48,6 +48,13 @@ class ProjectionsRouteHandler:
         """
         proj_dict = self.projection_service.db.get_latest_schedule_projection(project_id)
         if not proj_dict:
+            try:
+                self.projection_service.generate_projection_for_project(project_id=project_id)
+                proj_dict = self.projection_service.db.get_latest_schedule_projection(project_id)
+            except Exception:
+                pass
+
+        if not proj_dict:
             raise SATYAError(
                 code="PROJECTION_NOT_FOUND",
                 message=f"No schedule projection snapshots found for project '{project_id}'.",

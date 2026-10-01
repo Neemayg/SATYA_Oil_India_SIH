@@ -51,10 +51,28 @@ class PlannerQueueManager:
             if discipline_filter and event_dict.get("discipline", "").upper() != discipline_filter.upper():
                 continue
 
-            # Fetch latest trust assessment
-            latest_ta = self.db.get_latest_trust_assessment(event_id)
+            # Fetch latest trust assessment & match results (auto-evaluate if missing)
             match_results = self.db.get_match_results_by_event(event_id)
             latest_match = match_results[-1] if match_results else None
+            if not latest_match:
+                try:
+                    from backend.matching.matching_engine import ActivityFingerprintMatcher
+                    matcher = ActivityFingerprintMatcher(self.db)
+                    match_result = matcher.match_event(event_id)
+                    latest_match = match_result.to_dict()
+                except Exception:
+                    latest_match = None
+
+            latest_ta = self.db.get_latest_trust_assessment(event_id)
+            if not latest_ta:
+                try:
+                    from backend.services.trust_evaluator_service import TrustEvaluatorService
+                    trust_evaluator = TrustEvaluatorService(self.db)
+                    latest_ta_obj = trust_evaluator.evaluate_trust(event_id)
+                    latest_ta = latest_ta_obj.to_dict()
+                except Exception:
+                    latest_ta = None
+
             conflicts = self.db.get_conflict_flags_by_event(event_id)
 
             # Check if event is actionable (requires human attention)

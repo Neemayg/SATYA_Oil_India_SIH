@@ -48,8 +48,8 @@ class IngestionRouteHandler:
         try:
             db = self.pipeline_service.db
             from backend.services.matching_service import ScheduleMatchingService
-            from backend.services.trust_evaluator_service import TrustEvaluatorService
             from backend.projection.projection_service import ScheduleProjectionService
+            from backend.services.trust_evaluator_service import TrustEvaluatorService
 
             matching_svc = ScheduleMatchingService(db)
             trust_svc = TrustEvaluatorService(db)

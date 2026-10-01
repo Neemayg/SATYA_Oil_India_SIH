@@ -555,6 +555,9 @@ class DatabaseEngine:
             row = cursor.fetchone()
             return dict(row) if row else None
 
+    # Alias for API consistency
+    get_execution_event_by_id = get_execution_event
+
     def get_events_by_source(self, source_id: str) -> List[Dict[str, Any]]:
         with self._get_connection() as conn:
             cursor = conn.cursor()
